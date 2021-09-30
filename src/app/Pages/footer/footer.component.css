@@ -1,0 +1,18 @@
+footer{
+  background-color: #2e62af;
+  width: 100%;
+  max-height: 80px;
+  position: fixed;
+  bottom: 0;
+}
+
+div{
+  height: 80px;
+}
+
+p{
+  font-family: 'Questrial', sans-serif;
+  text-align: center;
+  color: white;
+  padding-top: 2.2em;
+}

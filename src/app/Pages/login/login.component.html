@@ -1,0 +1,38 @@
+
+
+<div class="container">
+  <h1>Log In</h1>
+    <form (ngSubmit)="onSubmit()">
+      <div class="info">
+        <div class="info phone">
+          <label>PHONE</label> <br/>
+          <input type="text" pInputText [(ngModel)]="phone" name="phone" /> <br/>
+        </div>
+        <div class="info password">
+          <label>PASSWORD</label><br/>
+          <input type="password" pInputText [(ngModel)]="password" name="password" />
+        </div>
+      </div>
+      <button pButton type="submit" class="p-button-info"  label="LOG IN"></button>
+    </form>
+
+      <div class="line">
+        <p>Or sign in with</p>
+        <button pButton type="button" label="Google" class="p-button-danger" (click)="loginWithGoogle()"></button>
+      </div>
+
+
+
+  <!-- <div class="question">
+    <span>Don't have an account?</span> &nbsp;
+    <a [routerLink]="['/register']" routerLinkActive="router-link-active">Sign Up</a>
+  </div> -->
+
+</div>
+
+
+
+
+
+
+

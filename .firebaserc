@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "cookbox-a8b4a": {
+      "hosting": {
+        "cookbox-deploy": [
+          "cookbox-a8b4a"
+        ]
+      }
+    }
+  }
+}
