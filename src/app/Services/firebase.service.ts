@@ -15,14 +15,35 @@ export class FirebaseService {
     });
    }
 
+  // step 1. User get token from Firebase
+  getIdToken(){
+    firebase.auth().onAuthStateChanged((user) =>{
+      user?.getIdToken().then((idToken) =>{
+        console.log("Id token: ", idToken);
+        return idToken;
+
+      }).catch((error) =>{
+        console.log(error);
+      })
+    })
+   }
+
   async loginWithGoogle(){
-    await this.firebaseAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider()).then(
+    await this.firebaseAuth.signInWithPopup(new firebase.auth.GoogleAuthProvider).then(
       res =>{
-        const token = res;
-        console.log("ID token o day: ", token);
+
+        console.log("login successful");
+
       }).catch(err => {
         console.log("Error while sign in ", err);
       });
+
+      // const gg = new firebase.auth.GoogleAuthProvider();
+      // this.firebaseAuth.signInWithPopup(gg);
+
+
+
+
   }
 
 
