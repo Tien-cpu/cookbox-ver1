@@ -1,0 +1,54 @@
+<h1 id="tableLabel">Wellcome</h1>
+
+<p>This page will help you manage evevy store</p>
+<div class="row mb-4">
+  <div class="col-3 pt-2 pb-2">
+    <div class="card bg-primary font-weight-bold">
+      <select class="form-control custom-select" id="SelectCity" name="SelectCity">
+        <option *ngFor="let city of location" value="{{city.CityID}}">{{city.CityName}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-3 pt-2 pb-2">
+    <div class="card bg-primary font-weight-bold">
+      <select class="form-control custom-select" id="SelectDistrict" name="SelectDistrict">
+        <option *ngFor="let District of listCity" value="{{District}}">{{District}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-3 pt-2 pb-2">
+    <div class="card bg-primary font-weight-bold">
+      <select class="form-control custom-select" id="SelectWard" name="SelectWard">
+        <option *ngFor="let Ward of listWard" value="{{Ward}}">{{Ward}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-2 pt-2 pb-2">
+    <div class="card bg-primary font-weight-bold">
+      <button class="pom-Button pom-Button--blue pom-Button--pill-filled pom-Button--full"
+              uit="plan-card-select-btn" type="button" (click)="btnSearch();">
+        <div class="pom-Button--mouseover"></div><span style="opacity: 1;">Search</span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<table class='table table-striped' aria-labelledby="tableLabel">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Address</th>
+      <th>ViewDetail</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let stor of store">
+      <td>{{ stor.StoreID }}</td>
+      <td>{{ stor.StoreAddress }}</td>
+      <td>{{ stor.StoreName }}</td>
+      <td><a class="btn btn-outline-success" (click)="viewDetailStore(stor.StoreID)">View Detail</a></td>
+    </tr>
+  </tbody>
+</table>

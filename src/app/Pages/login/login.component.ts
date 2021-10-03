@@ -16,13 +16,17 @@ export class LoginComponent implements OnInit {
   }
 
   public onSubmit(){
-    console.log("click");
-
+    console.log("click login");
+    this.router.navigate(['home'])
   }
 
 
   loginWithGoogle(){
     this.firebaseService.loginWithGoogle();
+    this.firebaseService.getIdToken();
+    if(this.firebaseService.successStase){
+      this.router.navigate(['home']);
+    }
     // this.router.navigate
   }
 }

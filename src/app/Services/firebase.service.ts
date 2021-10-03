@@ -8,7 +8,7 @@ import { User } from '../Models/user.component';
 })
 export class FirebaseService {
   user : User|any ;
-
+  successStase : boolean = false;
   constructor(private firebaseAuth : AngularFireAuth) {
     this.firebaseAuth.authState.subscribe(user =>{
       this.user = user;
@@ -33,9 +33,10 @@ export class FirebaseService {
       res =>{
 
         console.log("login successful");
-
+        this.successStase = true;
       }).catch(err => {
         console.log("Error while sign in ", err);
+        this.successStase = false;
       });
 
       // const gg = new firebase.auth.GoogleAuthProvider();
