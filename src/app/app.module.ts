@@ -7,7 +7,10 @@ import { HeaderComponent } from './Pages/header/header.component';
 import { FooterComponent } from './Pages/footer/footer.component';
 import { LoginComponent } from './Pages/login/login.component';
 import { HomeComponent } from './Pages/home-admin-page/home-admin-page.component';
+import { DetailStoreComponent } from './Pages/detail-store-page/detail-store-page.component';
+import { LoginPageComponent } from './Pages/login_page/login.component';
 // tự thêm:
+import {HttpClientModule} from '@angular/common/http';
 
 import { FormsModule } from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
@@ -36,10 +39,12 @@ const firebaseConfig = {
     HeaderComponent,
     FooterComponent,
     LoginComponent,
-    HomeComponent
+    HomeComponent,
+    DetailStoreComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     FormsModule,
     InputTextModule,
@@ -47,8 +52,10 @@ const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
     RouterModule.forRoot([
-      {path: 'login', component: LoginComponent},
+      {path: 'login', component: LoginPageComponent},
+      {path: '', component: LoginComponent},
       {path: 'home', component: HomeComponent},
+      {path: 'detail-store', component: DetailStoreComponent},
     ])
   ],
   providers: [FirebaseService],

@@ -1,0 +1,23 @@
+<h1 id="tableLabel">Hello wellcome to {{ storeName }} store</h1>
+
+<p>This page will help you manage a store</p>
+
+<table class='table table-striped' aria-labelledby="tableLabel">
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Address</th>
+      <th>ViewDetail</th>
+
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let stor of listmenu">
+      <td>{{ stor.ID }}</td>
+      <td>{{ stor.Name }}</td>
+      <td>{{ stor.StoreID }}</td>
+      <td><a class="btn btn-outline-success" (click)="viewDetailMenu()">View Detail</a></td>
+    </tr>
+  </tbody>
+</table>
