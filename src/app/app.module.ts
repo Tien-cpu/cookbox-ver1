@@ -9,6 +9,7 @@ import { LoginComponent } from './Pages/login/login.component';
 import { HomeComponent } from './Pages/home-admin-page/home-admin-page.component';
 import { DetailStoreComponent } from './Pages/detail-store-page/detail-store-page.component';
 import { LoginPageComponent } from './Pages/login_page/login.component';
+import { CreateStoreComponent } from './Pages/create_store_page/create_store_page.component';
 // tự thêm:
 import {HttpClientModule} from '@angular/common/http';
 
@@ -40,7 +41,8 @@ const firebaseConfig = {
     FooterComponent,
     LoginComponent,
     HomeComponent,
-    DetailStoreComponent
+    DetailStoreComponent,
+    CreateStoreComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +54,7 @@ const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
     RouterModule.forRoot([
+      {path: 'create-store', component: CreateStoreComponent},
       {path: 'login', component: LoginPageComponent},
       {path: '', component: LoginComponent},
       {path: 'home', component: HomeComponent},

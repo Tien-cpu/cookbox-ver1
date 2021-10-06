@@ -1,6 +1,8 @@
 export interface Store {
-    StoreID: number;
-    StoreName: string;
-    StoreAddress: string;
+  "id": number;
+  "name": string;
+  "address": string;
+  "menus": [],
+  "orders": []
   }
   

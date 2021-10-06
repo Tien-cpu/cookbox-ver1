@@ -9,7 +9,6 @@ import { User } from '../Models/User'
 
 export class AccountService {
 
-    url = 'http://54.255.129.30:8000/api/Token​/';
 
     // private currentAccountSource = new ReplaySubject<Account>(1);
     // currentAccount$ = this.currentAccountSource.asObservable();
@@ -18,25 +17,15 @@ export class AccountService {
     }
 
     public getToken(user: User | null): Observable<any> {
-        const params = new URLSearchParams();
-        // params.set('cmd', cmd);
-
-        // const options = new RequestOptions({
-        //   headers: this.getAuthorizedHeaders(),
-        //   responseType: ResponseContentType.Json,
-        //   params: params,
-        //   withCredentials: false
-        // });
-
-        // console.log('Options: ' + JSON.stringify(options));
-        return this.http.post('http://54.255.129.30:8000/api/Token​/',
+        
+        return this.http.post('http://54.255.129.30:8000/api/tokens',
             user
           , {
             headers: new HttpHeaders({
-                // 'Content-Type': 'application/json',
-                // 'Accept': '*/*'
+                'Content-Type': 'application/json',
+                'Accept': '*/*'
             }),
-            // responseType: 'text',
+            responseType: 'text',
         });
     }
 

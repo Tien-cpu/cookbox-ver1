@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
+
+import { adminpage } from '../../Models/AdminHomePageModel';
 import { Store } from '../../Models/Store';
 import { Location } from '../../Models/Location';
 import { StoreService } from '../../Services/store.service';
 import { District } from '../../Models/District';
 import { Ward } from '../../Models/Ward';
+
 import { Router } from '@angular/router';
 import { FirebaseService } from '../../Services/firebase.service'
 import { AccountService } from '../../Services/account.service'
@@ -26,21 +29,28 @@ export class HomeComponent {
     , private accountService : AccountService
     ) { }
 
+  datapage : adminpage = new adminpage;
   public store: Store[] = [
     {
-      StoreID: 1,
-      StoreAddress: "quan 1",
-      StoreName: "cua hang khu vuc quan 1"
+      id: 1,
+      name: "quan 1",
+      address: "cua hang khu vuc quan 1",
+      menus: [],
+      orders: []
     },
     {
-      StoreID: 2,
-      StoreAddress: "quan 2",
-      StoreName: "cua hang quan 2"
+      id: 1,
+      name: "quan 1",
+      address: "cua hang khu vuc quan 1",
+      menus: [],
+      orders: []
     },
     {
-      StoreID: 3,
-      StoreAddress: "Quan 3",
-      StoreName: "cua hang quan 3"
+      id: 1,
+      name: "quan 1",
+      address: "cua hang khu vuc quan 1",
+      menus: [],
+      orders: []
     }
   ]
   location: Location[] = [
@@ -98,10 +108,18 @@ export class HomeComponent {
   test: {id : string, name :string}[] = []; 
   listDistrict: District[] = new Array()
   listWard: Ward[] = new Array()
+  public nameStore:string="";
+  public addressStore:string="";
   public selectedCity: string = '';
-  public selectedDistrict: string = '';
+  public selectedDistrict: string = ''
+  public urlNextpage: string = '';;
+  public urlPreviouspage: string = '';
   ngOnInit() {
-    // this.body = storeService.getData();
+    this.storeService.getDataPageHome().subscribe((data: adminpage) => {
+      this.urlPreviouspage = data.metaData.hasPrevious;
+      this.urlPreviouspage = data.metaData.hasNext;
+      this.store = data.items;
+    });
     this.location.forEach(data => {
       if (data.CityID === "1") {
         this.selectedCity = data.CityID
@@ -118,12 +136,12 @@ export class HomeComponent {
     })
   }
   public viewDetailStore(fg: number) {
-    let index = this.store.findIndex(c => c.StoreID === fg);
-    sessionStorage.setItem('storeid', JSON.stringify(fg+''));
+    let index = this.store.findIndex(c => c.id === fg);
+    sessionStorage.setItem('storeid', JSON.stringify(fg));
     this.router.navigate(['/detail-store'])
   }
   public viewOrderFood(fg: number) {
-    let index = this.store.findIndex(c => c.StoreID === fg);
+    let index = this.store.findIndex(c => c.id === fg);
     this.router.navigate([''])
   }
   onChangeCity() {
@@ -159,39 +177,28 @@ export class HomeComponent {
       }
     })
   }
+  logOut(){
+    sessionStorage.clear();
+    this.router.navigate(['']);
+  }
   previousPage() {
-    console.log("cl này chạy login1")
-    this.storeService.getData().subscribe((res) => console.log(res));;
-    console.log("cl này chạy login2")
-
-    // let token: string = sessionStorage.getItem('token');
-
-    // if (this.pagingQuiz.previousPage != null) {
-    //     this.quizService.changePageForTeacher(token, this.pagingQuiz.previousPage, this.account.username).subscribe(
-    //         (data: PagingQuiz) => {
-    //             this.pagingQuiz = data;
-    //             this.quizzes = data.quizzes;
-    //         }
-    //     )
-    // }
+    this.storeService.getDataPageHomePaging(this.urlPreviouspage).subscribe((data: adminpage) => {
+      this.urlPreviouspage = data.metaData.hasPrevious;
+      this.urlPreviouspage = data.metaData.hasNext;
+      this.store = data.items;
+    });
 }    
  nextPage() {
-this.router.navigate(['login'])
-console.log("cl này chạy login")
-
-  // let token: string = sessionStorage.getItem('token');
-
-  // if (this.pagingQuiz.nextPage != null) {
-  //     this.quizService.changePageForTeacher(token, this.pagingQuiz.nextPage, this.account.username).subscribe(
-  //         (data: PagingQuiz) => {
-  //             this.pagingQuiz = data;
-  //             this.quizzes = data.quizzes;
-  //         }
-  //     )
-  // }
+  this.storeService.getDataPageHomePaging(this.urlNextpage).subscribe((data: adminpage) => {
+    this.urlPreviouspage = data.metaData.hasPrevious;
+    this.urlPreviouspage = data.metaData.hasNext;
+    this.store = data.items;
+  });
 }
   btnSearch(){};
-  CreateStore(){};
+  CreateStore(){
+    this.router.navigate(['create-store']);
+  };
   loginWithGoogle(){
     
     

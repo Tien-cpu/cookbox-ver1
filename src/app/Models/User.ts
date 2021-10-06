@@ -1,5 +1,5 @@
 export interface User{
-  user:string;
-  pass:string;
-  token:string;
+  "user":string;
+  "pass":string;
+  "token":string;
 }

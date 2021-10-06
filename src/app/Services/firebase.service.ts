@@ -21,7 +21,7 @@ export class FirebaseService {
     firebase.auth().onAuthStateChanged((user) =>{
       user?.getIdToken().then((idToken) =>{
         console.log("Id token: ", idToken);
-        let user : User = {
+        const user : User = {
           pass : "",
           user : "",
           token : idToken,

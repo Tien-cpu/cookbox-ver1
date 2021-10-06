@@ -96,7 +96,7 @@
                 <a class="dropdown-item" href="#">Profile</a>
                 <a class="dropdown-item" href="#">Settings</a>
                 <div class="dropdown-divider"></div>
-                <a class="dropdown-item" href="#">Log out</a>
+                <a class="dropdown-item" (click)="logOut()">Log out</a>
               </div>
             </li>
           </ul>
@@ -128,11 +128,11 @@
                     </thead>
                     <tbody>
                       <tr *ngFor="let stor of store">
-                        <td>{{ stor.StoreID }}</td>
-                        <td>{{ stor.StoreAddress }}</td>
-                        <td>{{ stor.StoreName }}</td>
-                        <td><a class="btn btn-outline-success" (click)="viewDetailStore(stor.StoreID)">View Detail</a></td>
-                        <td><a class="btn btn-outline-success" (click)="viewOrderFood(stor.StoreID)">View Order</a></td>
+                        <td>{{ stor.id }}</td>
+                        <td>{{ stor.name }}</td>
+                        <td>{{ stor.address }}</td>
+                        <td><a class="btn btn-outline-success" (click)="viewDetailStore(stor.id)">View Detail</a></td>
+                        <td><a class="btn btn-outline-success" (click)="viewOrderFood(stor.id)">View Order</a></td>
                       </tr>
                       <tr>
                         <td>...</td>
