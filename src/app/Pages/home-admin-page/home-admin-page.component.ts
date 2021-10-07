@@ -24,6 +24,7 @@ import { User } from '../../Models/User'
 export class HomeComponent {
 
   constructor(private router: Router
+    // , private _authService: AuthService
     , private storeService: StoreService
     , private firebaseService : FirebaseService
     , private accountService : AccountService
@@ -178,8 +179,9 @@ export class HomeComponent {
     })
   }
   logOut(){
+    
+    // this.router.navigate(['']);
     sessionStorage.clear();
-    this.router.navigate(['']);
   }
   previousPage() {
     this.storeService.getDataPageHomePaging(this.urlPreviouspage).subscribe((data: adminpage) => {

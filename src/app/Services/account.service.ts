@@ -18,14 +18,14 @@ export class AccountService {
 
     public getToken(user: User | null): Observable<any> {
         
-        return this.http.post('http://54.255.129.30:8000/api/tokens',
+        return this.http.post('http://54.255.129.30:8100/api/v1/login',
             user
           , {
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
-                'Accept': '*/*'
+                'Accept': 'text/plain'
             }),
-            responseType: 'text',
+            responseType: 'text'
         });
     }
 

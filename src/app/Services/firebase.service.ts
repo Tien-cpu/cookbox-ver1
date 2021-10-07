@@ -26,11 +26,14 @@ export class FirebaseService {
           user : "",
           token : idToken,
         }
+        // sessionStorage.setItem('token', idToken);
         this.accountService.getToken(user).subscribe(
-          (data: string) => {
+          (data: any) => {
             console.log("true");
               console.log(data);
-              sessionStorage.setItem('token', JSON.stringify(data));
+              
+              const obj = JSON.parse(data);
+              sessionStorage.setItem('token', obj.token);
               this.router.navigate(['home']);
           }
         );

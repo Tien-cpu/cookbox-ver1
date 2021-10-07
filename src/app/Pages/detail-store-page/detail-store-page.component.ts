@@ -52,7 +52,24 @@ export class DetailStoreComponent {
     console.log(id)
     this.storeService.delteAStore(id).subscribe((res) => {this.router.navigate(['home'])});
   };
-
+  updateStore(){
+    this.router.navigate(['update-store'])
+    // if(this.nameStore == "" && this.addressStore == "" ){
+    //   // this.modalService.open("Please enter name and address");
+    // }else{
+    //   let store: {
+    //     "id": number,
+    //     "name": string,
+    //     "address":string,
+    //   } = {
+    //     id : Number(sessionStorage.getItem('storeid')),
+    //     name : this.nameStore,
+    //     address : this.addressStore
+    //   }
+    //   this.storeService.updateStore(store).subscribe((res) => {console.log(res); this.router.navigate(['home'])});
+    // }
+  };
+  backhome(){this.router.navigate(['home'])};
   previousPage(){};
   nextPage(){}
 }

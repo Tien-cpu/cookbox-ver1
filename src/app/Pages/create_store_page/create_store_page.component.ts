@@ -14,10 +14,10 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 })
 export class CreateStoreComponent implements OnInit {
 
-  public phone:any = "" ;
-  public password:any = "";
-  public nameStore:string="";
-  public addressStore:string="";
+   phone:any = "" ;
+   password:any = "";
+   nameStore:string="";
+   addressStore:string="";
 
   
   constructor(

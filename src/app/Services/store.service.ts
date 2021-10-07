@@ -38,13 +38,27 @@ export class StoreService {
     }
 
     delteAStore(id: number){
-      const url ='http://54.255.129.30:8000/api/admin/stores/'+id
+      const url ='http://54.255.129.30:8100/api/v1/admin/stores/'+id
+      let token = sessionStorage.getItem('token');
       return this.http.delete(url, {
         headers: new HttpHeaders({
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
         })
       });
     }
+    updateStore(store: {
+      "id": number,
+      "name": string,
+      "address":string,
+    }){
+      const url ='http://54.255.129.30:8100/api/v1/admin/stores'
+      return this.http.post(url,store, {
+          headers: new HttpHeaders({
+              'Content-Type': 'application/json',
+          })
+      });
+  }
 
     getAStore(id: number) : Observable<Store>{
       console.log(id)

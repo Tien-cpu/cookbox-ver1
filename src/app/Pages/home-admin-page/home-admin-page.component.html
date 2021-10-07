@@ -17,13 +17,19 @@
           </a>
         </li>
         <li class="nav-item ">
+          <a class="nav-link" (click)="CreateStore()">
+            <i class="material-icons">add_circle_outline</i>
+            <p>create new store</p>
+          </a>
+        </li>
+        <li class="nav-item ">
           <a class="nav-link" href="./user.html">
             <i class="material-icons">person</i>
             <p>User Profile</p>
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="./rtl.html">
+          <a class="nav-link" (click)="logOut()" href="/#">
             <i class="material-icons">lock_outline</i>
             <p>SignOut</p>
           </a>
@@ -112,8 +118,8 @@
           <div class="col-lg-12 col-md-12">
             <div class="card">
               <div class="card-header card-header-warning">
-                <h4 class="card-title">Employees Stats</h4>
-                <p class="card-category">New employees on 15th September, 2016</p>
+                <h4 class="card-title">List Store</h4>
+                <p class="card-category">you can see all store hare</p>
               </div>
               <div class="card-body table-responsive">
                 <table class="table table-hover">
@@ -133,13 +139,6 @@
                         <td>{{ stor.address }}</td>
                         <td><a class="btn btn-outline-success" (click)="viewDetailStore(stor.id)">View Detail</a></td>
                         <td><a class="btn btn-outline-success" (click)="viewOrderFood(stor.id)">View Order</a></td>
-                      </tr>
-                      <tr>
-                        <td>...</td>
-                        <td>...</td>
-                        <td><a class="btn btn-outline-success" (click)="CreateStore()">Creata Store</a></td>
-                        <td>...</td>
-                        <td>...</td>
                       </tr>
                     </tbody>
                 </table>
