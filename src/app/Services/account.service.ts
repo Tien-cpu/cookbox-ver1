@@ -17,7 +17,8 @@ export class AccountService {
     }
 
     public getToken(user: User | null): Observable<any> {
-        
+   
+     
         return this.http.post('http://54.255.129.30:8100/api/v1/login',
             user
           , {
@@ -28,7 +29,19 @@ export class AccountService {
             responseType: 'text'
         });
     }
-
+    public getTokenadmin(user:{"user":string, "pass": string}): Observable<any> {
+   
+     
+        return this.http.post('http://54.255.129.30:8100/api/v1/login',
+            user
+          , {
+            headers: new HttpHeaders({
+                'Content-Type': 'application/json',
+                'Accept': 'text/plain'
+            }),
+            responseType: 'text'
+        });
+    }
 }
 // node_modules/@angular/common/http/http.d.ts:2579:5
 // 2579     post<T>(url: string, body: any | null, options?: {

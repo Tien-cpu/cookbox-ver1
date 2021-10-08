@@ -12,8 +12,8 @@ import { AccountService } from '../../Services/account.service'
 })
 export class LoginComponent implements OnInit {
 
-  public phone:any = "" ;
-  public password:any = "";
+  public phone:string = "" ;
+  public password:string = "";
   constructor(private firebaseService : FirebaseService, private accountService : AccountService, private router: Router ) { }
 
   ngOnInit(): void {
@@ -21,14 +21,21 @@ export class LoginComponent implements OnInit {
 
   public onSubmit(){
     console.log("click login");
-    this.router.navigate(['home'])
-    // this.accountService.getToken("test").subscribe(
-    //   (data: string) => {
-    //       console.log(data);
-    //       sessionStorage.setItem('token', JSON.stringify(data));
-    //       this.router.navigate(['home']);
-    //   }
-  // );
+    
+    const user : {"pass":string,"user":string}= {
+      pass : this.phone,
+      user : this.password,
+    }
+    this.accountService.getTokenadmin(user).subscribe(
+      (data: any) => {
+        console.log("true");
+          console.log(data);
+          
+          const obj = JSON.parse(data);
+          sessionStorage.setItem('token', obj.token);
+          this.router.navigate(['home']);
+      }
+    );
   }
 
 

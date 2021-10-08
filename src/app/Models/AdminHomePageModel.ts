@@ -8,6 +8,8 @@ export class adminpage {
         "totalCount": number,
         "hasPrevious": string,
         "hasNext": string,
+        "nextPage": string,
+        "previousPage": string,
         "firstPage": string,
         "lastPage": string
     };

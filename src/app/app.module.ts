@@ -10,10 +10,11 @@ import { HomeComponent } from './Pages/home-admin-page/home-admin-page.component
 import { DetailStoreComponent } from './Pages/detail-store-page/detail-store-page.component';
 import { LoginPageComponent } from './Pages/login_page/login.component';
 import { CreateStoreComponent } from './Pages/create_store_page/create_store_page.component';
+import { UpdateStoreComponent } from './Pages/page_update_store/page_update_store.component';
 // tự thêm:
 import {HttpClientModule} from '@angular/common/http';
 
-import { FormsModule } from '@angular/forms';
+import { FormsModule ,ReactiveFormsModule} from '@angular/forms';
 import { InputTextModule } from 'primeng/inputtext';
 import { ButtonModule } from 'primeng/button';
 import { RouterModule } from '@angular/router';
@@ -48,12 +49,14 @@ const firebaseConfig = {
     BrowserModule,
     HttpClientModule,
     AppRoutingModule,
+    ReactiveFormsModule,
     FormsModule,
     InputTextModule,
     ButtonModule,
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireAuthModule,
     RouterModule.forRoot([
+      {path: 'update-store', component: UpdateStoreComponent},
       {path: 'create-store', component: CreateStoreComponent},
       {path: 'login', component: LoginPageComponent},
       {path: '', component: LoginComponent},

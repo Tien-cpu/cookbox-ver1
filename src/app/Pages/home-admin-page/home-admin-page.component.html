@@ -11,7 +11,7 @@
     <div class="sidebar-wrapper">
       <ul class="nav">
         <li class="nav-item active  ">
-          <a class="nav-link" href="./dashboard.html">
+          <a class="nav-link" href="./home">
             <i class="material-icons">store</i>
             <p>MageStore</p>
           </a>
@@ -137,7 +137,8 @@
                         <td>{{ stor.id }}</td>
                         <td>{{ stor.name }}</td>
                         <td>{{ stor.address }}</td>
-                        <td><a class="btn btn-outline-success" (click)="viewDetailStore(stor.id)">View Detail</a></td>
+                        <td><a *ngIf="stor.status == true" class="btn btn-outline-success" (click)="viewDetailStore(stor.id)">View Detail</a></td>
+                        <td><a *ngIf="stor.status == false" class="btn btn-outline-danger" >Is Closed</a></td>
                         <td><a class="btn btn-outline-success" (click)="viewOrderFood(stor.id)">View Order</a></td>
                       </tr>
                     </tbody>
@@ -145,7 +146,7 @@
                 <nav aria-label="Page navigation example">
                   <ul class="pagination justify-content-center">
                       <li class="page-item"><a class="page-link" (click)="previousPage()">Previous</a></li>
-                      <li class="page-item"><div class="page-link">2/ 2</div></li>
+                      <li class="page-item"><div class="page-link">{{currentPage}}/{{totalPages}}</div></li>
                       <li class="page-item"><a class="page-link" (click)="nextPage()">Next</a></li>
                   </ul>
                 </nav>

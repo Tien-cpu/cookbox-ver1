@@ -21,7 +21,7 @@ export class StoreService {
     }
 
     getDataPageHome() : Observable<adminpage>{
-      const url ='http://54.255.129.30:8000/api/admin/stores'
+      const url ='http://54.255.129.30:7900/api/v1/admin/stores'
       return this.http.get<adminpage>(url, {
         headers: new HttpHeaders({
             'Content-Type': 'application/json',
@@ -29,7 +29,7 @@ export class StoreService {
       });
     }
     getDataPageHomePaging(page : string) : Observable<adminpage>{
-      const url ='http://54.255.129.30:8000/api/admin/stores'
+      const url ='http://54.255.129.30:7900/api/v1/admin/stores'
       return this.http.get<adminpage>(page, {
         headers: new HttpHeaders({
             'Content-Type': 'application/json',
@@ -37,9 +37,10 @@ export class StoreService {
       });
     }
 
-    delteAStore(id: number){
-      const url ='http://54.255.129.30:8100/api/v1/admin/stores/'+id
+    delteAStore(id: number): Observable<any>{
+      const url ='http://54.255.129.30:8100/api/v1/admin/stores/'+id;
       let token = sessionStorage.getItem('token');
+      console.log(token+url);
       return this.http.delete(url, {
         headers: new HttpHeaders({
             'Content-Type': 'application/json',
@@ -47,15 +48,41 @@ export class StoreService {
         })
       });
     }
+    deletestoreTMP(store: {
+      "id": number,
+      "name": string,
+      "address": string,
+      "status": boolean
+    }): Observable<any>{
+
+      const url ='http://54.255.129.30:8100/api/v1/admin/stores'
+
+      let token = sessionStorage.getItem('token');
+      store.status = false;
+      console.log(store+ url)
+      return this.http.put(url,store, {
+          headers: new HttpHeaders({
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+          })
+      });
+  }
     updateStore(store: {
       "id": number,
       "name": string,
-      "address":string,
-    }){
+      "address": string,
+      "status": boolean
+    }): Observable<any>{
+
       const url ='http://54.255.129.30:8100/api/v1/admin/stores'
-      return this.http.post(url,store, {
+
+      let token = sessionStorage.getItem('token');
+
+      console.log(store+ url)
+      return this.http.put(url,store, {
           headers: new HttpHeaders({
               'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
           })
       });
   }

@@ -36,6 +36,7 @@ export class HomeComponent {
       id: 1,
       name: "quan 1",
       address: "cua hang khu vuc quan 1",
+      status:true,
       menus: [],
       orders: []
     },
@@ -43,6 +44,7 @@ export class HomeComponent {
       id: 1,
       name: "quan 1",
       address: "cua hang khu vuc quan 1",
+      status:true,
       menus: [],
       orders: []
     },
@@ -50,6 +52,7 @@ export class HomeComponent {
       id: 1,
       name: "quan 1",
       address: "cua hang khu vuc quan 1",
+      status:true,
       menus: [],
       orders: []
     }
@@ -112,13 +115,17 @@ export class HomeComponent {
   public nameStore:string="";
   public addressStore:string="";
   public selectedCity: string = '';
-  public selectedDistrict: string = ''
-  public urlNextpage: string = '';;
+  public selectedDistrict: string = '';
+  public urlNextpage: string = '';
   public urlPreviouspage: string = '';
+  public currentPage: number = 0;
+  public totalPages: number = 0;
   ngOnInit() {
     this.storeService.getDataPageHome().subscribe((data: adminpage) => {
-      this.urlPreviouspage = data.metaData.hasPrevious;
-      this.urlPreviouspage = data.metaData.hasNext;
+      this.totalPages = data.metaData.totalPages
+      this.currentPage = data.metaData.currentPage
+      this.urlPreviouspage = data.metaData.previousPage;
+      this.urlNextpage = data.metaData.nextPage;
       this.store = data.items;
     });
     this.location.forEach(data => {
@@ -184,21 +191,29 @@ export class HomeComponent {
     sessionStorage.clear();
   }
   previousPage() {
+
+    if(this.currentPage > 1){
     this.storeService.getDataPageHomePaging(this.urlPreviouspage).subscribe((data: adminpage) => {
-      this.urlPreviouspage = data.metaData.hasPrevious;
-      this.urlPreviouspage = data.metaData.hasNext;
+      this.totalPages = data.metaData.totalPages
+      this.currentPage = data.metaData.currentPage
+      this.urlPreviouspage = data.metaData.previousPage;
+      this.urlNextpage = data.metaData.nextPage;
       this.store = data.items;
-    });
+    });}
 }    
  nextPage() {
+  if(this.currentPage <= this.totalPages){
   this.storeService.getDataPageHomePaging(this.urlNextpage).subscribe((data: adminpage) => {
-    this.urlPreviouspage = data.metaData.hasPrevious;
-    this.urlPreviouspage = data.metaData.hasNext;
+    this.totalPages = data.metaData.totalPages
+    this.currentPage = data.metaData.currentPage
+    this.urlPreviouspage = data.metaData.previousPage;
+    this.urlNextpage = data.metaData.nextPage;
     this.store = data.items;
-  });
+  });}
 }
   btnSearch(){};
   CreateStore(){
+    sessionStorage.setItem("statusStore","create");
     this.router.navigate(['create-store']);
   };
   loginWithGoogle(){

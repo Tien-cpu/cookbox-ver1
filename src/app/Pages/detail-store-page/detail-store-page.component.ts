@@ -37,6 +37,7 @@ export class DetailStoreComponent {
     id:0,
     name:"",
     address:"",
+    status:true,
     menus:[],
     orders:[]
   }
@@ -48,12 +49,28 @@ export class DetailStoreComponent {
     this.storeService.getAStore(id).subscribe((data: Store) => {this.store = data});
   };
   RemoveStore(){
-    let id : number = Number(sessionStorage.getItem('storeid'));
-    console.log(id)
-    this.storeService.delteAStore(id).subscribe((res) => {this.router.navigate(['home'])});
+    // let id : number = Number(sessionStorage.getItem('storeid'));
+    // console.log(id)
+    // this.storeService.delteAStore(id).subscribe((res) => {this.router.navigate(['home'])});
+      let store: {
+        "id": number,
+        "name": string,
+        "address":string,
+        "status":boolean
+      } = {
+        id : Number(sessionStorage.getItem('storeid')),
+        name : this.store.name,
+        address : this.store.address,
+        status : false
+      }
+      this.storeService.updateStore(store).subscribe((res) => {console.log(res); this.router.navigate(['home'])});
+    
   };
   updateStore(){
-    this.router.navigate(['update-store'])
+    sessionStorage.setItem("statusStore","update");
+    this.router.navigate(['create-store']);
+
+    // this.router.navigate(['update-store'])
     // if(this.nameStore == "" && this.addressStore == "" ){
     //   // this.modalService.open("Please enter name and address");
     // }else{
