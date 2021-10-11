@@ -1,6 +1,6 @@
-import { Store } from './Store';
+import { Users } from './Users';
 
-export class adminpage {
+export class UserPage {
   'metaData': {
     currentPage: number;
     totalPages: number;
@@ -13,5 +13,6 @@ export class adminpage {
     firstPage: string;
     lastPage: string;
   };
-  'items': Store[];
+
+  'items': Users[];
 }

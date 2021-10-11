@@ -11,29 +11,25 @@
     <div class="sidebar-wrapper">
       <ul class="nav">
         <li class="nav-item active  ">
-          <a class="nav-link" href="./dashboard.html">
+          <a class="nav-link" href="./home">
             <i class="material-icons">store</i>
-            <p>MageStore</p>
+            <p>Manage Store</p>
           </a>
         </li>
+
         <li class="nav-item ">
-          <a class="nav-link" href="./user.html">
+          <a class="nav-link" href="./user-page">
             <i class="material-icons">person</i>
-            <p>User Profile</p>
+            <p>User</p>
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="./rtl.html">
+          <a class="nav-link" (click)="logOut()" href="/#">
             <i class="material-icons">lock_outline</i>
             <p>SignOut</p>
           </a>
         </li>
-        <li class="nav-item active-pro ">
-          <a class="nav-link" href="./upgrade.html">
-            <i class="material-icons">unarchive</i>
-            <p>Upgrade to PRO</p>
-          </a>
-        </li>
+
       </ul>
     </div>
   </div>
@@ -72,7 +68,7 @@
             <li class="nav-item dropdown">
               <a class="nav-link" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <i class="material-icons">notifications</i>
-                <span class="notification">0</span>
+                <span class="notification">5</span>
                 <p class="d-lg-none d-md-block">
                   Some Actions
                 </p>
@@ -112,35 +108,53 @@
           <div class="col-lg-12 col-md-12">
             <div class="card">
               <div class="card-header card-header-warning">
-                <h4 class="card-title">Store {{ store.name }}</h4>
-                <p class="card-category">Enter infor you want update</p>
-
+                <h4 class="card-title">List Users</h4>
+                <p class="card-category">You can manage Users</p>
               </div>
-
-              <div>
-                <form class="mx-auto mt-5" (ngSubmit)="updateStore()">
-                    <p class="h3 text-center"></p>
-                    <div class="form-group">
-                        <label>Store Name:</label>
-                        <input type="text" class="form-control"
-                               maxlength="50" required value="{{ store.name }}"
-                               placeholder="Name" ngModel>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Store Address</label>
-                        <input type="text" class="form-control"
-                               maxlength="30" required value="{{ store.address }}"
-                               placeholder="address" ngModel>
-                    </div>
-
-                    <div class="form-group">
-                        <p class="text-danger"></p>
-                    </div>
-                    <div class="panel-footer">
-                      <button class="btn btn-primary" type="submit">update</button>
-                    </div>
-                </form>
+              <div class="card-body table-responsive">
+                <table class="table table-hover">
+                  <thead class="text-warning">
+                      <tr >
+                        <th>#</th>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Status</th>
+                        <th>Delete</th>
+                        <th>Update Status</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let user of users; let i = index">
+                        <td>{{i+1}}</td>
+                        <td> {{user.name}}  </td>
+                        <td> {{user.address}} </td>
+                        <td> {{user.phone}} </td>
+                        <td>{{user.email}}</td>
+                        <td *ngIf="user.status == true">
+                          Active
+                        </td>
+                        <td *ngIf="user.status == false">
+                          Unactive
+                        </td>
+                        <td *ngIf='user.status == true'>
+                          <a class="btn btn-outline-danger" (click)="deleteUser(user.id)" href="./user-page">Delete</a>
+                        </td>
+                        <td *ngIf='user.status == false'>
+                          <button disabled class="btn btn-outline-warning" style="color: black;">Delete</button>
+                        </td>
+                        <td><a class="btn btn-outline-success" (click)="moveToUpdateUserPage(user.id)">Update</a></td>
+                      </tr>
+                    </tbody>
+                </table>
+                <nav aria-label="Page navigation example">
+                  <ul class="pagination justify-content-center">
+                      <li class="page-item"><a class="page-link" >Previous</a></li>
+                      <li class="page-item"><div class="page-link">2/ 2</div></li>
+                      <li class="page-item"><a class="page-link" >Next</a></li>
+                  </ul>
+                </nav>
               </div>
             </div>
           </div>
@@ -252,20 +266,3 @@
     </ul>
   </div>
 </div>
-
-<!--form show error-->
-<ng-template #error let-c="close" let-d="dismiss">
-  <div class="modal-body">
-      <div class="form-group" style="text-align:center;">
-          <p class="text-danger">{{ nameStore }}</p>
-      </div>
-  </div>
-</ng-template>
-<!--form show success-->
-<ng-template #message let-c="close" let-d="dismiss">
-<div class="modal-body">
-  <div class="form-group" style="text-align:center;">
-      <p class="text-success">{{ nameStore }}</p>
-  </div>
-</div>
-</ng-template>

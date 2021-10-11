@@ -24,7 +24,11 @@ import { AngularFireModule } from '@angular/fire';
 
 import { FirebaseService } from './Services/firebase.service';
 // import { environment } from 'src/environments/environment';
-import { AngularFireAuthModule } from '@angular/fire/auth'
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { UserPageComponent } from './Pages/user-page/user-page.component';
+import { OrderPageComponent } from './Pages/order-page/order-page.component';
+import { OrderDetailPageComponent } from './Pages/order-detail-page/order-detail-page.component';
+import { UpdateUserPageComponent } from './Pages/update-user-page/update-user-page.component'
 
 const firebaseConfig = {
   apiKey: "AIzaSyBCiezWik7L-So8-B2a7jtTJsjQuMfJmYk",
@@ -43,7 +47,11 @@ const firebaseConfig = {
     LoginComponent,
     HomeComponent,
     DetailStoreComponent,
-    CreateStoreComponent
+    CreateStoreComponent,
+    UserPageComponent,
+    OrderPageComponent,
+    OrderDetailPageComponent,
+    UpdateUserPageComponent
   ],
   imports: [
     BrowserModule,
@@ -62,6 +70,11 @@ const firebaseConfig = {
       {path: '', component: LoginComponent},
       {path: 'home', component: HomeComponent},
       {path: 'detail-store', component: DetailStoreComponent},
+      {path: 'user-page', component: UserPageComponent},
+      {path: 'order-page', component: OrderPageComponent},
+      {path: 'order-details-page', component: OrderDetailPageComponent},
+      {path: 'update-user-page', component: UpdateUserPageComponent},
+
     ])
   ],
   providers: [FirebaseService],

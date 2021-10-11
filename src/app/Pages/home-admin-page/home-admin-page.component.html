@@ -13,7 +13,7 @@
         <li class="nav-item active  ">
           <a class="nav-link" href="./home">
             <i class="material-icons">store</i>
-            <p>MageStore</p>
+            <p>Manage Store</p>
           </a>
         </li>
         <li class="nav-item ">
@@ -23,9 +23,9 @@
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="./user.html">
+          <a class="nav-link" href="./user-page">
             <i class="material-icons">person</i>
-            <p>User Profile</p>
+            <p>Users</p>
           </a>
         </li>
         <li class="nav-item ">
@@ -112,9 +112,9 @@
     <!-- End Navbar -->
     <div class="content">
       <div class="container-fluid">
-        
+
         <div class="row">
-          
+
           <div class="col-lg-12 col-md-12">
             <div class="card">
               <div class="card-header card-header-warning">
@@ -137,8 +137,10 @@
                         <td>{{ stor.id }}</td>
                         <td>{{ stor.name }}</td>
                         <td>{{ stor.address }}</td>
-                        <td><a *ngIf="stor.status == true" class="btn btn-outline-success" (click)="viewDetailStore(stor.id)">View Detail</a></td>
-                        <td><a *ngIf="stor.status == false" class="btn btn-outline-danger" >Is Closed</a></td>
+                        <td>
+                          <a *ngIf="stor.status == true" class="btn btn-outline-success" (click)="viewDetailStore(stor.id)">View Detail</a>
+                          <a *ngIf="stor.status == false" class="btn btn-outline-danger" >Is Closed</a>
+                        </td>
                         <td><a class="btn btn-outline-success" (click)="viewOrderFood(stor.id)">View Order</a></td>
                       </tr>
                     </tbody>

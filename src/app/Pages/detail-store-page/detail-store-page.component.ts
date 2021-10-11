@@ -6,7 +6,7 @@ import { Location } from '../../Models/Location';
 import { StoreService } from '../../Services/store.service';
 @Component({
   selector: 'app-detail-store-component',
-  templateUrl: './detail-store-page.component.html', 
+  templateUrl: './detail-store-page.component.html',
   styleUrls: ['../common_asset_page/css/material-dashboard-rtl.css',
   '../common_asset_page/css/material-dashboard.css',]
 })
@@ -64,7 +64,7 @@ export class DetailStoreComponent {
         status : false
       }
       this.storeService.updateStore(store).subscribe((res) => {console.log(res); this.router.navigate(['home'])});
-    
+
   };
   updateStore(){
     sessionStorage.setItem("statusStore","update");

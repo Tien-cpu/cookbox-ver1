@@ -67,6 +67,8 @@ export class StoreService {
           })
       });
   }
+
+
     updateStore(store: {
       "id": number,
       "name": string,
