@@ -69,9 +69,11 @@ export class CreateStoreComponent implements OnInit {
       let store: {
         "name": string,
         "address":string,
+        "status":boolean
       } = {
         name : this.nameStore,
-        address : this.addressStore
+        address : this.addressStore,
+        status : true
       }
       this.storeService.insertStore(store).subscribe((res) => {console.log(res); this.router.navigate(['home'])});
       this.modalService.open("Ok");
@@ -97,7 +99,7 @@ export class CreateStoreComponent implements OnInit {
       }
       this.storeService.updateStore(store).subscribe((res) => {console.log(res.data);
         this.modalService.open("cập nhật thành công");
-        this.router.navigate(['/detail-store'])
+        this.router.navigate(['home'])
       });
     }
   };

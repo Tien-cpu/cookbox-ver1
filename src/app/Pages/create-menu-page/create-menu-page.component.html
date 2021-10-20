@@ -23,37 +23,37 @@
     <div class="sidebar-wrapper">
       <ul class="nav">
         <li class="nav-item active  ">
-          <a class="nav-link" href="./home">
+          <a class="nav-link" (click)="goHomePage()">
             <i class="material-icons">store</i>
             <p>Cửa hàng</p>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="./product-page">
+          <a class="nav-link" (click)="goProducpage()">
             <i class="material-icons">soup_kitchen</i>
             <p>Món ăn</p>
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="./employee-page">
+          <a class="nav-link" (click)="goEmployeePage()">
             <i class="material-icons">account_box</i>
             <p>Nhân viên</p>
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="./user-page">
+          <a class="nav-link" (click)="goUserPage()">
             <i class="material-icons">person</i>
             <p>Người dùng</p>
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="./material-page">
+          <a class="nav-link" (click)="goMaterialPage()">
             <i class="material-icons">kitchen</i>
             <p>Nguyên liệu</p>
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="./history-material-page">
+          <a class="nav-link" (click)="goHistoryMaterialPage()">
             <i class="material-icons">receipt</i>
             <p>Cung cấp nguyên liệu</p>
           </a>
@@ -77,7 +77,9 @@
     >
       <div class="container-fluid">
         <div class="navbar-wrapper">
-          <a class="navbar-brand" href="javascript:;" style="font-size: 30px;">Create Store</a>
+          <a class="navbar-brand" href="javascript:;" style="font-size: 30px"
+            >Create Dish</a
+          >
         </div>
         <button
           class="navbar-toggler"
@@ -127,35 +129,81 @@
           <div class="col-lg-12 col-md-12">
             <div class="card">
               <div class="card-header card-header-danger">
-                <h4 class="card-title">Form</h4>
-                <p class="card-category">You can create a new Store here</p>
+                <h4 class="card-title">Tạo biểu mẫu</h4>
+                <p class="card-category">
+                  Bạn có thể tạo mới một món ăn tại đây
+                </p>
               </div>
-              <!-- Start form -->
+
               <form>
                 <div class="form-group">
-                    <label>Name:</label>
-                    <input type="text" name="Namefrom"  class="form-control"
-                           maxlength="500" required value="" [(ngModel)]="nameStore"
-                           placeholder="Name" placeholder="CookBox Thu Duc">
+                  <label style="color: black">Nhập ID: </label> <br />
+                  <input
+                    type="email"
+                    class="form-control"
+                    placeholder="003..."
+                  />
+                  <button
+                  class="btn btn-outline-success"
+                  style="color: black;"
+                  >Kiểm tra</button
+                > <br/>
+                  <label style="color: black">Hình ảnh</label> <br />
+                  <input
+                    type="file"
+                    style="opacity: 1; position: relative; z-index: 0"
+                  />
+                  <label style="color: black">Tên món</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    placeholder="Ga xao xa ot"
+                  />
+                  <label style="color: black">Giá tiền</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    placeholder="50000"
+                  />
+
+                  <label style="color: black">Trạng thái</label>
+                  <div class="dropdown">
+                    <button
+                      class="btn btn-secondary dropdown-toggle"
+                      type="button"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                    >
+                      trạng thái
+                    </button>
+                    <div
+                      class="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton"
+                    >
+                      <a class="dropdown-item">Nguoi Gia</a>
+                      <a class="dropdown-item">Giam Can</a>
+                      <a class="dropdown-item">Tang Can</a>
+                      <a class="dropdown-item">Nguoi Benh</a>
+                    </div>
+                  </div>
+                  <br>
+                  <label style="color: black">Các bước thực hiện</label>
+                  <textarea type="email" class="form-control" placeholder="Chuẩn bị dầu ăn..." ></textarea>
+                  <label style="color: black">Số lượng</label>
+                  <input type="email" class="form-control" placeholder="50..." />
+                  <label style="color: black">Đơn vị tính</label>
+                  <input type="email" class="form-control" placeholder="ml..." />
                 </div>
 
-                <div class="form-group">
-                    <label>Address</label>
-                    <input type="text" name="Addressfrom"  class="form-control"
-                           maxlength="30" required value="" [(ngModel)]="addressStore"
-                           placeholder="Address" placeholder="56/54 La Xuan Oai, Long Truong, Thu Duc">
-                </div>
-                <!-- <a
-                class="btn btn-outline-success"
-                style="width: 100px; margin-left: 45%; margin-bottom: 2%; "
-                (click)="InsertStore()"
-                >Create</a
-              > -->
+                <a
+                  class="btn btn-outline-success"
+                  style="width: 100px; margin-left: 45%; margin-bottom: 2%"
+                  href="./product-page"
+                  >Thêm</a
+                >
               </form>
-              <div class="form-group row">
-                <a *ngIf="statusRef == true" class="btn btn-outline-success " style="width: 100px; margin-left: 45%; margin-bottom: 2%; " (click)="InsertStore()">Create</a>
-                <a *ngIf="statusRef == false" class="btn btn-outline-success " style="width: 100px; margin-left: 45%; margin-bottom: 2%; " (click)="updateStore()">Save</a>
-            </div>
+
               <!-- End form -->
             </div>
           </div>

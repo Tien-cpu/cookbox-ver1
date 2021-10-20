@@ -11,59 +11,59 @@
       <img src="https://cdn.pixabay.com/photo/2017/02/21/08/49/food-2085075_1280.png" width="70px" height="70px"/>
         CookBox
       </a></div>
-    <div class="sidebar-wrapper">
-      <ul class="nav">
-        <li class="nav-item active  ">
-          <a class="nav-link" (click)="goHomePage()">
-            <i class="material-icons">store</i>
-            <p>Cửa hàng</p>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link" (click)="goProducpage()">
-            <i class="material-icons">soup_kitchen</i>
-            <p>Món ăn</p>
-          </a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" (click)="goEmployeePage()">
-            <i class="material-icons">account_box</i>
-            <p>Nhân viên</p>
-          </a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" (click)="goUserPage()">
-            <i class="material-icons">person</i>
-            <p>Người dùng</p>
-          </a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" (click)="goMaterialPage()">
-            <i class="material-icons">kitchen</i>
-            <p>Nguyên liệu</p>
-          </a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" (click)="goHistoryMaterialPage()">
-            <i class="material-icons">receipt</i>
-            <p>Cung cấp nguyên liệu</p>
-          </a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="">
-            <i class="material-icons">lock_outline</i>
-            <p>Đăng xuất</p>
-          </a>
-        </li>
-      </ul>
-    </div>
+      <div class="sidebar-wrapper">
+        <ul class="nav">
+          <li class="nav-item">
+            <a class="nav-link" (click)="goHomePage()">
+              <i class="material-icons">store</i>
+              <p>Cửa hàng</p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" (click)="goProducpage()">
+              <i class="material-icons">soup_kitchen</i>
+              <p>Món ăn</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" (click)="goEmployeePage()">
+              <i class="material-icons">account_box</i>
+              <p>Nhân viên</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" (click)="goUserPage()">
+              <i class="material-icons">person</i>
+              <p>Người dùng</p>
+            </a>
+          </li>
+          <li class="nav-item  active  ">
+            <a class="nav-link" (click)="goMaterialPage()">
+              <i class="material-icons">kitchen</i>
+              <p>Nguyên liệu</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" (click)="goHistoryMaterialPage()">
+              <i class="material-icons">receipt</i>
+              <p>Cung cấp nguyên liệu</p>
+            </a>
+          </li>
+          <li class="nav-item ">
+            <a class="nav-link" href="">
+              <i class="material-icons">lock_outline</i>
+              <p>Đăng xuất</p>
+            </a>
+          </li>
+        </ul>
+      </div>
   </div>
   <div class="main-panel">
     <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
       <div class="container-fluid">
         <div class="navbar-wrapper">
-          <a class="navbar-brand" href="javascript:;" style="font-size: 30px;">Dashboard</a>
+          <a class="navbar-brand" href="javascript:;" style="font-size: 30px;">Materials</a>
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
           <span class="sr-only">Toggle navigation</span>
@@ -109,8 +109,8 @@
           <div class="col-lg-12 col-md-12">
             <div class="card">
               <div class="card-header card-header-danger">
-                <h4 class="card-title">Danh sách các Cửa Hàng</h4>
-                <p class="card-category">Bạn có thể quản lý các cửa hàng tại đây</p>
+                <h4 class="card-title">Danh sách các Nguyên Liệu</h4>
+                <p class="card-category">Bạn có thể quản lý các Nguyên Liệu tại đây</p>
               </div>
               <div class="controller" style="margin-top: 1.5%">
                 <div class="dropdown" style="float: left; margin-left: 45.5%;">
@@ -128,15 +128,15 @@
                     class="dropdown-menu"
                     aria-labelledby="dropdownMenuButton"
                   >
-                    <a class="dropdown-item">Active</a>
-                    <a class="dropdown-item">Unactive</a>
+                    <a class="dropdown-item">Còn hàng</a>
+                    <a class="dropdown-item">Sắp hết hàng</a>
                   </div>
                 </div>
                 <div class="create" style="float: right; margin-right: -3%;">
                   <a
                     class="btn btn-outline-success"
                     style="width: 100px; margin-right: 50px"
-                    (click)="moveToCreateStore()"
+
                     >Thêm</a
                   >
                 </div>
@@ -146,69 +146,59 @@
                   <thead class="text-danger">
                       <tr>
                         <th>ID</th>
-                        <th>Tên cửa hàng</th>
-                        <th>Địa chỉ</th>
+                        <th>Tên nguyên liệu</th>
+                        <th>Thể loại</th>
+                        <th>Số lượng</th>
+                        <th>Đơn vị tính</th>
+                        <th>Ngày hết hạn</th>
                         <th>Trạng thái</th>
                         <th>Chỉnh sửa</th>
                         <th>Xóa bỏ</th>
-                        <th>Các thực đơn</th>
-                        <th>Các đơn hàng</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let stor of store">
-                        <td>{{ stor.id }}</td>
-                        <td>{{ stor.name }}</td>
-                        <td>{{ stor.address }}</td>
-                        <td *ngIf="stor.status == true">
+                      <tr *ngFor="let mat of materials">
+                        <td>{{ mat.id }}</td>
+                        <td>{{ mat.name }}</td>
+                        <td>{{ mat.type }}</td>
+                        <td>{{ mat.quantity }}</td>
+                        <td>{{ mat.dvt }}</td>
+                        <td>{{ mat.ngayhethan }}</td>
+                        <td *ngIf="mat.status == 'Sap het hang'">
+                          <span
+                            class="badge badge-pill badge-danger"
+                            style="padding: 4px 5px; font-size: 0.8em"
+                          >
+                            Sắp hết hàng
+                          </span>
+                        </td>
+                        <td *ngIf="mat.status == 'Con hang'">
                           <span
                             class="badge badge-pill badge-success"
                             style="padding: 4px 5px; font-size: 0.8em"
                           >
-                            đang hoạt động
-                          </span>
-                        </td>
-                        <td *ngIf="stor.status == false">
-                          <span
-                            class="badge badge-pill badge-secondary"
-                            style="padding: 4px 5px; font-size: 0.8em"
-                          >
-                            ngừng hoạt động
+                            Còn hàng
                           </span>
                         </td>
                         <td>
-                          <a class="btn btn-outline-info" style="width: 100px;" (click)="moveToUpdateStore(stor.id)">
+                          <a class="btn btn-outline-info" style="width: 100px;" >
                             Sửa
                           </a>
                         </td>
-                        <td *ngIf="stor.status == true">
-                          <a class="btn btn-outline-danger"  (click)="removestore(stor)"  style="width: 100px;" >
+                        <td >
+                          <a class="btn btn-outline-danger" style="width: 100px;" >
                             Xóa
                           </a>
                         </td>
-                        <td *ngIf="stor.status == false">
-                          <button disabled class="btn btn-outline-light" (click)="removestore(stor)"  style="width: 100px; color: black;" >
-                            Xóa
-                          </button>
-                        </td>
-                        <td>
-                          <a class="btn btn-outline-info" style="width: 100px;" (click)="moveToMenu()" >
-                            Xem
-                          </a>
-                        </td>
-                        <td>
-                          <a class="btn btn-outline-info" style="width: 100px;" (click)="moveToOrderPage()">
-                            Xem
-                          </a>
-                        </td>
+
                       </tr>
                     </tbody>
                 </table>
                 <nav aria-label="Page navigation example">
                   <ul class="pagination justify-content-center">
-                      <li class="page-item"><a class="page-link" (click)="previousPage()">trước</a></li>
-                      <li class="page-item"><div class="page-link">{{currentPage}}/{{totalPages}}</div></li>
-                      <li class="page-item"><a class="page-link" (click)="nextPage()">sau</a></li>
+                      <li class="page-item"><a class="page-link" >Trước</a></li>
+                      <li class="page-item"><div class="page-link">1/2</div></li>
+                      <li class="page-item"><a class="page-link">Sau</a></li>
                   </ul>
                 </nav>
               </div>

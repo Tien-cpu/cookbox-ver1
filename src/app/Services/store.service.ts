@@ -21,18 +21,22 @@ export class StoreService {
     }
 
     getDataPageHome() : Observable<adminpage>{
-      const url ='http://54.255.129.30:7900/api/v1/admin/stores'
+      const url ='http://54.255.129.30:8100/api/v1/admin/stores'
+      let token = sessionStorage.getItem('token');
       return this.http.get<adminpage>(url, {
         headers: new HttpHeaders({
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
         })
       });
     }
     getDataPageHomePaging(page : string) : Observable<adminpage>{
-      const url ='http://54.255.129.30:7900/api/v1/admin/stores'
+      const url ='http://54.255.129.30:8100/api/v1/admin/stores'
+      let token = sessionStorage.getItem('token');
       return this.http.get<adminpage>(page, {
         headers: new HttpHeaders({
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
         })
       });
     }
@@ -89,20 +93,24 @@ export class StoreService {
 
     getAStore(id: number) : Observable<Store>{
       console.log(id)
-      const url ='http://54.255.129.30:8000/api/admin/stores/'+id
+      const url ='http://54.255.129.30:8100/api/v1/admin/stores/'+id;
+      let token = sessionStorage.getItem('token');
       console.log(url)
       return this.http.get<Store>(url, {
         headers: new HttpHeaders({
             'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
         })
       });
     }
 
     getData(){
-        const url ='http://54.255.129.30:8000/api/admin/stores'
+        const url ='http://54.255.129.30:8100/api/v1/admin/stores'
+        let token = sessionStorage.getItem('token');
         return this.http.get(url, {
           headers: new HttpHeaders({
               'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
           })
       });
     }
@@ -110,11 +118,14 @@ export class StoreService {
     insertStore(store: {
       "name": string,
       "address":string,
+      "status":boolean
     }){
-      const url ='http://54.255.129.30:8000/api/admin/stores'
+      const url ='http://54.255.129.30:8100/api/v1/admin/stores'
+      let token = sessionStorage.getItem('token');
       return this.http.post(url,store, {
           headers: new HttpHeaders({
               'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
           })
       });
   }

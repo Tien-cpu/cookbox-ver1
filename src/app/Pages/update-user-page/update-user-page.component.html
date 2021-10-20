@@ -23,37 +23,37 @@
     <div class="sidebar-wrapper">
       <ul class="nav">
         <li class="nav-item active  ">
-          <a class="nav-link" href="./home">
+          <a class="nav-link" (click)="goHomePage()">
             <i class="material-icons">store</i>
             <p>Cửa hàng</p>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="./product-page">
+          <a class="nav-link" (click)="goProducpage()">
             <i class="material-icons">soup_kitchen</i>
             <p>Món ăn</p>
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="./employee-page">
+          <a class="nav-link" (click)="goEmployeePage()">
             <i class="material-icons">account_box</i>
             <p>Nhân viên</p>
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="./user-page">
+          <a class="nav-link" (click)="goUserPage()">
             <i class="material-icons">person</i>
             <p>Người dùng</p>
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="./material-page">
+          <a class="nav-link" (click)="goMaterialPage()">
             <i class="material-icons">kitchen</i>
             <p>Nguyên liệu</p>
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="./history-material-page">
+          <a class="nav-link" (click)="goHistoryMaterialPage()">
             <i class="material-icons">receipt</i>
             <p>Cung cấp nguyên liệu</p>
           </a>
@@ -77,7 +77,7 @@
     >
       <div class="container-fluid">
         <div class="navbar-wrapper">
-          <a class="navbar-brand" href="javascript:;" style="font-size: 30px;">Create Store</a>
+          <a class="navbar-brand" href="javascript:;" style="font-size: 30px;">Update User</a>
         </div>
         <button
           class="navbar-toggler"
@@ -128,34 +128,64 @@
             <div class="card">
               <div class="card-header card-header-danger">
                 <h4 class="card-title">Form</h4>
-                <p class="card-category">You can create a new Store here</p>
+                <p class="card-category">You can Update an User here</p>
               </div>
               <!-- Start form -->
               <form>
                 <div class="form-group">
-                    <label>Name:</label>
-                    <input type="text" name="Namefrom"  class="form-control"
-                           maxlength="500" required value="" [(ngModel)]="nameStore"
-                           placeholder="Name" placeholder="CookBox Thu Duc">
-                </div>
+                  <label style="color: black">Name</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    value="Nguyen Van An"
+                  />
+                  <label style="color: black">Address</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    value="15/45 Hang Tre Long Thanh My"
+                  />
+                  <label style="color: black">Phone</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    value="0915354852"
+                  />
+                  <label style="color: black">Email</label>
+                  <input
+                    type="email"
+                    class="form-control"
+                    value="nguyenvanan@gmail.com"
+                  />
 
-                <div class="form-group">
-                    <label>Address</label>
-                    <input type="text" name="Addressfrom"  class="form-control"
-                           maxlength="30" required value="" [(ngModel)]="addressStore"
-                           placeholder="Address" placeholder="56/54 La Xuan Oai, Long Truong, Thu Duc">
+                  <label style="color: black">Status</label>
+                  <div class="dropdown">
+                    <button
+                      class="btn btn-secondary dropdown-toggle"
+                      type="button"
+                      data-toggle="dropdown"
+                      aria-haspopup="true"
+                      aria-expanded="false"
+                      style="font-weight: 500;"
+                    >
+                    Active
+                    </button>
+                    <div
+                      class="dropdown-menu"
+                      aria-labelledby="dropdownMenuButton"
+                    >
+                      <a class="dropdown-item">Unactive</a>
+                    </div>
+                  </div>
                 </div>
-                <!-- <a
+                <a
                 class="btn btn-outline-success"
                 style="width: 100px; margin-left: 45%; margin-bottom: 2%; "
-                (click)="InsertStore()"
-                >Create</a
-              > -->
+                href="./user-page"
+                >Save</a
+              >
               </form>
-              <div class="form-group row">
-                <a *ngIf="statusRef == true" class="btn btn-outline-success " style="width: 100px; margin-left: 45%; margin-bottom: 2%; " (click)="InsertStore()">Create</a>
-                <a *ngIf="statusRef == false" class="btn btn-outline-success " style="width: 100px; margin-left: 45%; margin-bottom: 2%; " (click)="updateStore()">Save</a>
-            </div>
+
               <!-- End form -->
             </div>
           </div>

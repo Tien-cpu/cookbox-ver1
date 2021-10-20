@@ -128,20 +128,34 @@ export class HomeComponent {
       this.urlNextpage = data.metaData.nextPage;
       this.store = data.items;
     });
-    this.location.forEach(data => {
-      if (data.CityID === "1") {
-        this.selectedCity = data.CityID
-        data.District.forEach(data2 => {
-          this.listDistrict.push(data2)
-          if (data2.DistrictID === "1") {
-            this.selectedDistrict = data2.DistrictID
-            data2.Ward.forEach(data3 => {
-              this.listWard.push(data3)
-            })
-          }
-        })
-      }
-    })
+  }
+  moveToCreateStore(){
+    sessionStorage.setItem("statusStore","create");
+    this.router.navigate(["create-store"]);
+  }
+  moveToUpdateStore(fg: number){
+    sessionStorage.setItem("statusStore","update");
+    let index = this.store.findIndex(c => c.id === fg);
+    const storeID = fg;
+    sessionStorage.setItem('storeid', String(storeID));
+    // this.router.navigate(['/order-page']);
+    this.router.navigate(['create-store']);
+    // this.router.navigate(["update-store"]);
+  }
+  moveToOrderPage(){
+    this.router.navigate(["order-page"]);
+  }
+  moveToMenu(){
+    this.router.navigate(["menu-main-page"]);
+  }
+  removestore(fg: Store){
+    console.log(fg)
+    this.storeService.deletestoreTMP(fg).subscribe((res) => {
+      this.storeService.getDataPageHome().subscribe((data: adminpage) => {
+        this.urlPreviouspage = data.metaData.hasPrevious;
+        this.urlPreviouspage = data.metaData.hasNext;
+        this.store = data.items;
+    });});
   }
   public viewDetailStore(fg: number) {
     let index = this.store.findIndex(c => c.id === fg);
@@ -150,7 +164,9 @@ export class HomeComponent {
   }
   public viewOrderFood(fg: number) {
     let index = this.store.findIndex(c => c.id === fg);
-    this.router.navigate([''])
+    const storeID = fg;
+    sessionStorage.setItem('storeID-order', String(storeID));
+    this.router.navigate(['/order-page']);
   }
   onChangeCity() {
     this.listDistrict  = new Array()
@@ -249,5 +265,23 @@ export class HomeComponent {
       //   }
     // );
     }
+  }
+  goHomePage(){
+    this.router.navigate(['home']);
+  }
+  goProducpage(){
+    this.router.navigate(['product-page']);
+  }
+  goEmployeePage(){
+    this.router.navigate(['employee-page']);
+  }
+  goUserPage(){
+    this.router.navigate(['user-page']);
+  }
+  goMaterialPage(){
+    this.router.navigate(['material-page']);
+  }
+  goHistoryMaterialPage(){
+    this.router.navigate(['history-material-page']);
   }
 }

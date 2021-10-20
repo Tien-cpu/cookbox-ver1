@@ -24,7 +24,24 @@ import { AngularFireModule } from '@angular/fire';
 
 import { FirebaseService } from './Services/firebase.service';
 // import { environment } from 'src/environments/environment';
-import { AngularFireAuthModule } from '@angular/fire/auth'
+import { AngularFireAuthModule } from '@angular/fire/auth';
+import { UserPageComponent } from './Pages/user-page/user-page.component';
+import { OrderPageComponent } from './Pages/order-page/order-page.component';
+import { OrderDetailPageComponent } from './Pages/order-detail-page/order-detail-page.component'
+import { EployeePageComponent } from './Pages/eployee-page/eployee-page.component';
+import { CreateEmployeePageComponent } from './Pages/create-employee-page/create-employee-page.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { UpdateEmployeePageComponent } from './Pages/update-employee-page/update-employee-page.component';
+import { UpdateUserPageComponent } from './Pages/update-user-page/update-user-page.component';
+import { ProductPageComponent } from './Pages/product-page/product-page.component';
+import { CreateProductPageComponent } from './Pages/create-product-page/create-product-page.component';
+import { UpdateProductPageComponent } from './Pages/update-product-page/update-product-page.component';
+import { MenuPageComponent } from './Pages/menu-page/menu-page.component';
+import { CreateMenuPageComponent } from './Pages/create-menu-page/create-menu-page.component';
+import { NemuMainPageComponent } from './Pages/nemu-main-page/nemu-main-page.component';
+import { CreateNemuMainPageComponent } from './Pages/create-nemu-main-page/create-nemu-main-page.component';
+import { MaterialPageComponent } from './Pages/material-page/material-page.component';
+import { HistoryMaterialPageComponent } from './Pages/history-material-page/history-material-page.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBCiezWik7L-So8-B2a7jtTJsjQuMfJmYk",
@@ -43,7 +60,22 @@ const firebaseConfig = {
     LoginComponent,
     HomeComponent,
     DetailStoreComponent,
-    CreateStoreComponent
+    CreateStoreComponent,
+    UserPageComponent,
+    EployeePageComponent,
+    CreateEmployeePageComponent,
+    UpdateEmployeePageComponent,
+    OrderPageComponent,
+    OrderDetailPageComponent,
+    ProductPageComponent,
+    CreateProductPageComponent,
+    UpdateProductPageComponent,
+    MenuPageComponent,
+    CreateMenuPageComponent,
+    NemuMainPageComponent,
+    CreateNemuMainPageComponent,
+    MaterialPageComponent,
+    HistoryMaterialPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -62,6 +94,24 @@ const firebaseConfig = {
       {path: '', component: LoginComponent},
       {path: 'home', component: HomeComponent},
       {path: 'detail-store', component: DetailStoreComponent},
+      {path: 'user-page', component: UserPageComponent},
+      {path: 'employee-page', component: EployeePageComponent},
+      {path: 'create-emp-page', component: CreateEmployeePageComponent},
+      {path: 'update-emp-page', component: UpdateEmployeePageComponent},
+      {path: 'update-user-page', component: UpdateUserPageComponent},
+      {path: 'order-page', component: OrderPageComponent},
+      {path: 'order-detail-page', component: OrderDetailPageComponent},
+      {path: 'product-page', component: ProductPageComponent},
+      {path: 'create-dish-page', component: CreateProductPageComponent},
+      {path: 'update-dish-page', component: UpdateProductPageComponent},
+      {path: 'menu-page', component: MenuPageComponent},
+      {path: 'create-menu-page', component: CreateMenuPageComponent},
+      {path: 'menu-main-page', component: NemuMainPageComponent},
+      {path: 'create-nemu-main-page', component: CreateNemuMainPageComponent},
+      {path: 'material-page', component: MaterialPageComponent},
+      {path: 'history-material-page', component: HistoryMaterialPageComponent},
+
+
     ])
   ],
   providers: [FirebaseService],
