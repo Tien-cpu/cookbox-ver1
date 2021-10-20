@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { User } from 'src/app/Models/User';
+import { UserService } from 'src/app/Services/user.service';
+
 @Component({
   selector: 'app-update-user-page',
   templateUrl: './update-user-page.component.html',

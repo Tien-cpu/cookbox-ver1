@@ -109,7 +109,7 @@ export class HomeComponent {
       }]
     }
   ]
-  test: {id : string, name :string}[] = []; 
+  test: {id : string, name :string}[] = [];
   listDistrict: District[] = new Array()
   listWard: Ward[] = new Array()
   public nameStore:string="";
@@ -160,6 +160,9 @@ export class HomeComponent {
   public viewDetailStore(fg: number) {
     let index = this.store.findIndex(c => c.id === fg);
     sessionStorage.setItem('storeid', JSON.stringify(fg));
+    let a = sessionStorage.getItem('storeid');
+
+
     this.router.navigate(['/detail-store'])
   }
   public viewOrderFood(fg: number) {
@@ -202,7 +205,7 @@ export class HomeComponent {
     })
   }
   logOut(){
-    
+
     // this.router.navigate(['']);
     sessionStorage.clear();
   }
@@ -216,7 +219,7 @@ export class HomeComponent {
       this.urlNextpage = data.metaData.nextPage;
       this.store = data.items;
     });}
-}    
+}
  nextPage() {
   if(this.currentPage <= this.totalPages){
   this.storeService.getDataPageHomePaging(this.urlNextpage).subscribe((data: adminpage) => {
@@ -233,9 +236,9 @@ export class HomeComponent {
     this.router.navigate(['create-store']);
   };
   loginWithGoogle(){
-    
-    
-    
+
+
+
     this.firebaseService.loginWithGoogle();
     this.firebaseService.getIdToken();
     let token: string | null= sessionStorage.getItem('token');

@@ -55,6 +55,5 @@ export class UserService {
           'Authorization': `Bearer ${token}`
       })
   });
-
   }
 }
