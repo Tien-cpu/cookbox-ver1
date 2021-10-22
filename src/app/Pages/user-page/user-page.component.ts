@@ -86,7 +86,39 @@ export class UserPageComponent implements OnInit {
         email: String(res.email),
       };
       this.userService.updateUser(user).subscribe((data: Users) => {
-        console.log('delete xong goy');
+        this.userService.getDataUserPage().subscribe((data: UserPage) =>{
+          // this.urlPreviouspage = data.metaData.hasPrevious;
+          // this.urlPreviouspage = data.metaData.hasNext;
+          this.users = data.items;
+        })
+      });
+
+    });
+  }
+
+  updateUser(id: any) {
+    sessionStorage.setItem('userID', id);
+    this.userService.GetUserByID(id).subscribe((res) => {
+      let user: {
+        id: number;
+        name: string;
+        address: string;
+        phone: string;
+        role_id: string;
+        role_name: string;
+        status: boolean;
+        email: string;
+      } = {
+        id: Number(sessionStorage.getItem('userID')),
+        name: String(res.name),
+        address: String(res.address),
+        phone: String(res.phone),
+        role_id: String(res.role_id),
+        role_name: String(res.role_name),
+        status: true,
+        email: String(res.email),
+      };
+      this.userService.updateUser(user).subscribe((data: Users) => {
         this.userService.getDataUserPage().subscribe((data: UserPage) =>{
           // this.urlPreviouspage = data.metaData.hasPrevious;
           // this.urlPreviouspage = data.metaData.hasNext;

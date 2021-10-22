@@ -191,6 +191,7 @@
                       <th>Số điện thoại</th>
                       <th>Email</th>
                       <th>Trạng thái</th>
+                      <th>Chỉnh sửa</th>
                       <th>Xóa bỏ</th>
                       <!-- <th>Update</th> -->
                     </tr>
@@ -200,7 +201,7 @@
                       <td>{{ us.id }}</td>
                       <td>{{ us.name }}</td>
                       <td>{{ us.address }}</td>
-                      <td>0{{ us.phone }}</td>
+                      <td>{{ us.phone }}</td>
                       <td>{{ us.email }}</td>
 
                       <td *ngIf="us.status == true">
@@ -219,12 +220,17 @@
                           ngừng hoạt động
                         </span>
                       </td>
-
+                      <td >
+                        <a class="btn btn-outline-info" style="width: 100px" (click)="updateUser(us.id)">
+                          Sửa
+                        </a>
+                      </td>
                       <td *ngIf="us.status == true">
                         <a class="btn btn-outline-danger" style="width: 100px" (click)="deleteUser(us.id)">
                           Xóa
                         </a>
                       </td>
+
                       <td *ngIf="us.status == false">
                         <button
                           disabled
