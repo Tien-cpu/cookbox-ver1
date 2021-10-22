@@ -210,13 +210,12 @@ export class HomeComponent {
     sessionStorage.clear();
   }
   previousPage() {
-
     if(this.currentPage > 1){
     this.storeService.getDataPageHomePaging(this.urlPreviouspage).subscribe((data: adminpage) => {
       this.totalPages = data.metaData.totalPages
       this.currentPage = data.metaData.currentPage
       this.urlPreviouspage = data.metaData.previousPage;
-      this.urlNextpage = data.metaData.nextPage;
+      this.urlPreviouspage = data.metaData.nextPage;
       this.store = data.items;
     });}
 }
@@ -286,5 +285,11 @@ export class HomeComponent {
   }
   goHistoryMaterialPage(){
     this.router.navigate(['history-material-page']);
+  }
+  goOrderPage(){
+    this.router.navigate(['order-page']);
+  }
+  goMenuPage(){
+    this.router.navigate(['menu-main-page']);
   }
 }

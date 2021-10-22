@@ -54,4 +54,10 @@ export class NemuMainPageComponent implements OnInit {
   goHistoryMaterialPage(){
     this.router.navigate(['history-material-page']);
   }
+  goOrderPage(){
+    this.router.navigate(['order-page']);
+  }
+  goMenuPage(){
+    this.router.navigate(['menu-main-page']);
+  }
 }

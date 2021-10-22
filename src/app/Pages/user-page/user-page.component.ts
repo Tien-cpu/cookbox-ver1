@@ -12,6 +12,10 @@ import { UserService } from 'src/app/Services/user.service';
   ],
 })
 export class UserPageComponent implements OnInit {
+  public urlNextpage: string = '';
+  public urlPreviouspage: string = '';
+  public currentPage: number = 0;
+  public totalPages: number = 0;
   id: number = Number(sessionStorage.getItem('userID'));
   public users: Users[] = [
     {
@@ -43,50 +47,82 @@ export class UserPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.userService.getDataUserPage().subscribe((data: UserPage) => {
+      this.totalPages = data.metaData.totalPages
+      this.currentPage = data.metaData.currentPage
+      this.urlPreviouspage = data.metaData.previousPage;
+      this.urlNextpage = data.metaData.nextPage;
       this.users = data.items;
     });
-    let id = Number(sessionStorage.getItem('userID'));
-    this.GetUserByID(id);
+    // let id = Number(sessionStorage.getItem('userID'));
+    // this.GetUserByID(id);
   }
 
   GetUserByID(id: number) {
     this.userService.GetUserByID(id).subscribe((data: Users) => {
       this.user = data;
-
     });
   }
 
   deleteUser(id: any) {
     sessionStorage.setItem('userID', id);
+    this.userService.GetUserByID(id).subscribe((res) => {
+      let user: {
+        id: number;
+        name: string;
+        address: string;
+        phone: string;
+        role_id: string;
+        role_name: string;
+        status: boolean;
+        email: string;
+      } = {
+        id: Number(sessionStorage.getItem('userID')),
+        name: String(res.name),
+        address: String(res.address),
+        phone: String(res.phone),
+        role_id: String(res.role_id),
+        role_name: String(res.role_name),
+        status: false,
+        email: String(res.email),
+      };
+      this.userService.updateUser(user).subscribe((data: Users) => {
+        console.log('delete xong goy');
+        this.userService.getDataUserPage().subscribe((data: UserPage) =>{
+          // this.urlPreviouspage = data.metaData.hasPrevious;
+          // this.urlPreviouspage = data.metaData.hasNext;
+          this.users = data.items;
+        })
+      });
 
-    let user: {
-      id: number;
-      name: string;
-      address: string;
-      phone: string;
-      role_id: string;
-      role_name: string;
-      status: boolean;
-      email: string;
-    } = {
-      id: Number(sessionStorage.getItem('userID')),
-      name: String(this.user.name),
-      address: String(this.user.address),
-      phone: String(this.user.phone),
-      role_id: String(this.user.role_id),
-      role_name: String(this.user.role_name),
-      status: false,
-      email: String(this.user.email),
-    };
-    console.log('id1: ' + user.id);
-    console.log('name1: ' + user.name);
-    console.log('address1: ' + user.address);
-    console.log('phone1: ' + user.phone);
-    console.log('status1: ' + user.status);
-    console.log('email1: ' + user.email);
-    console.log('role id1: ' + user.role_id);
-    console.log('role name1: ' + user.role_name);
-    this.userService.deleteUser(user).subscribe((data: Users) => {});
+    });
+  }
+
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.userService
+        .getPagingUserPage(this.urlPreviouspage)
+        .subscribe((data: UserPage) => {
+          this.totalPages = data.metaData.totalPages;
+          this.currentPage = data.metaData.currentPage;
+          this.urlPreviouspage = data.metaData.previousPage;
+          this.urlNextpage = data.metaData.nextPage;
+          this.users = data.items;
+        });
+    }
+  }
+
+  nextPage() {
+    if (this.currentPage <= this.totalPages) {
+      this.userService
+        .getPagingUserPage(this.urlNextpage)
+        .subscribe((data: UserPage) => {
+          this.totalPages = data.metaData.totalPages;
+          this.currentPage = data.metaData.currentPage;
+          this.urlPreviouspage = data.metaData.previousPage;
+          this.urlNextpage = data.metaData.nextPage;
+          this.users = data.items;
+        });
+    }
   }
 
   logOut() {
@@ -109,5 +145,11 @@ export class UserPageComponent implements OnInit {
   }
   goHistoryMaterialPage(){
     this.router.navigate(['history-material-page']);
+  }
+  goOrderPage(){
+    this.router.navigate(['order-page']);
+  }
+  goMenuPage(){
+    this.router.navigate(['menu-main-page']);
   }
 }

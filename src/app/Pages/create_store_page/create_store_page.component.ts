@@ -42,7 +42,7 @@ export class CreateStoreComponent implements OnInit {
       this.ltital = 'Enter infor you want add';
       this.statusRef = true;
     }else if(status == 'update'){
-      
+
       this.statusRef = false;
       let id : number = Number(sessionStorage.getItem('storeid'));
       console.log(id+'store')
@@ -52,7 +52,7 @@ export class CreateStoreComponent implements OnInit {
         this.ltital = 'Enter infor you want update';
         this.nameStore = this.store.name;
         this.addressStore = this.store.address;});
-     
+
     }
   }
 
@@ -78,10 +78,10 @@ export class CreateStoreComponent implements OnInit {
       this.storeService.insertStore(store).subscribe((res) => {console.log(res); this.router.navigate(['home'])});
       this.modalService.open("Ok");
     }
-    
+
   }
   updateStore(){
-    
+
     this.router.navigate(['update-store'])
     if(this.nameStore == "" && this.addressStore == "" ){
       this.modalService.open("Please enter name and address");
@@ -105,7 +105,29 @@ export class CreateStoreComponent implements OnInit {
   };
   logOut(){
     sessionStorage.clear();
-    this.router.navigate(['']);
-    
+  }
+  goHomePage(){
+    this.router.navigate(['home']);
+  }
+  goProducpage(){
+    this.router.navigate(['product-page']);
+  }
+  goEmployeePage(){
+    this.router.navigate(['employee-page']);
+  }
+  goUserPage(){
+    this.router.navigate(['user-page']);
+  }
+  goMaterialPage(){
+    this.router.navigate(['material-page']);
+  }
+  goHistoryMaterialPage(){
+    this.router.navigate(['history-material-page']);
+  }
+  goOrderPage(){
+    this.router.navigate(['order-page']);
+  }
+  goMenuPage(){
+    this.router.navigate(['menu-main-page']);
   }
 }

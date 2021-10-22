@@ -22,7 +22,7 @@
     </div>
     <div class="sidebar-wrapper">
       <ul class="nav">
-        <li class="nav-item">
+        <li class="nav-item   ">
           <a class="nav-link" (click)="goHomePage()">
             <i class="material-icons">store</i>
             <p>Cửa hàng</p>
@@ -40,10 +40,22 @@
             <p>Nhân viên</p>
           </a>
         </li>
-        <li class="nav-item  active  ">
+        <li class="nav-item active">
           <a class="nav-link" (click)="goUserPage()">
             <i class="material-icons">person</i>
             <p>Người dùng</p>
+          </a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" (click)="goMenuPage()">
+            <i class="material-icons">menu_book</i>
+            <p>Thực đơn</p>
+          </a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" (click)="goOrderPage()">
+            <i class="material-icons">list_alt</i>
+            <p>Đơn hàng</p>
           </a>
         </li>
         <li class="nav-item ">
@@ -209,7 +221,7 @@
                       </td>
 
                       <td *ngIf="us.status == true">
-                        <a class="btn btn-outline-danger" style="width: 100px">
+                        <a class="btn btn-outline-danger" style="width: 100px" (click)="deleteUser(us.id)">
                           Xóa
                         </a>
                       </td>
@@ -235,9 +247,9 @@
                 </table>
                 <nav aria-label="Page navigation example">
                   <ul class="pagination justify-content-center">
-                    <li class="page-item"><a class="page-link">Trước</a></li>
-                    <li class="page-item"><div class="page-link">1/2</div></li>
-                    <li class="page-item"><a class="page-link">Sau</a></li>
+                    <li class="page-item"><a class="page-link" (click)="previousPage()">Trước</a></li>
+                    <li class="page-item"><div class="page-link">{{currentPage}}/{{totalPages}}</div></li>
+                    <li class="page-item"><a class="page-link" (click)="nextPage()">Sau</a></li>
                   </ul>
                 </nav>
               </div>

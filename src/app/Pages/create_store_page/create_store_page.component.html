@@ -22,38 +22,50 @@
     </div>
     <div class="sidebar-wrapper">
       <ul class="nav">
-        <li class="nav-item active  ">
-          <a class="nav-link" href="./home">
+        <li class="nav-item active">
+          <a class="nav-link" (click)="goHomePage()">
             <i class="material-icons">store</i>
             <p>Cửa hàng</p>
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="./product-page">
+          <a class="nav-link" (click)="goProducpage()">
             <i class="material-icons">soup_kitchen</i>
             <p>Món ăn</p>
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="./employee-page">
+          <a class="nav-link" (click)="goEmployeePage()">
             <i class="material-icons">account_box</i>
             <p>Nhân viên</p>
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="./user-page">
+          <a class="nav-link" (click)="goUserPage()">
             <i class="material-icons">person</i>
             <p>Người dùng</p>
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="./material-page">
+          <a class="nav-link" (click)="goMenuPage()">
+            <i class="material-icons">menu_book</i>
+            <p>Thực đơn</p>
+          </a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" (click)="goOrderPage()">
+            <i class="material-icons">list_alt</i>
+            <p>Đơn hàng</p>
+          </a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" (click)="goMaterialPage()">
             <i class="material-icons">kitchen</i>
             <p>Nguyên liệu</p>
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="./history-material-page">
+          <a class="nav-link" (click)="goHistoryMaterialPage()">
             <i class="material-icons">receipt</i>
             <p>Cung cấp nguyên liệu</p>
           </a>

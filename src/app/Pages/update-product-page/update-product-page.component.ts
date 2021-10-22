@@ -78,4 +78,10 @@ Dùng đũa đảo đều rau muống thì bạn cho mì tôm cùng 1/2 muỗng 
   goHistoryMaterialPage(){
     this.router.navigate(['history-material-page']);
   }
+  goOrderPage(){
+    this.router.navigate(['order-page']);
+  }
+  goMenuPage(){
+    this.router.navigate(['menu-main-page']);
+  }
 }

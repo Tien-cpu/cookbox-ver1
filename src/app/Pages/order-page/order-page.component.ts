@@ -33,4 +33,28 @@ export class OrderPageComponent implements OnInit {
     sessionStorage.clear();
     this.router.navigate(['']);
   }
+  goHomePage(){
+    this.router.navigate(['home']);
+  }
+  goProducpage(){
+    this.router.navigate(['product-page']);
+  }
+  goEmployeePage(){
+    this.router.navigate(['employee-page']);
+  }
+  goUserPage(){
+    this.router.navigate(['user-page']);
+  }
+  goMaterialPage(){
+    this.router.navigate(['material-page']);
+  }
+  goHistoryMaterialPage(){
+    this.router.navigate(['history-material-page']);
+  }
+  goOrderPage(){
+    this.router.navigate(['order-page']);
+  }
+  goMenuPage(){
+    this.router.navigate(['menu-main-page']);
+  }
 }

@@ -17,7 +17,7 @@ export class CreateNemuMainPageComponent implements OnInit {
     this.router.navigate(['home']);
   }
   goProducpage(){
-    this.router.navigate(['product-pagC']);
+    this.router.navigate(['product-page']);
   }
   goEmployeePage(){
     this.router.navigate(['employee-page']);
@@ -30,6 +30,12 @@ export class CreateNemuMainPageComponent implements OnInit {
   }
   goHistoryMaterialPage(){
     this.router.navigate(['history-material-page']);
+  }
+  goOrderPage(){
+    this.router.navigate(['order-page']);
+  }
+  goMenuPage(){
+    this.router.navigate(['menu-main-page']);
   }
 
 }

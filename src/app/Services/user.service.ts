@@ -36,7 +36,7 @@ export class UserService {
     });
   }
 
-  deleteUser(user: {
+  updateUser(user: {
     "id": number,
     "name": string,
     "address": string,
@@ -56,4 +56,15 @@ export class UserService {
       })
   });
   }
+
+  getPagingUserPage(page : string) : Observable<UserPage>{
+    let token = sessionStorage.getItem('token');
+    return this.http.get<UserPage>(page, {
+      headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+      })
+    })
+  }
+
 }

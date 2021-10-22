@@ -11,45 +11,57 @@
     <div class="sidebar-wrapper">
       <ul class="nav">
         <li class="nav-item active  ">
-          <a class="nav-link"(click)="backhome()">
+          <a class="nav-link" (click)="goHomePage()">
             <i class="material-icons">store</i>
-            <p>MageStore</p>
+            <p>Cửa hàng</p>
+          </a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" (click)="goProducpage()">
+            <i class="material-icons">soup_kitchen</i>
+            <p>Món ăn</p>
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" >
-            <i class="material-icons">add_circle_outline</i>
-            <p>create new menu</p>
+          <a class="nav-link" (click)="goEmployeePage()">
+            <i class="material-icons">account_box</i>
+            <p>Nhân viên</p>
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" (click)="updateStore()">
-            <i class="material-icons">update</i>
-            <p>Update this Store</p>
-          </a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" (click)="RemoveStore()">
-            <i class="material-icons">remove_circle</i>
-            <p>Close this Store</p>
-          </a>
-        </li>
-        <li class="nav-item ">
-          <a class="nav-link" href="./user.html">
+          <a class="nav-link" (click)="goUserPage()">
             <i class="material-icons">person</i>
-            <p>User Profile</p>
+            <p>Người dùng</p>
           </a>
         </li>
         <li class="nav-item ">
-          <a class="nav-link" href="/#">
-            <i class="material-icons">lock_outline</i>
-            <p>SignOut</p>
+          <a class="nav-link" (click)="goMenuPage()">
+            <i class="material-icons">menu_book</i>
+            <p>Thực đơn</p>
           </a>
         </li>
-        <li class="nav-item active-pro ">
-          <a class="nav-link" href="./upgrade.html">
-            <i class="material-icons">unarchive</i>
-            <p>Upgrade to PRO</p>
+        <li class="nav-item ">
+          <a class="nav-link" (click)="goOrderPage()">
+            <i class="material-icons">list_alt</i>
+            <p>Đơn hàng</p>
+          </a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" (click)="goMaterialPage()">
+            <i class="material-icons">kitchen</i>
+            <p>Nguyên liệu</p>
+          </a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" (click)="goHistoryMaterialPage()">
+            <i class="material-icons">receipt</i>
+            <p>Cung cấp nguyên liệu</p>
+          </a>
+        </li>
+        <li class="nav-item ">
+          <a class="nav-link" href="">
+            <i class="material-icons">lock_outline</i>
+            <p>Đăng xuất</p>
           </a>
         </li>
       </ul>
@@ -67,16 +79,16 @@
     <!-- End Navbar -->
     <div class="content">
       <div class="container-fluid">
-        
+
         <div class="row">
-          
+
           <div class="col-lg-12 col-md-12">
             <div class="card">
               <div class="card-header card-header-warning">
                 <h4 class="card-title">Store {{ store.name }}</h4>
                 <p class="card-category">This page will help you manage a store</p>
               </div>
-              
+
               <div class="card-body table-responsive">
                 <table class="table table-hover">
                   <thead class="text-warning">
@@ -85,7 +97,7 @@
                       <th>Name</th>
                       <th>Address</th>
                       <th>ViewDetail</th>
-                
+
                     </tr>
                   </thead>
                   <tbody>

@@ -15,4 +15,3 @@ export class adminpage {
     };
     "items": Store[]
 }
-    

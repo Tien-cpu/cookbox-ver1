@@ -51,10 +51,10 @@ export class UpdateStoreComponent implements OnInit {
   logOut(){
     sessionStorage.clear();
     this.router.navigate(['']);
-    
+
   }
 
-  updateStore(): void {   
+  updateStore(): void {
   if(this.nameStore == "" && this.addressStore == "" ){
       this.modalService.open("Please enter name and address");
     }else{
@@ -71,5 +71,29 @@ export class UpdateStoreComponent implements OnInit {
       }
       this.storeService.updateStore(store).subscribe((res) => {console.log(res); this.router.navigate(['home'])});
     }
+  }
+  goHomePage(){
+    this.router.navigate(['home']);
+  }
+  goProducpage(){
+    this.router.navigate(['product-page']);
+  }
+  goEmployeePage(){
+    this.router.navigate(['employee-page']);
+  }
+  goUserPage(){
+    this.router.navigate(['user-page']);
+  }
+  goMaterialPage(){
+    this.router.navigate(['material-page']);
+  }
+  goHistoryMaterialPage(){
+    this.router.navigate(['history-material-page']);
+  }
+  goOrderPage(){
+    this.router.navigate(['order-page']);
+  }
+  goMenuPage(){
+    this.router.navigate(['menu-main-page']);
   }
 }

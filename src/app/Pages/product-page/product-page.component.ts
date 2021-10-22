@@ -1,21 +1,41 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DishPageModel } from 'src/app/Models/DishPageModel';
+import { ProductService } from 'src/app/Services/product.service';
 
 @Component({
   selector: 'app-product-page',
   templateUrl: './product-page.component.html',
-  styleUrls: ['../common_asset_page/css/material-dashboard-rtl.css',
-  '../common_asset_page/css/material-dashboard.css']
+  styleUrls: [
+    '../common_asset_page/css/material-dashboard-rtl.css',
+    '../common_asset_page/css/material-dashboard.css',
+  ],
 })
 export class ProductPageComponent implements OnInit {
-  constructor(private router : Router) {}
+  public urlNextpage: string = '';
+  public urlPreviouspage: string = '';
+  public currentPage: number = 0;
+  public totalPages: number = 0;
+
+  constructor(private router: Router, private productService: ProductService) {}
+
+  ngOnInit(): void {
+    this.productService.getAllProduct().subscribe((res: DishPageModel) => {
+      this.totalPages = res.metaData.totalPages
+      this.currentPage = res.metaData.currentPage
+      this.urlPreviouspage = res.metaData.previousPage;
+      this.urlNextpage = res.metaData.nextPage;
+      this.dishes = res.items;
+    });
+  }
 
   public dishes = [
     {
       id: 11,
       name: 'Mi xao',
       description: 'huong vi dam da',
-      image: 'https://upload.wikimedia.org/wikipedia/commons/9/90/M%C3%AC_x%C3%A0o_h%C3%A0o_%E1%BB%9F_T%C3%A2n_Ph%C3%BA%2C_th%C3%A1ng_6_n%C4%83m_2018_%281%29.jpg',
+      image:
+        'https://upload.wikimedia.org/wikipedia/commons/9/90/M%C3%AC_x%C3%A0o_h%C3%A0o_%E1%BB%9F_T%C3%A2n_Ph%C3%BA%2C_th%C3%A1ng_6_n%C4%83m_2018_%281%29.jpg',
       category_id: 4,
       category_name: 'Tang Can',
       status: true,
@@ -25,7 +45,8 @@ export class ProductPageComponent implements OnInit {
       id: 17,
       name: 'Ga xao chua ngot',
       description: 'Ngon hap dan',
-      image: 'https://image.cooky.vn/recipe/g3/25986/s640/recipe-cover-r25986.jpg',
+      image:
+        'https://image.cooky.vn/recipe/g3/25986/s640/recipe-cover-r25986.jpg',
       category_id: 1,
       category_name: 'Tang Can',
       status: false,
@@ -35,7 +56,8 @@ export class ProductPageComponent implements OnInit {
       id: 18,
       name: 'Mon trung giam can',
       description: 'Ngon hap dan',
-      image: 'https://dep365.com/wp-content/uploads/2021/08/3.mon-trung-ga-giam-can-480x480.png',
+      image:
+        'https://dep365.com/wp-content/uploads/2021/08/3.mon-trung-ga-giam-can-480x480.png',
       category_id: 1,
       category_name: 'Giam Can',
       status: true,
@@ -45,7 +67,8 @@ export class ProductPageComponent implements OnInit {
       id: 19,
       name: 'Thit kho Tau',
       description: 'Dam da, huong vi tuyet voi',
-      image: 'https://1.bp.blogspot.com/-Hk5P6RwLNTw/Wi4Hdw0v03I/AAAAAAAAARk/H5bC1Zq8IOIE7ShZiFH5Ab16Hn5dhW41QCLcBGAs/s1600/cach-lam-thit-kho-tau-1.jpg',
+      image:
+        'https://1.bp.blogspot.com/-Hk5P6RwLNTw/Wi4Hdw0v03I/AAAAAAAAARk/H5bC1Zq8IOIE7ShZiFH5Ab16Hn5dhW41QCLcBGAs/s1600/cach-lam-thit-kho-tau-1.jpg',
       category_id: 2,
       category_name: 'Tang Can',
       status: true,
@@ -55,7 +78,8 @@ export class ProductPageComponent implements OnInit {
       id: 20,
       name: 'Thit kho',
       description: 'Dam da, huong vi tuyet voi',
-      image: 'https://shaolin.cn.com/thit-kho-tieng-anh-la-gi/imager_144565.jpg',
+      image:
+        'https://shaolin.cn.com/thit-kho-tieng-anh-la-gi/imager_144565.jpg',
       category_id: 2,
       category_name: 'Tang Can',
       status: true,
@@ -75,7 +99,8 @@ export class ProductPageComponent implements OnInit {
       id: 22,
       name: 'Thit kho nhat',
       description: 'Dam da, huong vi tuyet voi',
-      image: 'https://wikicachlam.com/wp-content/uploads/2017/08/cach-nau-thit-kho-tau-8.jpg',
+      image:
+        'https://wikicachlam.com/wp-content/uploads/2017/08/cach-nau-thit-kho-tau-8.jpg',
       category_id: 2,
       category_name: 'Giam Can',
       status: true,
@@ -85,7 +110,8 @@ export class ProductPageComponent implements OnInit {
       id: 23,
       name: 'Kho qua ham',
       description: 'Huong vi dac biet',
-      image: 'https://upload.wikimedia.org/wikipedia/commons/8/8d/Canh_kh%E1%BB%95_qua.JPG',
+      image:
+        'https://upload.wikimedia.org/wikipedia/commons/8/8d/Canh_kh%E1%BB%95_qua.JPG',
       category_id: 3,
       category_name: 'Nguoi Benh',
       status: true,
@@ -95,7 +121,8 @@ export class ProductPageComponent implements OnInit {
       id: 24,
       name: 'Ca kho To',
       description: 'Huong vi dac biet',
-      image: 'https://lh3.googleusercontent.com/-MQmfZ504HOE/W1BPvGEB1zI/AAAAAAAAOlM/ECKZzDn2bUsdxEIPwL0e64YwG5XE3Oa8gCHMYCw/ca-loc-kho-to-1',
+      image:
+        'https://lh3.googleusercontent.com/-MQmfZ504HOE/W1BPvGEB1zI/AAAAAAAAOlM/ECKZzDn2bUsdxEIPwL0e64YwG5XE3Oa8gCHMYCw/ca-loc-kho-to-1',
       category_id: 3,
       category_name: 'Giam Can',
       status: true,
@@ -103,13 +130,39 @@ export class ProductPageComponent implements OnInit {
     },
   ];
 
-  ngOnInit(): void {}
-
-  moveToCreateDish(){
-    this.router.navigate(["create-dish-page"]);
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.productService
+        .getPagingProductPage(this.urlPreviouspage)
+        .subscribe((data: DishPageModel) => {
+          this.totalPages = data.metaData.totalPages;
+          this.currentPage = data.metaData.currentPage;
+          this.urlPreviouspage = data.metaData.previousPage;
+          this.urlNextpage = data.metaData.nextPage;
+          this.dishes = data.items;
+        });
+    }
   }
-  moveToUpdateDish(){
-    this.router.navigate(["update-dish-page"]);
+
+  nextPage() {
+    if (this.currentPage <= this.totalPages) {
+      this.productService
+        .getPagingProductPage(this.urlNextpage)
+        .subscribe((data: DishPageModel) => {
+          this.totalPages = data.metaData.totalPages;
+          this.currentPage = data.metaData.currentPage;
+          this.urlPreviouspage = data.metaData.previousPage;
+          this.urlNextpage = data.metaData.nextPage;
+          this.dishes = data.items;
+        });
+    }
+  }
+
+  moveToCreateDish() {
+    this.router.navigate(['create-dish-page']);
+  }
+  moveToUpdateDish() {
+    this.router.navigate(['update-dish-page']);
   }
   goHomePage(){
     this.router.navigate(['home']);
@@ -128,5 +181,11 @@ export class ProductPageComponent implements OnInit {
   }
   goHistoryMaterialPage(){
     this.router.navigate(['history-material-page']);
+  }
+  goOrderPage(){
+    this.router.navigate(['order-page']);
+  }
+  goMenuPage(){
+    this.router.navigate(['menu-main-page']);
   }
 }
