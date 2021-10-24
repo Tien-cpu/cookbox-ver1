@@ -7,3 +7,42 @@
 input{
   margin-bottom: 2%;
 }
+.tabcontent {
+  display: none;
+  /* padding: 6px 12px; */
+  border: 1px solid #ccc;
+  border-top: none;
+}
+.tab {
+  overflow: hidden;
+  /* border: 1px solid #ccc; */
+  background-color: #f1f1f1;
+}
+
+/* Style the buttons that are used to open the tab content */
+.tab button {
+  width: 100%;
+  /* border-radius: 30px; */
+  background-color: inherit;
+  float: left;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  /* transition: 0.3s; */
+}
+
+/* Change background color of buttons on hover */
+.tab button:hover {
+  background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+.tab button.active {
+  width: 100%;
+  background-color: rgb(86 12 7 / 40%) !important;
+  /* border-width: 1px; */
+  /* border-radius: 30px; */
+  /* padding-right: 23px; */
+  /* padding-left: 23px; */
+}
