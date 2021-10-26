@@ -28,7 +28,7 @@ export class AccountService {
             responseType: 'text'
         });
     }
-    public getTokenadmin(user:{"user":string, "pass": string}): Observable<any> {
+    public getTokenadmin(user:{"email":string, "pass": string}): Observable<any> {
 
 
         return this.http.post('http://54.255.129.30:8100/api/v1/login',

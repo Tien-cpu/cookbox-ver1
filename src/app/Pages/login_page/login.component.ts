@@ -48,7 +48,7 @@ export class LoginPageComponent implements OnInit {
       console.log("true");
       let user : User = {
         pass : "",
-        user : "",
+        email : "",
         token : token,
       }
       this.accountService.getToken(user).subscribe(

@@ -22,9 +22,9 @@ export class LoginComponent implements OnInit {
   public onSubmit(){
     console.log("click login");
     
-    const user : {"pass":string,"user":string}= {
-      pass : this.phone,
-      user : this.password,
+    const user : {"pass":string,"email":string}= {
+      pass : this.password,
+      email : this.phone,
     }
     this.accountService.getTokenadmin(user).subscribe(
       (data: any) => {

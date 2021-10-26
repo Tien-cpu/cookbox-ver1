@@ -23,7 +23,7 @@ export class FirebaseService {
         console.log("Id token: ", idToken);
         const user : User = {
           pass : "",
-          user : "",
+          email : "",
           token : idToken,
         }
         // sessionStorage.setItem('token', idToken);
