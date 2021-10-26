@@ -9,10 +9,9 @@ export class OrderDetailService {
 
   constructor(private http: HttpClient) { }
 
-  getOrderDetailsPage(orderDetailsID : any){
-    const url = "http://54.255.129.30:8100/api/v1/admin/orderdetails?order_id="+orderDetailsID;
+  getOrderDetailsPage(orderID : any){
+    const url = "http://54.255.129.30:8100/api/v1/admin/orderdetails?order_id="+orderID;
     let token = sessionStorage.getItem('token');
-    console.log('token au: ', token);
 
     return this.http.get<OrderDetailsPage>(url, {
       headers: new HttpHeaders({

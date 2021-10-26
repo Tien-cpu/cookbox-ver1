@@ -15,21 +15,21 @@ export class DetailStoreComponent {
     private storeService: StoreService,
     private router: Router ) { }
   public listmenu: Menu[] = [
-    {
-      ID: 1,
-      Name: "me nu so ti le 1",
-      StoreID: 1
-    },
-    {
-      ID: 2,
-      Name: "me nu so ti le 2",
-      StoreID: 1
-    },
-    {
-      ID: 3,
-      Name: "me nu so ti le 3",
-      StoreID: 1
-    }
+    // {
+    //   ID: 1,
+    //   Name: "me nu so ti le 1",
+    //   StoreID: 1
+    // },
+    // {
+    //   ID: 2,
+    //   Name: "me nu so ti le 2",
+    //   StoreID: 1
+    // },
+    // {
+    //   ID: 3,
+    //   Name: "me nu so ti le 3",
+    //   StoreID: 1
+    // }
   ]
   public nameStore:string="";
   public addressStore:string="";
@@ -108,9 +108,9 @@ export class DetailStoreComponent {
     this.router.navigate(['history-material-page']);
   }
   goOrderPage(){
-    this.router.navigate(['order-page']);
+    this.router.navigate(['order-left-page']);
   }
   goMenuPage(){
-    this.router.navigate(['menu-main-page']);
+    this.router.navigate(['menu-left-page']);
   }
 }

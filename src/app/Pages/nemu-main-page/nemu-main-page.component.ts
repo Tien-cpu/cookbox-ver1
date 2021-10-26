@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MenuService } from 'src/app/Services/menu.service';
 
 @Component({
   selector: 'app-nemu-main-page',
@@ -9,27 +10,29 @@ import { Router } from '@angular/router';
 })
 export class NemuMainPageComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private menuService:MenuService) { }
 
   ngOnInit(): void {
+    this.menuService.getMenus
   }
-  public menus =[
-    {
-      id: 5,
-      name: 'Thuc Don Sang',
-      status: true,
-    },
-    {
-      id: 7,
-      name: 'Thuc Don Toi',
-      status: false,
-    },
-    {
-      id: 9,
-      name: 'Thuc Don Ngay Le',
-      status: false,
-    }
-  ];
+  public menus : any;
+  // public menus =[
+  //   {
+  //     id: 5,
+  //     name: 'Thuc Don Sang',
+  //     status: true,
+  //   },
+  //   {
+  //     id: 7,
+  //     name: 'Thuc Don Toi',
+  //     status: false,
+  //   },
+  //   {
+  //     id: 9,
+  //     name: 'Thuc Don Ngay Le',
+  //     status: false,
+  //   }
+  // ];
   moveToMenuDetails(){
     this.router.navigate(['menu-page']);
   }
@@ -55,9 +58,9 @@ export class NemuMainPageComponent implements OnInit {
     this.router.navigate(['history-material-page']);
   }
   goOrderPage(){
-    this.router.navigate(['order-page']);
+    this.router.navigate(['order-left-page']);
   }
   goMenuPage(){
-    this.router.navigate(['menu-main-page']);
+    this.router.navigate(['menu-left-page']);
   }
 }

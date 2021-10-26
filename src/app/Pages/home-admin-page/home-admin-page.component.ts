@@ -142,7 +142,8 @@ export class HomeComponent {
     this.router.navigate(['create-store']);
     // this.router.navigate(["update-store"]);
   }
-  moveToOrderPage(){
+  moveToOrderPage(id:any){
+    sessionStorage.setItem('storeID-order',id);
     this.router.navigate(["order-page"]);
   }
   moveToMenu(){
@@ -245,7 +246,7 @@ export class HomeComponent {
       console.log("true");
       let user : User = {
         pass : "",
-        user : "",
+        email : "",
         token : token,
       }
       this.accountService.getToken(user).subscribe(
@@ -287,9 +288,9 @@ export class HomeComponent {
     this.router.navigate(['history-material-page']);
   }
   goOrderPage(){
-    this.router.navigate(['order-page']);
+    this.router.navigate(['order-left-page']);
   }
   goMenuPage(){
-    this.router.navigate(['menu-main-page']);
+    this.router.navigate(['menu-left-page']);
   }
 }

@@ -42,6 +42,11 @@ import { NemuMainPageComponent } from './Pages/nemu-main-page/nemu-main-page.com
 import { CreateNemuMainPageComponent } from './Pages/create-nemu-main-page/create-nemu-main-page.component';
 import { MaterialPageComponent } from './Pages/material-page/material-page.component';
 import { HistoryMaterialPageComponent } from './Pages/history-material-page/history-material-page.component';
+import { OrderLeftPageComponent } from './Pages/order-left-page/order-left-page.component';
+import { OrderDetailLeftPageComponent } from './Pages/order-detail-left-page/order-detail-left-page.component';
+import { MenuLeftPageComponent } from './Pages/menu-left-page/menu-left-page.component';
+import { MenuDetailLeftPageComponent } from './Pages/menu-detail-left-page/menu-detail-left-page.component';
+import { MenuStorePageComponent } from './Pages/menu-store-page/menu-store-page.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBCiezWik7L-So8-B2a7jtTJsjQuMfJmYk",
@@ -76,6 +81,11 @@ const firebaseConfig = {
     CreateNemuMainPageComponent,
     MaterialPageComponent,
     HistoryMaterialPageComponent,
+    OrderLeftPageComponent,
+    OrderDetailLeftPageComponent,
+    MenuLeftPageComponent,
+    MenuDetailLeftPageComponent,
+    MenuStorePageComponent
   ],
   imports: [
     BrowserModule,
@@ -100,7 +110,7 @@ const firebaseConfig = {
       {path: 'update-emp-page', component: UpdateEmployeePageComponent},
       {path: 'update-user-page', component: UpdateUserPageComponent},
       {path: 'order-page', component: OrderPageComponent},
-      {path: 'order-detail-page', component: OrderDetailPageComponent},
+      {path: 'order-details-page', component: OrderDetailPageComponent},
       {path: 'product-page', component: ProductPageComponent},
       {path: 'create-dish-page', component: CreateProductPageComponent},
       {path: 'update-dish-page', component: UpdateProductPageComponent},
@@ -110,6 +120,11 @@ const firebaseConfig = {
       {path: 'create-nemu-main-page', component: CreateNemuMainPageComponent},
       {path: 'material-page', component: MaterialPageComponent},
       {path: 'history-material-page', component: HistoryMaterialPageComponent},
+      {path: 'order-left-page', component: OrderLeftPageComponent},
+      {path: 'order-details-left-page', component: OrderDetailLeftPageComponent},
+      {path: 'menu-left-page', component: MenuLeftPageComponent},
+      {path: 'menu-detail-left-page', component: MenuDetailLeftPageComponent},
+      {path: 'menu-store-page', component: MenuStorePageComponent},
 
 
     ])

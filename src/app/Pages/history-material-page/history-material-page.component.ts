@@ -97,6 +97,6 @@ export class HistoryMaterialPageComponent implements OnInit {
     this.router.navigate(['order-page']);
   }
   goMenuPage(){
-    this.router.navigate(['menu-main-page']);
+    this.router.navigate(['menu-left-page']);
   }
 }

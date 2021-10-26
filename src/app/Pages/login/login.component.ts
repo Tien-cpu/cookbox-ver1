@@ -12,7 +12,7 @@ import { AccountService } from '../../Services/account.service'
 })
 export class LoginComponent implements OnInit {
 
-  public phone:string = "" ;
+  public email:string = "" ;
   public password:string = "";
   constructor(private firebaseService : FirebaseService, private accountService : AccountService, private router: Router ) { }
 
@@ -21,16 +21,16 @@ export class LoginComponent implements OnInit {
 
   public onSubmit(){
     console.log("click login");
-    
-    const user : {"pass":string,"user":string}= {
-      pass : this.phone,
-      user : this.password,
+
+    const user : {"pass":string,"email":string}= {
+      email : this.email,
+      pass : this.password,
     }
     this.accountService.getTokenadmin(user).subscribe(
       (data: any) => {
         console.log("true");
           console.log(data);
-          
+
           const obj = JSON.parse(data);
           sessionStorage.setItem('token', obj.token);
           this.router.navigate(['home']);
@@ -40,10 +40,10 @@ export class LoginComponent implements OnInit {
 
 
   loginWithGoogle(){
-    
-    
-    
+
+
+
     this.firebaseService.loginWithGoogle();
-    
+
   }
 }

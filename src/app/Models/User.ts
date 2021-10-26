@@ -1,5 +1,5 @@
 export interface User{
-  "user":string;
+  "email":string;
   "pass":string;
   "token":string;
 }

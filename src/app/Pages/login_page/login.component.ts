@@ -38,9 +38,6 @@ export class LoginPageComponent implements OnInit {
   nextPage(){}
   viewDetailMenu(){}
   loginWithGoogle(){
-    
-    
-    
     this.firebaseService.loginWithGoogle();
     this.firebaseService.getIdToken();
     let token: string | null= sessionStorage.getItem('token');
@@ -48,7 +45,7 @@ export class LoginPageComponent implements OnInit {
       console.log("true");
       let user : User = {
         pass : "",
-        user : "",
+        email : "",
         token : token,
       }
       this.accountService.getToken(user).subscribe(

@@ -23,7 +23,7 @@ export class FirebaseService {
         console.log("Id token: ", idToken);
         const user : User = {
           pass : "",
-          user : "",
+          email : "",
           token : idToken,
         }
         // sessionStorage.setItem('token', idToken);
@@ -31,7 +31,7 @@ export class FirebaseService {
           (data: any) => {
             console.log("true");
               console.log(data);
-              
+
               const obj = JSON.parse(data);
               sessionStorage.setItem('token', obj.token);
               this.router.navigate(['home']);
