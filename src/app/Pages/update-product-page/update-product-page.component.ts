@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { DishService } from '../../Services/dish.service';
+import { Dish } from 'src/app/Models/Dish';
+import { dishpage } from '../../Models/AdminDishPageModel';
 @Component({
   selector: 'app-update-product-page',
   templateUrl: './update-product-page.component.html',
@@ -9,11 +12,64 @@ import { Router } from '@angular/router';
 })
 export class UpdateProductPageComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router , private dishService : DishService, ) { }
+  
+  showDropDown:boolean = true;
+  displayddl:string = 'block';
+  displayddl2:string = 'none';
+  displayddl3:string = 'none';
+  activeddl:string= 'active';
+  activeddl2:string= '';
+  activeddl3:string= '';
 
-  ngOnInit(): void {
+  opentab(tab:String){
+    if(tab === 'ThongTin'){
+      this.displayddl = 'block';
+      this.displayddl2 = 'none';
+      this.displayddl3 = 'none';
+      this.activeddl = 'active';
+      this.activeddl2 = '';
+      this.activeddl3 = '';
+    }else if(tab === 'ThanhPhan'){
+      this.displayddl = 'none';
+      this.displayddl2 = 'block';
+      this.displayddl3 = 'none';
+      this.activeddl = '';
+      this.activeddl2 = 'active';
+      this.activeddl3 = '';
+    }else if(tab === 'TienHanh'){
+      this.displayddl = 'none';
+      this.displayddl2 = 'none';
+      this.displayddl3 = 'block';
+      this.activeddl = '';
+      this.activeddl2 = '';
+      this.activeddl3 = 'active';
+    }
+    // this.showDropDown = !this.showDropDown;
+    // this.displayddl = this.showDropDown ? "inline" : "none";
+    // this.displayddl2 = ! this.showDropDown ? "inline" : "none";
   }
-
+  public dish : Dish = {
+    id:0,
+    category_id:0,
+    category_name:'',
+    description:'',
+    image:'',
+    name:'',
+    parent_id:0,
+    status:true,
+  };
+  ngOnInit(): void {
+    let id : number = Number(sessionStorage.getItem('dishid'));
+      this.dishService.getAStore(id).subscribe((data: Dish) => {
+        // this.store = data;
+        // this.btital = 'Store ' + this.store.name;
+        // this.ltital = 'Enter infor you want update';
+        // this.nameStore = this.store.name;
+        // this.addressStore = this.store.address;
+        this.dish = data
+      });
+  }
   public ingredients = [
     {
       id: 1,

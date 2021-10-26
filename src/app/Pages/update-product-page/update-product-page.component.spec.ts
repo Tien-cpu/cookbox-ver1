@@ -22,4 +22,5 @@ describe('UpdateProductPageComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  
 });

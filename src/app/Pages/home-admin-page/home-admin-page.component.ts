@@ -118,6 +118,7 @@ export class HomeComponent {
   public selectedDistrict: string = '';
   public urlNextpage: string = '';
   public urlPreviouspage: string = '';
+  public urlCurrentpage: string = '';
   public currentPage: number = 0;
   public totalPages: number = 0;
   ngOnInit() {
@@ -126,6 +127,7 @@ export class HomeComponent {
       this.currentPage = data.metaData.currentPage
       this.urlPreviouspage = data.metaData.previousPage;
       this.urlNextpage = data.metaData.nextPage;
+      this.urlCurrentpage = data.metaData.currentPageUri;
       this.store = data.items;
     });
   }
@@ -150,13 +152,15 @@ export class HomeComponent {
     this.router.navigate(["menu-main-page"]);
   }
   removestore(fg: Store){
-    console.log(fg)
     this.storeService.deletestoreTMP(fg).subscribe((res) => {
-      this.storeService.getDataPageHome().subscribe((data: adminpage) => {
-        this.urlPreviouspage = data.metaData.hasPrevious;
-        this.urlPreviouspage = data.metaData.hasNext;
+      this.storeService.getDataPageHomePaging(this.urlCurrentpage).subscribe((data: adminpage) => {
+        this.totalPages = data.metaData.totalPages
+        this.currentPage = data.metaData.currentPage
+        this.urlPreviouspage = data.metaData.previousPage;
+        this.urlCurrentpage = data.metaData.currentPageUri;
+        this.urlNextpage = data.metaData.nextPage;
         this.store = data.items;
-    });});
+      });});
   }
   public viewDetailStore(fg: number) {
     let index = this.store.findIndex(c => c.id === fg);
@@ -216,7 +220,8 @@ export class HomeComponent {
       this.totalPages = data.metaData.totalPages
       this.currentPage = data.metaData.currentPage
       this.urlPreviouspage = data.metaData.previousPage;
-      this.urlPreviouspage = data.metaData.nextPage;
+      this.urlCurrentpage = data.metaData.currentPageUri;
+      this.urlNextpage = data.metaData.nextPage;
       this.store = data.items;
     });}
 }
@@ -226,6 +231,7 @@ export class HomeComponent {
     this.totalPages = data.metaData.totalPages
     this.currentPage = data.metaData.currentPage
     this.urlPreviouspage = data.metaData.previousPage;
+    this.urlCurrentpage = data.metaData.currentPageUri;
     this.urlNextpage = data.metaData.nextPage;
     this.store = data.items;
   });}
@@ -246,7 +252,7 @@ export class HomeComponent {
       console.log("true");
       let user : User = {
         pass : "",
-        email : "",
+        email  : "",
         token : token,
       }
       this.accountService.getToken(user).subscribe(

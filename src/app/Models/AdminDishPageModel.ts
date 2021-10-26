@@ -1,6 +1,6 @@
-import { Store } from './Store';
+import { Dish } from './Dish';
 
-export class adminpage {
+export class dishpage {
     "metaData": {
         "currentPage": number,
         "totalPages": number,
@@ -14,5 +14,5 @@ export class adminpage {
         "lastPage": string,
         "currentPageUri" : string,
     };
-    "items": Store[]
+    "items": Dish[]
 }

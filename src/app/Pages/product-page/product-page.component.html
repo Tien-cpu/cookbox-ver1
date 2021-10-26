@@ -246,13 +246,13 @@
                         <a
                           class="btn btn-outline-info"
                           style="width: 100px"
-                          (click)="moveToUpdateDish()"
+                          (click)="moveToUpdateDish(dish)"
                         >
                           Sửa
                         </a>
                       </td>
                       <td *ngIf="dish.status == true">
-                        <a class="btn btn-outline-danger" style="width: 100px">
+                        <a class="btn btn-outline-danger" style="width: 100px"(click)="removeDish(dish)">
                           Xóa
                         </a>
                       </td>
@@ -261,6 +261,7 @@
                           disabled
                           class="btn btn-outline-light"
                           style="width: 100px; color: black"
+                          (click)="removeDish(dish)"
                         >
                           Xóa
                         </button>
