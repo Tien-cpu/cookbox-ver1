@@ -21,4 +21,15 @@ export class MenuDetailService {
     })
   }
 
+  getDishByDishID(dishID : any){
+    const url = "http://54.255.129.30:8100/api/v1/admin/dishes/"+dishID;
+    let token = sessionStorage.getItem('token');
+    return this.http.get<Menu>(url, {
+      headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+      })
+    })
+  }
+
 }

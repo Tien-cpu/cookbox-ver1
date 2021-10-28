@@ -10,7 +10,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
   selector: 'app-create_store_page',
   templateUrl: './create_store_page.component.html',
   styleUrls: ['./create_store_page.component.css','../common_asset_page/css/material-dashboard-rtl.css',
-  '../common_asset_page/css/material-dashboard.css',]
+  '../common_asset_page/css/material-dashboard.css', './create_store_page.component.css']
 })
 export class CreateStoreComponent implements OnInit {
 

@@ -20,7 +20,7 @@ export class MenuDetailLeftPageComponent implements OnInit {
   }
   public menuDetails : any;
   moveToCreateMenu(){
-    this.router.navigate(["create-menu-page"]);
+    this.router.navigate(["create-menu-detail-left-page"]);
   }
   goHomePage(){
     this.router.navigate(['home']);

@@ -1,59 +1,113 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Menu } from 'src/app/Models/Menu';
+import { MenuPage } from 'src/app/Models/MenuPageModel';
 import { MenuService } from 'src/app/Services/menu.service';
 
 @Component({
   selector: 'app-menu-left-page',
   templateUrl: './menu-left-page.component.html',
-  styleUrls: ['../common_asset_page/css/material-dashboard-rtl.css',
-  '../common_asset_page/css/material-dashboard.css',]
+  styleUrls: [
+    '../common_asset_page/css/material-dashboard-rtl.css',
+    '../common_asset_page/css/material-dashboard.css',
+  ],
 })
 export class MenuLeftPageComponent implements OnInit {
+  public urlNextpage: string = '';
+  public urlPreviouspage: string = '';
+  public urlCurrentpage: string = '';
+  public currentPage: number = 0;
+  public totalPages: number = 0;
 
-  constructor(private router: Router, private menuService: MenuService) { }
+  constructor(private router: Router, private menuService: MenuService) {}
 
   ngOnInit(): void {
-    this.menuService.getMenus().subscribe(res =>{
-      this.menus = res.items;
-    })
+    this.menuService.getMenus().subscribe((data) => {
+      this.totalPages = data.metaData.totalPages;
+      this.currentPage = data.metaData.currentPage;
+      this.urlPreviouspage = data.metaData.previousPage;
+      this.urlNextpage = data.metaData.nextPage;
+      this.urlCurrentpage = data.metaData.currentPageUri;
+      this.menus = data.items;
+    });
   }
-  public menus : any;
-  moveToMenuDetails(menuID: any){
+  public menus: any;
+
+  deleteMenu(menu: Menu) {
+    this.menuService.updateStatusMenu(menu).subscribe((res) => {});
+  }
+  createMenuLeft() {
+    this.router.navigate(['create-menu-left-page']);
+  }
+  updateMenu(menuID : any){
+    sessionStorage.setItem('menuID', menuID);
+    this.router.navigate(['update-menu-left-page']);
+  }
+  previousPage() {
+    if (this.currentPage > 1) {
+      this.menuService
+        .getMenuPaging(this.urlPreviouspage)
+        .subscribe((data: MenuPage) => {
+          this.totalPages = data.metaData.totalPages;
+          this.currentPage = data.metaData.currentPage;
+          this.urlPreviouspage = data.metaData.previousPage;
+          this.urlCurrentpage = data.metaData.currentPageUri;
+          this.urlNextpage = data.metaData.nextPage;
+          this.menus = data.items;
+        });
+    }
+  }
+  nextPage() {
+    if (this.currentPage <= this.totalPages) {
+      this.menuService
+        .getMenuPaging(this.urlNextpage)
+        .subscribe((data: MenuPage) => {
+          this.totalPages = data.metaData.totalPages;
+          this.currentPage = data.metaData.currentPage;
+          this.urlPreviouspage = data.metaData.previousPage;
+          this.urlCurrentpage = data.metaData.currentPageUri;
+          this.urlNextpage = data.metaData.nextPage;
+          this.menus = data.items;
+        });
+    }
+  }
+
+
+
+  moveToMenuDetails(menuID: any) {
     sessionStorage.setItem('menuID', menuID);
     this.router.navigate(['menu-detail-left-page']);
   }
-  moveToCreateMainMenu(){
+  moveToCreateMainMenu() {
     this.router.navigate(['create-nemu-main-page']);
   }
-  goHomePage(){
+  goHomePage() {
     this.router.navigate(['home']);
   }
-  goProducpage(){
+  goProducpage() {
     this.router.navigate(['product-page']);
   }
-  goEmployeePage(){
+  goEmployeePage() {
     this.router.navigate(['employee-page']);
   }
-  goUserPage(){
+  goUserPage() {
     this.router.navigate(['user-page']);
   }
-  goMaterialPage(){
+  goMaterialPage() {
     this.router.navigate(['material-page']);
   }
-  goHistoryMaterialPage(){
+  goHistoryMaterialPage() {
     this.router.navigate(['history-material-page']);
   }
-  goOrderPage(){
+  goOrderPage() {
     this.router.navigate(['order-left-page']);
   }
-  goMenuPage(){
+  goMenuPage() {
     this.router.navigate(['menu-left-page']);
   }
-  deleteMenu(id : number){
 
-  }
-
-  goMenuStore(){
+  goMenuStore(id: any) {
+    sessionStorage.setItem('menuID', id);
     this.router.navigate(['menu-store-page']);
   }
 }

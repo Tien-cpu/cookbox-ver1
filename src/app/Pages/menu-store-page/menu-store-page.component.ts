@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MenuStoreService } from 'src/app/Services/menu-store.service';
 
 @Component({
   selector: 'app-menu-store-page',
@@ -11,10 +12,18 @@ import { Router } from '@angular/router';
 })
 export class MenuStorePageComponent implements OnInit {
 
-  constructor(private router: Router) { }
+  constructor(private router: Router, private menuStoreService: MenuStoreService) { }
 
   ngOnInit(): void {
+    const menuID = sessionStorage.getItem('menuID');
+    this.menuStoreService.getStoreByMenuID(menuID).subscribe(res =>{
+      this.menuStores = res.menu_stores;
+      this.menus = res;
+    })
   }
+
+  public menuStores : any;
+  public menus : any;
 
   logOut() {
     sessionStorage.clear();
@@ -47,4 +56,5 @@ export class MenuStorePageComponent implements OnInit {
   backToOrderPage(){
     this.router.navigate(['order-left-page']);
   }
+
 }

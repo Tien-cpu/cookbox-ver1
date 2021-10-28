@@ -161,39 +161,28 @@
             <div class="card">
               <div class="card-header card-header-danger">
                 <h4 class="card-title">
-                  Danh sách các thực đơn của chi nhánh CookBox Binh Tan
+                  Danh sách các thực đơn
                 </h4>
                 <p class="card-category">
-                  Bạn có thể quản lý các thực đơn của chi nhánh này tại đây
+                  Bạn có thể <span style="font-weight: 500; color: white;">click vào Tên Thực Đơn bất kỳ để xem danh sách các Cửa Hàng đang sử dụng Thực Đơn đó</span>
                 </p>
               </div>
               <div class="controller" style="margin-top: 1.5%">
                 <div class="dropdown" style="float: left; margin-left: 45.5%">
-                  <button
-                    class="btn btn-secondary dropdown-toggle"
-                    type="button"
-                    data-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                    style="font-weight: 500"
-                  >
-                    Trạng thái
-                  </button>
-                  <div
-                    class="dropdown-menu"
-                    aria-labelledby="dropdownMenuButton"
-                  >
-                    <a class="dropdown-item">Active</a>
-                    <a class="dropdown-item">Unactive</a>
-                  </div>
+                  <select class="custom-select custom-select-md">
+                    <option selected>Trạng thái</option>
+                    <option value="1">Đang hoạt động</option>
+                    <option value="2">Ngừng Hoạt động</option>
+                  </select>
                 </div>
                 <div class="create" style="float: right; margin-right: -3%">
                   <a
                     class="btn btn-outline-success"
                     style="width: 100px; margin-right: 50px"
-                    (click)="moveToCreateMainMenu()"
-                    >Thêm</a
-                  >
+                    (click)="createMenuLeft()">
+                    Thêm
+                  </a>
+
                 </div>
               </div>
               <div class="card-body table-responsive">
@@ -203,7 +192,6 @@
                       <th>#</th>
                       <th>ID</th>
                       <th>Tên thực đơn</th>
-                      <th>Giờ hoạt động</th>
                       <th>Trạng thái</th>
                       <th>Chi tiết</th>
                       <th>Chỉnh sửa</th>
@@ -215,10 +203,8 @@
                       <td>{{ i + 1 }}</td>
                       <td>{{menu.id}}</td>
                       <td>
-                        <a (click)="goMenuStore()" style="font-weight: 500;">{{menu.session_name}}</a>
-
+                        <a (click)="goMenuStore(menu.id)" style="font-weight: 500;">{{menu.name}}</a>
                       </td>
-                      <td>{{menu.timeFrom}}h-{{menu.timeTo}}h</td>
                       <td *ngIf="menu.status == true">
                         <span
                           class="badge badge-pill badge-success"
@@ -245,12 +231,12 @@
                         </a>
                       </td>
                       <td>
-                        <a class="btn btn-outline-info" style="width: 100px">
+                        <a class="btn btn-outline-info" style="width: 100px" (click)="updateMenu(menu.id)" >
                           Sửa
                         </a>
                       </td>
                       <td *ngIf="menu.status == true">
-                        <a class="btn btn-outline-danger" style="width: 100px" (click)="deleteMenu(menu.id)">
+                        <a class="btn btn-outline-danger" style="width: 100px" (click)="deleteMenu(menu)">
                           Xóa
                         </a>
                       </td>
@@ -268,9 +254,9 @@
                 </table>
                 <nav aria-label="Page navigation example">
                   <ul class="pagination justify-content-center">
-                    <li class="page-item"><a class="page-link">Trước</a></li>
-                    <li class="page-item"><div class="page-link">1/2</div></li>
-                    <li class="page-item"><a class="page-link">Sau</a></li>
+                    <li class="page-item"><a class="page-link" (click)="previousPage()">Trước</a></li>
+                    <li class="page-item"><div class="page-link">{{currentPage}}/{{totalPages}}</div></li>
+                    <li class="page-item"><a class="page-link" (click)="nextPage()">Sau</a></li>
                   </ul>
                 </nav>
               </div>

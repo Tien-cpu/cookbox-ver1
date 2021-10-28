@@ -37,13 +37,13 @@
               <p>Người dùng</p>
             </a>
           </li>
-          <li class="nav-item  ">
+          <li class="nav-item active ">
             <a class="nav-link" (click)="goMenuPage()">
               <i class="material-icons">menu_book</i>
               <p>Thực đơn</p>
             </a>
           </li>
-          <li class="nav-item active">
+          <li class="nav-item ">
             <a class="nav-link" (click)="goOrderPage()">
               <i class="material-icons">list_alt</i>
               <p>Đơn hàng</p>
@@ -75,7 +75,7 @@
     <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
       <div class="container-fluid">
         <div class="navbar-wrapper">
-          <a class="navbar-brand" href="javascript:;" style="font-size: 30px;">Đơn Hàng</a>
+          <a class="navbar-brand" href="javascript:;" style="font-size: 30px;">Các Cửa Hàng Đang Sử Dụng</a>
         </div>
         <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
           <span class="sr-only">Toggle navigation</span>
@@ -121,8 +121,10 @@
           <div class="col-lg-12 col-md-12">
             <div class="card">
               <div class="card-header card-header-danger">
-                <h4 class="card-title">Danh sách các Đơn Hàng</h4>
-                <p class="card-category">Bạn có thể xem những đơn hàng tại đây</p>
+                <h4 class="card-title">
+                  Danh sách các Cửa Hàng đang sử dụng Thực Đơn: <span style="font-weight: 500;">{{menus.name}}</span> với
+                  ID: <span style="font-weight: 500;">{{menus.id}}</span></h4>
+                <p class="card-category">Bạn có thể xem danh sách các Cửa Hàng tại đây</p>
               </div>
 
               <div class="card-body table-responsive">
@@ -130,45 +132,27 @@
                   <thead class="text-warning">
                     <tr>
                       <th>#</th>
-                      <th>ID</th>
-                      <th>Cửa hàng</th>
-                      <th>Tên khách hàng</th>
-                      <th>Cách thanh toán</th>
-                      <th>Ngày đặt hàng</th>
-                      <th>Tổng tiền</th>
-                      <th>Trạng thái</th>
-                      <th>Chi tiết</th>
-                      <th></th>
-                      <th></th>
+                      <th>Tên Cửa Hàng</th>
+                      <th>Buổi</th>
+                      <th>Thời gian hoạt động</th>
                     </tr>
                   </thead>
                   <tbody>
-                    <tr >
-                      <td>{{i + 1}</td>
-                      <td>{{ order.id }</td>
-                      <td>
-                        <a >{{ order.store_name } </a>
-
-
-                      </td>
-                      <td>{{ order.user_name }</td>
-                      <td>{{order.payment_name}</td>
-                      <td>{{ order.date | date:'yyyy-MM-dd HH:mm:ss' }</td>
-                      <td>{{order.total}đ</td>
-
-
-                      <td>
-                        <a class="btn btn-outline-info" >Xem</a>
-                      </td>
-                      <td>
-                        <a class="btn btn-outline-success" >Nhận</a>
-                      </td>
-                      <td>
-                        <a class="btn btn-outline-danger" >Từ chối</a>
-                      </td>
+                    <tr *ngFor="let menuStore of menuStores; let i = index">
+                      <td>{{i + 1}}</td>
+                      <td>{{menuStore.store_name}}</td>
+                      <td>{{menuStore.session_name}}</td>
+                      <td>{{menuStore.time_from}}h~{{menuStore.time_to}}h</td>
                     </tr>
                   </tbody>
                 </table>
+                <a
+                  class="btn btn-outline-success"
+                  style="width: 100px; margin-left: 45%; margin-bottom: 2%"
+                  (click)="goMenuPage()">
+                  Trở Về
+                </a>
+
                 <!-- <nav aria-label="Page navigation example">
                   <ul class="pagination justify-content-center">
                       <li class="page-item"><a class="page-link" (click)="previousPage()">Trước</a></li>
