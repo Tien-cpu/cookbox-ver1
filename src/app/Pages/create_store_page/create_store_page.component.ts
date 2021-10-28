@@ -20,6 +20,7 @@ export class CreateStoreComponent implements OnInit {
    addressStore:string="";
    btital: string ='';
    ltital: string = '';
+   
    public store: Store = {
     id:0,
     name:"",
@@ -28,6 +29,23 @@ export class CreateStoreComponent implements OnInit {
     menus:[],
     orders:[]
   }
+  ListStatus: {
+    "value" : string,
+    "key": string,
+    "class" : string
+  }[] = [
+    {
+      key: 'close',
+      value: 'Ngừng Hoạt Đọng',
+      class: ''
+    },
+    {
+      key: 'open',
+      value: 'Hoạt Đọng',
+      class: 'selected'
+    },
+  ]
+  public selectstatus: string = '';
   statusRef: boolean = true;
   constructor(
      private accountService : AccountService,
@@ -41,6 +59,7 @@ export class CreateStoreComponent implements OnInit {
       this.btital = 'Create a new Store';
       this.ltital = 'Enter infor you want add';
       this.statusRef = true;
+      this.selectstatus = this.ListStatus[0].key
     }else if(status == 'update'){
 
       this.statusRef = false;
@@ -51,11 +70,20 @@ export class CreateStoreComponent implements OnInit {
         this.btital = 'Store ' + this.store.name;
         this.ltital = 'Enter infor you want update';
         this.nameStore = this.store.name;
-        this.addressStore = this.store.address;});
+        this.addressStore = this.store.address;
+        if(this.store.status){
+          this.selectstatus = this.ListStatus[1].key
+        }else{
+          this.selectstatus = this.ListStatus[0].key
+        }
+      });
 
     }
+    
   }
-
+  onChangeStatus() {
+    console.log(this.selectstatus)
+  }
   public onSubmit(){
     console.log("click login");
     // this.router.navigate(['home'])
@@ -96,6 +124,11 @@ export class CreateStoreComponent implements OnInit {
         name : this.nameStore,
         address : this.addressStore,
         status : true
+      }
+      if(this.selectstatus === 'open'){
+        store.status = true;
+      }else{
+        store.status = false;
       }
       this.storeService.updateStore(store).subscribe((res) => {console.log(res.data);
         this.modalService.open("cập nhật thành công");
