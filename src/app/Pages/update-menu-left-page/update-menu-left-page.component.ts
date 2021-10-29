@@ -12,7 +12,9 @@ import { MenuService } from 'src/app/Services/menu.service';
   ],
 })
 export class UpdateMenuLeftPageComponent implements OnInit {
-
+  public selectstatus: string = '';
+  public menuName = "";
+  public menuStatus = true;
   constructor(private router: Router, private menuService : MenuService) { }
   public menus : {
     "id":number,
@@ -21,31 +23,71 @@ export class UpdateMenuLeftPageComponent implements OnInit {
   } = {
     id : 0,
     name : "",
-    status : false
+    status : true
   };
 
+  listStatus: {
+    "value" : string,
+    "key": string,
+    "class" : string
+  }[] = [
+    {
+      key: 'close',
+      value: 'Ngừng Hoạt Động',
+      class: ''
+    },
+    {
+      key: 'open',
+      value: 'Đang Hoạt Động',
+      class: 'selected'
+    },
+  ]
 
   ngOnInit(): void {
-    this.menuService.getMenus().subscribe((res =>{
-      console.log('item: ', res.items[6].status);
-    }))
+    // this.menuService.getMenus().subscribe((res =>{
+
+    // }))
     const menuID = sessionStorage.getItem('menuID');
     this.menuService.getMenusByID(menuID).subscribe(res =>{
       this.menus = res;
-    })
+      this.menuName = res.name;
+      this.menuStatus = res.status;
+      if(this.menus.status){
+        this.selectstatus = this.listStatus[1].key;
+      }else{
+        this.selectstatus = this.listStatus[0].key;
+      }
+    });
   }
   updateMenu(){
-    console.log('menu update', this.menus);
+    console.log('menuName:',this.menuName);
 
-    this.menuService.updateMenu(this.menus).subscribe(res=>{
+    let menuID : any = sessionStorage.getItem('menuID');
+    let menus : {
+      "id":number,
+      "name":string,
+      "status": boolean
+    } = {
+      id : menuID,
+      name : this.menuName,
+      status : true
+    };
+    if(this.selectstatus === 'open'){
+      menus.status = true;
+    }else{
+      menus.status = false;
+    }
+    // console.log('menuID',menuID);
+    // console.log('name',menus.name);
+    // console.log('status',menus.status);
+
+    console.log('menu in ts:', menus);
+
+    this.menuService.updateMenu(menus).subscribe(res=>{
     this.goMenuPage();
     })
   }
-  checkDuplicateCbb(){
-    let listStatus: any[];
 
-
-  }
   goHomePage() {
     this.router.navigate(['home']);
   }

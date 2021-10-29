@@ -20,7 +20,7 @@ export class CreateStoreComponent implements OnInit {
    addressStore:string="";
    btital: string ='';
    ltital: string = '';
-   
+
    public store: Store = {
     id:0,
     name:"",
@@ -36,12 +36,12 @@ export class CreateStoreComponent implements OnInit {
   }[] = [
     {
       key: 'close',
-      value: 'Ngừng Hoạt Đọng',
+      value: 'Ngừng Hoạt Động',
       class: ''
     },
     {
       key: 'open',
-      value: 'Hoạt Đọng',
+      value: 'Hoạt Động',
       class: 'selected'
     },
   ]
@@ -55,6 +55,8 @@ export class CreateStoreComponent implements OnInit {
 
   ngOnInit(): void {
     var status:string|null = sessionStorage.getItem('statusStore');
+    console.log('status var', status);
+
     if(status == 'create'){
       this.btital = 'Create a new Store';
       this.ltital = 'Enter infor you want add';
@@ -66,7 +68,7 @@ export class CreateStoreComponent implements OnInit {
       let id : number = Number(sessionStorage.getItem('storeid'));
       console.log(id+'store')
       this.storeService.getAStore(id).subscribe((data: Store) => {
-        console.log(data);this.store = data;
+        console.log('123',data);this.store = data;
         this.btital = 'Store ' + this.store.name;
         this.ltital = 'Enter infor you want update';
         this.nameStore = this.store.name;
@@ -79,7 +81,7 @@ export class CreateStoreComponent implements OnInit {
       });
 
     }
-    
+
   }
   onChangeStatus() {
     console.log(this.selectstatus)

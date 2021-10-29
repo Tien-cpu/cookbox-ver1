@@ -155,15 +155,13 @@
               <form (ngSubmit)="updateMenu()">
                 <div class="form-group">
                   <label style="color: black">Tên thực đơn</label>
-                  <input type="email" class="form-control" value="{{menus.name}}" [(ngModel)]="menus.name" name="name"/>
+                  <input type="email" class="form-control" [(ngModel)]="menuName" name="name"/>
                   <label style="color: black">Trạng thái</label> <br/>
-                  <select class="custom-select custom-select-md" style="width: auto;" [(ngModel)]="menus.status" name="status">
-                    <option [ngValue]="menus.status == true"   selected>Đang hoạt động</option>
+                  <select class="custom-select custom-select-md" style="width: auto;" [(ngModel)]="selectstatus" name="status">
+                    <!-- <option [ngValue]="menus.status == true"   selected>Đang hoạt động</option>
                     <option [ngValue]="menus.status == false">Ngừng hoạt động</option>
-
-                    <option *ngIf="menus.status == false">Đang hoạt động</option>
-
-
+                    <option *ngIf="menus.status == false">Đang hoạt động</option> -->
+                    <option [value]="st.key" *ngFor="let st of listStatus" [selected]="st.class==='selected'" value="{{st.key}}">{{st.value}}</option>
                   </select>
                 </div>
                 <button

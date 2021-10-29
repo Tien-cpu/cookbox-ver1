@@ -32,4 +32,31 @@ export class MenuDetailService {
     })
   }
 
+  // thêm món ăn vào MenuDetail
+  AddDishInMenuDetail(menu : {
+    "id": number,
+    "name": string,
+    "status": boolean,
+    "menu_details":[
+      {
+        // "id": number,
+        "dish_id": number,
+        "dish_name": string,
+        "price": number,
+        "status": boolean
+      }
+    ]
+  }):Observable<any>{
+    // console.log('big data', menu);
+
+    const url = "http://54.255.129.30:8100/api/v1/admin/menus";
+    let token = sessionStorage.getItem('token');
+    return this.http.put(url,menu,{
+      headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+      })
+    })
+  }
+
 }

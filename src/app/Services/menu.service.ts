@@ -23,10 +23,10 @@ export class MenuService {
     })
   }
 
-  getMenusByID(menuID : any):Observable<Menu>{
+  getMenusByID(menuID : any):Observable<any>{
     const url = "http://54.255.129.30:8100/api/v1/admin/menus/"+menuID;
     let token = sessionStorage.getItem('token');
-    return this.http.get<Menu>(url, {
+    return this.http.get<any>(url, {
       headers: new HttpHeaders({
           'Content-Type': 'application/json',
           'Authorization': `Bearer ${token}`
@@ -79,6 +79,7 @@ export class MenuService {
     "name":string,
     "status": boolean
   }) : Observable<any>{
+
     const url ='http://54.255.129.30:8100/api/v1/admin/menus';
     let token = sessionStorage.getItem('token');
     return this.http.put(url,menus,{

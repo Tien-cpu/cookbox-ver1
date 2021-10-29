@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Menu } from 'src/app/Models/Menu';
 import { MenuDetailService } from 'src/app/Services/menu-detail.service';
+import { MenuService } from 'src/app/Services/menu.service';
 
 @Component({
   selector: 'app-create-menu-detail-left-page',
@@ -12,23 +14,34 @@ import { MenuDetailService } from 'src/app/Services/menu-detail.service';
   ],
 })
 export class CreateMenuDetailLeftPageComponent implements OnInit {
-  dishID: string = '';
+  dishID: number | any; // dùng để lấy input DishID
+  dishName: string = '';
+  price: number | any;
   constructor(
     private router: Router,
-    private menuDetailService: MenuDetailService
+    private menuDetailService: MenuDetailService,
+    private menuService : MenuService
   ) {}
 
-  ngOnInit(): void {}
-  public menuDetail : {
-    "dish_id":number,
-    "dish_name": string
-    "price":number
-  } = {
-    dish_id:0,
-    dish_name:"",
-    price:0
+  ngOnInit(): void {
+    // const menuID = sessionStorage.getItem('menuID');
+    // this.menuService.getMenusByID(menuID).subscribe(res=>{
+    //   this.menu = res;
+    //   console.log('cuq',this.menu);
+
+    // })
   }
+  // public menuDetail : {
+  //   "dish_id":number,
+  //   "dish_name": string
+  //   "price":number
+  // } = {
+  //   dish_id:0,
+  //   dish_name:"",
+  //   price:0
+  // }
   public dishes: any;
+
 
   loadDish() {
     this.menuDetailService.getDishByDishID(this.dishID).subscribe((res) => {
@@ -36,8 +49,54 @@ export class CreateMenuDetailLeftPageComponent implements OnInit {
 
     });
   }
+
   createMenuDetail() {
-    this.menuDetail = this.dishes;
+    let menu : {
+      "id": number,
+      "name": string,
+      "status": boolean,
+      "menu_details":[
+        {
+          "dish_id": number,
+          "dish_name": string,
+          "price": number,
+          "status": boolean
+        }
+      ]
+    } = {
+      id : 0,
+      name: "",
+      status: false,
+      menu_details:[
+        {
+          dish_id:0,
+          dish_name:"",
+          price:0,
+          status: false
+        }
+      ]
+    }
+    const menuID:any = sessionStorage.getItem('menuID');
+    this.menuService.getMenusByID(menuID).subscribe(res=>{
+      menu = {
+        id : res.id,
+        name: res.name,
+        status: res.status,
+        menu_details:[
+          {
+            dish_id: this.dishID,
+            dish_name: this.dishes.name,
+            price: this.price,
+            status: true
+          }
+        ]
+      }
+      console.log('big data', menu);
+      this.menuDetailService.AddDishInMenuDetail(menu).subscribe(res=>{
+        this.goMenuDetail();
+      })
+    })
+
 
   }
   goHomePage() {
