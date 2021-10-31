@@ -22,6 +22,20 @@ export class MenuService {
       })
     })
   }
+  getMenusSearch(name : string, status: string):Observable<MenuPage>{
+    var url = "http://54.255.129.30:8100/api/v1/admin/menus?name="+name;
+    if(status != ''){
+      url = url+ '&status='+status
+    }
+    let token = sessionStorage.getItem('token');
+    return this.http.get<MenuPage>(url, {
+      headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+      })
+    })
+  }
+
 
   getMenusByID(menuID : any):Observable<any>{
     const url = "http://54.255.129.30:8100/api/v1/admin/menus/"+menuID;

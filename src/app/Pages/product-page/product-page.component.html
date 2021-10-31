@@ -111,19 +111,10 @@
         <div class="collapse navbar-collapse justify-content-end">
           <form class="navbar-form">
             <div class="input-group no-border">
-              <input
-                type="text"
-                value=""
-                class="form-control"
-                placeholder="Tìm kiếm..."
-              />
-              <button
-                type="submit"
-                class="btn btn-white btn-round btn-just-icon"
-              >
+              <input type="text" value="" name="searchInput"   [(ngModel)]="nameProductSearch"  class="form-control" placeholder="Tìm kiếm...">
+              <a class="" (click)="searchProductByName()">
                 <i class="material-icons">search</i>
-                <div class="ripple-container"></div>
-              </button>
+              </a>
             </div>
           </form>
           <ul class="navbar-nav">
@@ -164,22 +155,15 @@
                 <p class="card-category">Bạn có thể quản lý các Món Ăn ở đây</p>
               </div>
               <div class="controller" style="margin-top: 1.5%">
-                <div class="category" style="float: left; margin-left: 37%">
-                  <select class="custom-select custom-select-md">
-                    <option selected>Thể loại</option>
-                    <option value="1" >Giam Can</option>
-
-
-                     <option value="2">Tang Can</option>
-                    <option value="3">Nguoi Benh</option>
+                <div class="dropdown category" style="float: left; margin-left: 37%">
+                  <select name="categorySelect" class="form-control custom-select"  [(ngModel)]="selectcategory" (change)="onChangeCategory()">
+                    <option [value]="st.id" *ngFor="let st of ListCategory"  value="{{st.id}}"> {{st.name}}</option>
                   </select>
                 </div>
 
-                <div class="category" style="float: left; margin-left: 1%">
-                  <select class="custom-select custom-select-md">
-                    <option selected>Trạng thái</option>
-                    <option value="1">Đang hoạt động</option>
-                    <option value="2">Ngừng hoạt động</option>
+                <div class="dropdown category" style="float: left; margin-left: 1%">
+                  <select name="statusSelect" class="form-control custom-select"  [(ngModel)]="selectstatus" (change)="onChangeStatus()">
+                    <option [value]="st.key" *ngFor="let st of ListStatus"  value="{{st.key}}">{{st.value}}</option>
                   </select>
                 </div>
 
@@ -271,9 +255,9 @@
                 </table>
                 <nav aria-label="Page navigation example">
                   <ul class="pagination justify-content-center">
-                    <li class="page-item"><a class="page-link" (click)="previousPage()">Trước</a></li>
-                    <li class="page-item"><div class="page-link">{{currentPage}}/{{totalPages}}</div></li>
-                    <li class="page-item"><a class="page-link" (click)="nextPage()">Sau</a></li>
+                      <li class="page-item"><a class="page-link" *ngIf="currentPage > 1" (click)="previousPage()"><<</a></li>
+                      <li class="page-item"><div class="page-link">{{currentPage}}/{{totalPages}}</div></li>
+                      <li class="page-item"><a class="page-link" *ngIf="totalPages != currentPage"  (click)="nextPage()">>></a></li>
                   </ul>
                 </nav>
               </div>

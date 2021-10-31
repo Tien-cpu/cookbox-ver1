@@ -22,6 +22,21 @@ export class UserService {
       }),
     });
   }
+  getDataUserPageSearch(email : string ,status : string) {
+    var url = 'http://54.255.129.30:8100/api/v1/admin/users?email='+email;
+    if(status != ''){
+      url = url+ '&status='+status
+    }
+    let token = sessionStorage.getItem('token');
+    console.log('token au: ', token);
+
+    return this.http.get<UserPage>(url, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      }),
+    });
+  }
 
   GetUserByID(id : number) : Observable<Users>{
     const url ='http://54.255.129.30:8100/api/v1/admin/users/'+id

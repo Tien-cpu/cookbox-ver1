@@ -116,7 +116,16 @@ export class StoreService {
           })
       });
     }
-
+    getDataByName(name: string) : Observable<adminpage>{
+      const url ='http://54.255.129.30:8100/api/v1/admin/stores?name='+name
+      let token = sessionStorage.getItem('token');
+      return this.http.get<adminpage>(url, {
+        headers: new HttpHeaders({
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        })
+      });
+    }
     insertStore(store: {
       "name": string,
       "address":string,

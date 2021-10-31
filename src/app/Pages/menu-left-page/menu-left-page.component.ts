@@ -18,7 +18,30 @@ export class MenuLeftPageComponent implements OnInit {
   public urlCurrentpage: string = '';
   public currentPage: number = 0;
   public totalPages: number = 0;
-
+  public selectstatus: string = '';
+  public nameMenuSearch: string = '';
+  
+  ListStatus: {
+    "value" : string,
+    "key": string,
+    "class" : string
+  }[] = [
+    {
+      key: 'all',
+      value: 'Tất cả',
+      class: ''
+    },
+    {
+      key: 'close',
+      value: 'Ngừng Hoạt Đọng',
+      class: ''
+    },
+    {
+      key: 'open',
+      value: 'Hoạt Đọng',
+      class: 'selected'
+    },
+  ]
   constructor(private router: Router, private menuService: MenuService) {}
 
   ngOnInit(): void {
@@ -30,9 +53,47 @@ export class MenuLeftPageComponent implements OnInit {
       this.urlCurrentpage = data.metaData.currentPageUri;
       this.menus = data.items;
     });
+    this.selectstatus = this.ListStatus[0].key
   }
   public menus: any;
-
+  onChangeStatus() {
+    let status = '';
+    if(this.selectstatus == 'close'){
+      status = 'false';
+    } else if (this.selectstatus == 'open') {
+      status = 'true'
+    } else if (this.selectstatus == 'all') {
+      status = ''
+    }
+    this.menuService.getMenusSearch(this.nameMenuSearch,status).subscribe((data) => {
+      this.menus = []
+      this.totalPages = data.metaData.totalPages;
+      this.currentPage = data.metaData.currentPage;
+      this.urlPreviouspage = data.metaData.previousPage;
+      this.urlNextpage = data.metaData.nextPage;
+      this.urlCurrentpage = data.metaData.currentPageUri;
+      this.menus = data.items;
+    });
+  }
+  searchNameByName() {
+    let status = '';
+    if(this.selectstatus == 'close'){
+      status = 'false';
+    } else if (this.selectstatus == 'open') {
+      status = 'true'
+    } else if (this.selectstatus == 'all') {
+      status = ''
+    }
+    this.menuService.getMenusSearch(this.nameMenuSearch,status).subscribe((data) => {
+      this.menus = []
+      this.totalPages = data.metaData.totalPages;
+      this.currentPage = data.metaData.currentPage;
+      this.urlPreviouspage = data.metaData.previousPage;
+      this.urlNextpage = data.metaData.nextPage;
+      this.urlCurrentpage = data.metaData.currentPageUri;
+      this.menus = data.items;
+    });
+  }
   deleteMenu(menu: Menu) {
     this.menuService.updateStatusMenu(menu).subscribe((res) => {});
   }
