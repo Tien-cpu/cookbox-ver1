@@ -90,7 +90,7 @@
       <div class="container-fluid">
         <div class="navbar-wrapper">
           <a class="navbar-brand" href="javascript:;" style="font-size: 30px"
-            >Thêm Món Ăn Vào Thực Đơn</a
+            >Chỉnh sửa Món Ăn trong Thực Đơn</a
           >
         </div>
         <button
@@ -141,50 +141,51 @@
           <div class="col-lg-12 col-md-12">
             <div class="card">
               <div class="card-header card-header-danger">
-                <h4 class="card-title">Thực Đơn <span style="font-weight: 500;"></span></h4>
+                <h4 class="card-title">Thực Đơn <span style="font-weight: 500;">{{menu.name}}</span></h4>
                 <p class="card-category">
                   Bạn có thể thêm Món Ăn đã có trong hệ thống vào Thực Đơn tại đây
                 </p>
               </div>
 
-              <form (ngSubmit)="createMenuDetail()">
+              <form (ngSubmit)="updateMenuDetail()">
                 <div class="form-group">
-                  <label style="color: black">Nhập mã Món Ăn: </label> <br />
-                  <div class="inputID" style="float: left">
+                  <label style="color: black">Mã chi tiết thực đơn </label> <br />
                     <input
                       type="number"
                       class="form-control"
-                      [(ngModel)]="dishID"
+                      [(ngModel)]="menu.menu_details[index].id"
                       name="id"
-                      style="width: auto"
+                      readonly
                     />
-                  </div>
-                  <div class="btnCheck" style="float: left; margin-left: 10px">
-                    <a class="btn btn-outline-info" style="color: black" (click)="loadDish()">
-                      Kiểm tra
-                    </a>
-                  </div>
-                  <br /><br />
-                  <br />
-                  <label style="color: black">Tên món</label>
+                  <label style="color: black">Mã món ăn</label>
                   <input
                       type="email"
                       class="form-control"
                       name="name"
-                      [(ngModel)]="dishes.name"
+                      [(ngModel)]="menu.menu_details[index].dish_id"
                       readonly
                   />
-                  <!-- <input type="hidden" [(ngModel)]="dishName" name="dishName" [value]="dishes.name"> -->
+                  <label style="color: black">Tên món ăn</label>
+                  <input
+                      type="email"
+                      class="form-control"
+                      name="disName"
+                      [(ngModel)]="menu.menu_details[index].dish_name"
+                      readonly
+                  />
                   <label style="color: black">Giá tiền</label>
-                  <input type="number" class="form-control" [(ngModel)]="price" name="price" required/>
-
+                  <input type="number" class="form-control" [(ngModel)]="menu.menu_details[index].price" name="price"/>
+                  <label style="color: black">Trạng thái</label> <br/>
+                  <select class="custom-select custom-select-md" style="width: auto;" [(ngModel)]="selectstatus" name="status">
+                    <option [value]="st.key" *ngFor="let st of listStatus" [selected]="st.class==='selected'" value="{{st.key}}">{{st.value}}</option>
+                  </select>
                 </div>
 
                 <button
                   type="submit"
                   class="btn btn-outline-success"
                   style="width: 100px; margin-left: 45%; margin-bottom: 2%; color: black;"
-                  >Thêm</button
+                  >Lưu</button
                 >
               </form>
 

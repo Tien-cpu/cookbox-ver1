@@ -59,4 +59,36 @@ export class OrderService {
       }),
     });
   }
+
+  acceptOrderByID(orderID: number){
+    console.log('orderID', orderID);
+
+    const url = "http://54.255.129.30:8100/api/v1/admin/orders/accept?id="+orderID;
+
+    let token = sessionStorage.getItem('token');
+    console.log('token au: ', token);
+
+    return this.http.put<any>(url,orderID,{
+      headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+      })
+    });
+  }
+
+  denyOrderByID(order:{"id":number, "note":string}){
+    console.log('order service', order);
+
+    const url = "http://54.255.129.30:8100/api/v1/admin/orders/cancel?id="+order.id+"&note="+order.note;
+
+    let token = sessionStorage.getItem('token');
+    console.log('token au: ', token);
+
+    return this.http.put<any>(url,order,{
+      headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+      })
+    });
+  }
 }

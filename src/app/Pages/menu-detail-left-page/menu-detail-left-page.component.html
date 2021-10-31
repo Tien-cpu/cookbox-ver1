@@ -161,7 +161,7 @@
             <div class="card">
               <div class="card-header card-header-danger">
                 <h4 class="card-title">
-                  Thực đơn của chi nhánh CookBox Binh Tan với Thực Đơn Sáng
+                  Thực đơn tên <span style="font-weight: 500;">{{menus.name}}</span>
                 </h4>
                 <p class="card-category">
                   Bạn có thể quản lý các thực đơn tại đây
@@ -236,12 +236,13 @@
                           </span>
                         </td>
                       <td>
-                        <a class="btn btn-outline-info" style="width: 100px">
+                        <a class="btn btn-outline-info" style="width: 100px" (click)="goUpdateMenuDetail(i)">
                           Sửa
                         </a>
                       </td>
-                      <!-- <td *ngIf="details.status == true">
-                          <a class="btn btn-outline-danger" style="width: 100px;" >
+                       <td *ngIf="details.status == true">
+                          <a class="btn btn-outline-danger" style="width: 100px;"
+                          (click)="deleteDishInMenu(details)">
                             Xóa
                           </a>
                         </td>
@@ -249,15 +250,15 @@
                           <button disabled class="btn btn-outline-light" style="width: 100px; color: black;" >
                             Xóa
                           </button>
-                        </td> -->
-                      <td>
+                        </td>
+                      <!-- <td>
                         <button
                           class="btn btn-outline-danger"
                           style="width: 100px; color: black"
                         >
                           Xóa
                         </button>
-                      </td>
+                      </td> -->
                     </tr>
                   </tbody>
                 </table>

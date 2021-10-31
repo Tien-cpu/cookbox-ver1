@@ -59,4 +59,55 @@ export class MenuDetailService {
     })
   }
 
+  // Update status MenuDetail
+  DeleteMenuDetail(menu : {
+    "id": number,
+    "name": string,
+    "status": boolean,
+    "menu_details":[
+      {
+        "id": number,
+        "dish_id": number,
+        "dish_name": string,
+        "price": number,
+        "status": boolean
+      }
+    ]
+  }):Observable<any>{
+    console.log('big data', menu);
+    menu.status = false;
+    const url = "http://54.255.129.30:8100/api/v1/admin/menus";
+    let token = sessionStorage.getItem('token');
+    return this.http.put(url,menu,{
+      headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+      })
+    })
+  }
+
+  // update tổng thể
+  updateMenuDetail(menu : {
+    "id": number,
+    "name": string,
+    "status": boolean,
+    "menu_details":[
+      {
+        "id": number,
+        "dish_id": number,
+        "dish_name": string,
+        "price": number,
+        "status": boolean
+      }
+    ]
+  }):Observable<any>{
+    const url = "http://54.255.129.30:8100/api/v1/admin/menus";
+    let token = sessionStorage.getItem('token');
+    return this.http.put(url,menu,{
+      headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+      })
+    })
+  }
 }

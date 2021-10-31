@@ -15,18 +15,21 @@ export class OrderLeftPageComponent implements OnInit {
 
   public urlNextpage: string = '';
   public urlPreviouspage: string = '';
+  public urlCurrentpage: string = '';
   public currentPage: number = 0;
   public totalPages: number = 0;
-
+  public notes : string = "";
+  public orderID : number = 0;
   constructor(private router: Router, private orderService: OrderService) { }
 
   ngOnInit(): void {
-      this.orderService.getAllOrdersPage().subscribe((res: OrderPage) => {
-        this.totalPages = res.metaData.totalPages;
-        this.currentPage = res.metaData.currentPage;
-        this.urlPreviouspage = res.metaData.previousPage;
-        this.urlNextpage = res.metaData.nextPage;
-        this.orders = res.items;
+        this.orderService.getAllOrdersPage().subscribe((data: OrderPage) => {
+        this.totalPages = data.metaData.totalPages
+        this.currentPage = data.metaData.currentPage
+        this.urlPreviouspage = data.metaData.previousPage;
+        this.urlNextpage = data.metaData.nextPage;
+        this.urlCurrentpage = data.metaData.currentPageUri;
+        this.orders = data.items;
       });
   }
   public orders: any;
@@ -35,6 +38,39 @@ export class OrderLeftPageComponent implements OnInit {
   moveToDetails(id: any) {
     sessionStorage.setItem('orderID', id);
     this.router.navigate(['order-details-left-page']);
+  }
+
+  accept(orderID:number){
+    this.orderService.acceptOrderByID(orderID).subscribe(res=>{
+      this.orderService.getPagingOrderPage(this.urlCurrentpage).subscribe((data:OrderPage)=>{
+        this.totalPages = data.metaData.totalPages
+        this.currentPage = data.metaData.currentPage
+        this.urlPreviouspage = data.metaData.previousPage;
+        this.urlCurrentpage = data.metaData.currentPageUri;
+        this.urlNextpage = data.metaData.nextPage;
+        this.orders = data.items;
+      })
+    })
+  }
+
+  getOrderID(orderID:number){
+    this.orderID = orderID;
+  }
+  deny(orderID:number){
+    orderID = this.orderID;
+    let order:{"id":number, "note":string} = {id:orderID, note:this.notes};
+    this.orderService.denyOrderByID(order).subscribe(res=>{
+      this.orderService.getPagingOrderPage(this.urlCurrentpage).subscribe((data:OrderPage)=>{
+        this.totalPages = data.metaData.totalPages
+        this.currentPage = data.metaData.currentPage
+        this.urlPreviouspage = data.metaData.previousPage;
+        this.urlCurrentpage = data.metaData.currentPageUri;
+        this.urlNextpage = data.metaData.nextPage;
+        this.orders = data.items;
+        this.notes = "";
+      })
+    })
+
   }
 
   logOut() {
@@ -67,30 +103,26 @@ export class OrderLeftPageComponent implements OnInit {
   }
 
   previousPage() {
-    if (this.currentPage > 1) {
-      this.orderService
-        .getPagingOrderPage(this.urlPreviouspage)
-        .subscribe((data: OrderPage) => {
-          this.totalPages = data.metaData.totalPages;
-          this.currentPage = data.metaData.currentPage;
-          this.urlPreviouspage = data.metaData.previousPage;
-          this.urlPreviouspage = data.metaData.nextPage;
-          this.orders = data.items;
-        });
-    }
-  }
-  nextPage() {
-    if (this.currentPage <= this.totalPages) {
-      this.orderService
-        .getPagingOrderPage(this.urlNextpage)
-        .subscribe((data: OrderPage) => {
-          this.totalPages = data.metaData.totalPages;
-          this.currentPage = data.metaData.currentPage;
-          this.urlPreviouspage = data.metaData.previousPage;
-          this.urlNextpage = data.metaData.nextPage;
-          this.orders = data.items;
-        });
-    }
-  }
+    if(this.currentPage > 1){
+    this.orderService.getPagingOrderPage(this.urlPreviouspage).subscribe((data: OrderPage) => {
+      this.totalPages = data.metaData.totalPages
+      this.currentPage = data.metaData.currentPage
+      this.urlPreviouspage = data.metaData.previousPage;
+      this.urlCurrentpage = data.metaData.currentPageUri;
+      this.urlNextpage = data.metaData.nextPage;
+      this.orders = data.items;
+    });}
+}
+ nextPage() {
+  if(this.currentPage <= this.totalPages){
+  this.orderService.getPagingOrderPage(this.urlNextpage).subscribe((data: OrderPage) => {
+    this.totalPages = data.metaData.totalPages
+    this.currentPage = data.metaData.currentPage
+    this.urlPreviouspage = data.metaData.previousPage;
+    this.urlCurrentpage = data.metaData.currentPageUri;
+    this.urlNextpage = data.metaData.nextPage;
+    this.orders = data.items;
+  });}
+}
 
 }

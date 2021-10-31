@@ -91,7 +91,6 @@ export class CreateMenuDetailLeftPageComponent implements OnInit {
           }
         ]
       }
-      console.log('big data', menu);
       this.menuDetailService.AddDishInMenuDetail(menu).subscribe(res=>{
         this.goMenuDetail();
       })

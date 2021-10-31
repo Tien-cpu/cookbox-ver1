@@ -38,7 +38,11 @@
               "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "node_modules/igniteui-angular/styles/igniteui-angular.css"
             ],
-            "scripts": [ "./node_modules/hammerjs/hammer.min.js"]
+            "scripts": [
+              "./node_modules/hammerjs/hammer.min.js",
+              "node_modules/jquery/dist/jquery.slim.min.js",
+              "node_modules/bootstrap/dist/js/bootstrap.min.js"
+            ]
           },
           "configurations": {
             "production": {
