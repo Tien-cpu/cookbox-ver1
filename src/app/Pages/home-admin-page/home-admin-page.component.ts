@@ -10,7 +10,7 @@ import { Ward } from '../../Models/Ward';
 import { Router } from '@angular/router';
 import { FirebaseService } from '../../Services/firebase.service'
 import { AccountService } from '../../Services/account.service'
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { User } from '../../Models/User'
 @Component({
   selector: 'app-home',
@@ -28,6 +28,7 @@ export class HomeComponent {
     , private storeService: StoreService
     , private firebaseService : FirebaseService
     , private accountService : AccountService
+    , private modalService: NgbModal
     ) { }
 
   datapage : adminpage = new adminpage;
@@ -109,6 +110,28 @@ export class HomeComponent {
       }]
     }
   ]
+  ListStatus: {
+    "value" : string,
+    "key": string,
+    "class" : string
+  }[] = [
+    {
+      key: 'all',
+      value: 'Tất cả',
+      class: ''
+    },
+    {
+      key: 'close',
+      value: 'Ngừng Hoạt Đọng',
+      class: ''
+    },
+    {
+      key: 'open',
+      value: 'Hoạt Đọng',
+      class: 'selected'
+    },
+  ]
+  nameStoreSearch: string = '';
   test: {id : string, name :string}[] = [];
   listDistrict: District[] = new Array()
   listWard: Ward[] = new Array()
@@ -121,6 +144,7 @@ export class HomeComponent {
   public urlCurrentpage: string = '';
   public currentPage: number = 0;
   public totalPages: number = 0;
+  public selectstatus: string = '';
   ngOnInit() {
     this.storeService.getDataPageHome().subscribe((data: adminpage) => {
       this.totalPages = data.metaData.totalPages
@@ -129,6 +153,46 @@ export class HomeComponent {
       this.urlNextpage = data.metaData.nextPage;
       this.urlCurrentpage = data.metaData.currentPageUri;
       this.store = data.items;
+    });
+    this.selectstatus = this.ListStatus[0].key
+  }
+  onChangeStatus() {
+    var tmpstore : Store[] = [];
+    this.storeService.getDataByName(this.nameStoreSearch).subscribe((data: adminpage) => {
+      this.store = []
+      data.items.forEach(itemData => {
+        if(this.selectstatus == 'close' && itemData.status == false){
+          this.store.push(itemData);
+        } else if (this.selectstatus == 'open' && itemData.status == true) {
+          this.store.push(itemData);
+        } else if (this.selectstatus == 'all') {
+          this.store.push(itemData);
+        }
+      })
+      this.totalPages = data.metaData.totalPages
+      this.currentPage = data.metaData.currentPage
+      this.urlPreviouspage = data.metaData.previousPage;
+      this.urlNextpage = data.metaData.nextPage;
+      this.urlCurrentpage = data.metaData.currentPageUri;
+    });
+  }
+  searchStoreByName(){
+    console.log("run" + this.nameStoreSearch)
+    this.storeService.getDataByName(this.nameStoreSearch).subscribe((data: adminpage) => {
+      
+      this.totalPages = data.metaData.totalPages
+      this.currentPage = data.metaData.currentPage
+      this.urlPreviouspage = data.metaData.previousPage;
+      this.urlNextpage = data.metaData.nextPage;
+      this.urlCurrentpage = data.metaData.currentPageUri;
+      this.store = data.items;
+    },(error : any) => {
+      console.log(error.status)
+      if(error.status == 200){
+
+      }else{
+        this.modalService.open("khong tim thay data nao");
+      }
     });
   }
   moveToCreateStore(){

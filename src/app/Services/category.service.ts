@@ -2,14 +2,14 @@
 import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable, ReplaySubject} from 'rxjs';
-import { dishpage } from '../Models/AdminDishPageModel'
-import { Dish } from '../Models/Dish'
+import { categorypage } from '../Models/AdminCatergoryPageModel'
+import { Category } from '../Models/Category'
 
 @Injectable({
     providedIn: 'root'
 })
 
-export class DishService {
+export class CategoryService {
 
     urlAuthe = 'https://localhost:44300/api/authenticate/login';
     urlAccount = 'https://localhost:44300/api/accounts';
@@ -20,10 +20,10 @@ export class DishService {
     constructor(private http: HttpClient) {
     }
 
-    getDataPageDish() : Observable<dishpage>{
-      const url ='http://54.255.129.30:8100/api/v1/admin/dishes'
+    getDataPageCategory() : Observable<categorypage>{
+      const url ='http://54.255.129.30:8100/api/v1/admin/categories'
       let token = sessionStorage.getItem('token');
-      return this.http.get<dishpage>(url, {
+      return this.http.get<categorypage>(url, {
         headers: new HttpHeaders({
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
@@ -31,16 +31,13 @@ export class DishService {
       });
     }
 
-    getDataPageDishByName(name : string, status : string,categoryid : string) : Observable<dishpage>{
-      var url ='http://54.255.129.30:8100/api/v1/admin/dishes?name='+name;
+    getDataPageCategoryByName(name : string, status : string) : Observable<categorypage>{
+      var url ='http://54.255.129.30:8100/api/v1/admin/categories?name='+name;
       if(status != ''){
         url = url+ '&status='+status
       }
-      if(categoryid != '' && categoryid != '-1'){
-        url = url+ '&category_id='+categoryid
-      }
       let token = sessionStorage.getItem('token');
-      return this.http.get<dishpage>(url, {
+      return this.http.get<categorypage>(url, {
         headers: new HttpHeaders({
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
@@ -48,10 +45,10 @@ export class DishService {
       });
     }
 
-    getDataPageDishPaging(page : string) : Observable<dishpage>{
-      const url ='http://54.255.129.30:8100/api/v1/admin/dishes'
+    getDataPageCategoryPaging(page : string) : Observable<categorypage>{
+      const url ='http://54.255.129.30:8100/api/v1/admin/categories'
       let token = sessionStorage.getItem('token');
-      return this.http.get<dishpage>(page, {
+      return this.http.get<categorypage>(page, {
         headers: new HttpHeaders({
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`,
@@ -60,7 +57,7 @@ export class DishService {
     }
 
     delteAStore(id: number): Observable<any>{
-      const url ='http://54.255.129.30:8100/api/v1/admin/dishes/'+id;
+      const url ='http://54.255.129.30:8100/api/v1/admin/categories/'+id;
       let token = sessionStorage.getItem('token');
       console.log(token+url);
       return this.http.delete(url, {
@@ -70,10 +67,10 @@ export class DishService {
         })
       });
     }
-    deletestoreTMP(dish: Dish): Observable<any>{
+    deletestoreTMP(dish: Category): Observable<any>{
 
-      const url ='http://54.255.129.30:8100/api/v1/admin/dishes'
-      let dishtmp : Dish = dish;
+      const url ='http://54.255.129.30:8100/api/v1/admin/categories'
+      let dishtmp : Category = dish;
       let token = sessionStorage.getItem('token');
       dishtmp.status = false;
       return this.http.put(url,dishtmp, {
@@ -92,7 +89,7 @@ export class DishService {
       "status": boolean
     }): Observable<any>{
 
-      const url ='http://54.255.129.30:8100/api/v1/admin/dishes'
+      const url ='http://54.255.129.30:8100/api/v1/admin/categories'
 
       let token = sessionStorage.getItem('token');
 
@@ -105,12 +102,12 @@ export class DishService {
       });
   }
 
-    getAStore(id: number) : Observable<Dish>{
+    getAStore(id: number) : Observable<Category>{
       console.log(id)
-      const url ='http://54.255.129.30:8100/api/v1/admin/dishes/'+id;
+      const url ='http://54.255.129.30:8100/api/v1/admin/categories/'+id;
       let token = sessionStorage.getItem('token');
       console.log(url)
-      return this.http.get<Dish>(url, {
+      return this.http.get<Category>(url, {
         headers: new HttpHeaders({
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
@@ -119,7 +116,7 @@ export class DishService {
     }
 
     getData(){
-        const url ='http://54.255.129.30:8100/api/v1/admin/dishes'
+        const url ='http://54.255.129.30:8100/api/v1/admin/categories'
         let token = sessionStorage.getItem('token');
         return this.http.get(url, {
           headers: new HttpHeaders({
@@ -134,7 +131,7 @@ export class DishService {
       "address":string,
       "status":boolean
     }){
-      const url ='http://54.255.129.30:8100/api/v1/admin/dishes'
+      const url ='http://54.255.129.30:8100/api/v1/admin/categories'
       let token = sessionStorage.getItem('token');
       return this.http.post(url,store, {
           headers: new HttpHeaders({

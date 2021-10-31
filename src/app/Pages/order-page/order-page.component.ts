@@ -22,23 +22,6 @@ export class OrderPageComponent implements OnInit {
 
   ngOnInit(): void {
     let storeID = sessionStorage.getItem('storeID-order');
-    // if(storeID != null){
-    //   this.orderService.getOrdersPage(storeID).subscribe((res) => {
-    //     this.totalPages = res.metaData.totalPages;
-    //     this.currentPage = res.metaData.currentPage;
-    //     this.urlPreviouspage = res.metaData.previousPage;
-    //     this.urlNextpage = res.metaData.nextPage;
-    //     this.orders = res.items;
-    //   });
-    // }else{
-    //   this.orderService.getAllOrdersPage().subscribe((res) => {
-    //     this.totalPages = res.metaData.totalPages;
-    //     this.currentPage = res.metaData.currentPage;
-    //     this.urlPreviouspage = res.metaData.previousPage;
-    //     this.urlNextpage = res.metaData.nextPage;
-    //     this.orders = res.items;
-    //   });
-    // }
     this.orderService.getOrdersPage(storeID).subscribe((res : OrderPage) => {
       this.totalPages = res.metaData.totalPages;
       this.currentPage = res.metaData.currentPage;

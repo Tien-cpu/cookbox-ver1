@@ -211,9 +211,9 @@
                 </table>
                 <nav aria-label="Page navigation example">
                   <ul class="pagination justify-content-center">
-                      <li class="page-item"><a class="page-link" (click)="previousPage()">Trước</a></li>
+                      <li class="page-item"><a class="page-link" *ngIf="currentPage > 1" (click)="previousPage()"><<</a></li>
                       <li class="page-item"><div class="page-link">{{currentPage}}/{{totalPages}}</div></li>
-                      <li class="page-item"><a class="page-link" (click)="nextPage()">Sau</a></li>
+                      <li class="page-item"><a class="page-link" *ngIf="totalPages != currentPage"  (click)="nextPage()">>></a></li>
                   </ul>
                 </nav>
               </div>

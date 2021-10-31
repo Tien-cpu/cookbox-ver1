@@ -16,7 +16,9 @@ export class UserPageComponent implements OnInit {
   public urlPreviouspage: string = '';
   public currentPage: number = 0;
   public totalPages: number = 0;
+  public selectstatus: string = '';
   id: number = Number(sessionStorage.getItem('userID'));
+  public nameUserSearch:string="";
   public users: Users[] = [
     {
       id: 1,
@@ -30,7 +32,28 @@ export class UserPageComponent implements OnInit {
       orders: [],
     },
   ];
-
+  ListStatus: {
+    "value" : string,
+    "key": string,
+    "class" : string
+  }[] = [
+    
+    {
+      key: 'close',
+      value: 'Ngừng Hoạt Đọng',
+      class: ''
+    },
+    {
+      key: 'open',
+      value: 'Hoạt Đọng',
+      class: 'selected'
+    },
+    {
+      key: 'all',
+      value: 'Tất cả',
+      class: ''
+    },
+  ]
   public user: Users = {
     id: 0,
     name: '',
@@ -53,10 +76,44 @@ export class UserPageComponent implements OnInit {
       this.urlNextpage = data.metaData.nextPage;
       this.users = data.items;
     });
+    this.selectstatus = this.ListStatus[2].key
     // let id = Number(sessionStorage.getItem('userID'));
     // this.GetUserByID(id);
   }
-
+  searchProductByName(){
+    let status = '';
+    if(this.selectstatus == 'close'){
+      status = 'false';
+    } else if (this.selectstatus == 'open') {
+      status = 'true'
+    } else if (this.selectstatus == 'all') {
+      status = ''
+    }
+    this.userService.getDataUserPageSearch(this.nameUserSearch,status).subscribe((data: UserPage) => {
+      this.totalPages = data.metaData.totalPages
+      this.currentPage = data.metaData.currentPage
+      this.urlPreviouspage = data.metaData.previousPage;
+      this.urlNextpage = data.metaData.nextPage;
+      this.users = data.items;
+    },(error : any) => (console.log(error)));
+  }
+  onChangeStatus() {
+    let status = '';
+    if(this.selectstatus == 'close'){
+      status = 'false';
+    } else if (this.selectstatus == 'open') {
+      status = 'true'
+    } else if (this.selectstatus == 'all') {
+      status = ''
+    }
+    this.userService.getDataUserPageSearch(this.nameUserSearch,status).subscribe((data: UserPage) => {
+      this.totalPages = data.metaData.totalPages
+      this.currentPage = data.metaData.currentPage
+      this.urlPreviouspage = data.metaData.previousPage;
+      this.urlNextpage = data.metaData.nextPage;
+      this.users = data.items;
+    },(error : any) => (console.log(error)));
+  }
   GetUserByID(id: number) {
     this.userService.GetUserByID(id).subscribe((data: Users) => {
       this.user = data;
