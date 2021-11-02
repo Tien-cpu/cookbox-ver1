@@ -91,4 +91,28 @@ export class OrderService {
       })
     });
   }
+
+  sendNotification(body: string):Observable<any>{
+    let notify:{
+      "deviceId":string,
+      "isAndroiodDevice":boolean,
+      "title":string,
+      "body":string
+    }={
+      deviceId:"fAfKI-6rTi-yRnG7tGLryV:APA91bFiOSjRkFhRv36c6KgI20men0qFiA0ofiMKkw_4vyyUUWvZG-SAZg6NkkB5ui40PEZghRIYeOKO12BvUjInPOqWPO7FzXkxOYC9LUr9f660e7W9xPTVSqRUWzaCrX_XjB5hcZ6t",
+      isAndroiodDevice:true,
+      title:"Message",
+      body: body
+    }
+    const url = "http://54.255.129.30:8100/api/v1/notification";
+    let token = sessionStorage.getItem('token');
+    console.log('notify', notify);
+
+    return this.http.post<any>(url,notify,{
+      headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+      })
+    });
+  }
 }

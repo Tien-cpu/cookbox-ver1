@@ -126,7 +126,13 @@
           <div class="col-lg-12 col-md-12">
             <div class="card">
               <div class="card-header card-header-danger">
-                <h4 class="card-title">Danh sách chi tiết Đơn Hàng với mã số: {{orderDetails.orderId}} | trạng thái: New</h4>
+                <h4 class="card-title">Danh sách chi tiết Đơn Hàng với mã số:
+                  <span style="font-weight: 500;">{{order.id}}</span> - trạng thái:
+                  <span style="font-weight: 500;" *ngIf="order.order_status === 'New'">Mới</span>
+                  <span style="font-weight: 500;" *ngIf="order.order_status === 'Completed'">Đã hoàn thành</span>
+                  <span style="font-weight: 500;" *ngIf="order.order_status === 'Cancelled'">Đã hủy</span>
+                  <span style="font-weight: 500;" *ngIf="order.order_status === 'Processing'">Đang xử lý</span>
+                </h4>
                 <p class="card-category">Bạn có thể xem các chi tiết Đơn Đặt Hàng tại đây </p>
               </div>
 
@@ -148,8 +154,8 @@
                       <td>{{orderDetail.id}}</td>
                       <td>{{orderDetail.dish_name}}</td>
                       <td>{{orderDetail.quantity}}</td>
-                      <td>{{orderDetail.price}}</td>
-                      <td>{{orderDetail.quantity * orderDetail.price}}</td>
+                      <td>{{orderDetail.price}}đ</td>
+                      <td>{{orderDetail.quantity * orderDetail.price}}đ</td>
                     </tr>
                     <tr>
                       <td></td>
@@ -157,7 +163,7 @@
                       <td></td>
                       <td></td>
                       <td></td>
-                      <td style="font-weight: bold; font-size: 20px;">{{totalPrice}} vnd</td>
+                      <td style="font-weight: bold; font-size: 20px;">{{totalPrice}}đ</td>
                     </tr>
                   </tbody>
 

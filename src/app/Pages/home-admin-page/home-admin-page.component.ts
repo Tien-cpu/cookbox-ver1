@@ -179,7 +179,7 @@ export class HomeComponent {
   searchStoreByName(){
     console.log("run" + this.nameStoreSearch)
     this.storeService.getDataByName(this.nameStoreSearch).subscribe((data: adminpage) => {
-      
+
       this.totalPages = data.metaData.totalPages
       this.currentPage = data.metaData.currentPage
       this.urlPreviouspage = data.metaData.previousPage;
@@ -212,7 +212,9 @@ export class HomeComponent {
     sessionStorage.setItem('storeID-order',id);
     this.router.navigate(["order-page"]);
   }
-  moveToMenu(){
+  moveToMenu(storeID:number,storeName:string){
+    sessionStorage.setItem('storeID', String(storeID));
+    sessionStorage.setItem('storeName', storeName);
     this.router.navigate(["menu-main-page"]);
   }
   removestore(fg: Store){

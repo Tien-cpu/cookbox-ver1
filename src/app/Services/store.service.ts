@@ -3,6 +3,7 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable, ReplaySubject} from 'rxjs';
 import { adminpage } from '../Models/AdminHomePageModel'
+import { SessionPage } from '../Models/SessionPageModel';
 import { Store } from '../Models/Store'
 
 @Injectable({
@@ -141,4 +142,14 @@ export class StoreService {
       });
   }
 
+  getSessions():Observable<SessionPage>{
+    const url ='http://54.255.129.30:8100/api/v1/admin/sessions';
+    let token = sessionStorage.getItem('token');
+    return this.http.get<SessionPage>(url,{
+      headers: new HttpHeaders({
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${token}`
+      })
+  });
+  }
 }

@@ -22,7 +22,7 @@
     </div>
     <div class="sidebar-wrapper">
       <ul class="nav">
-        <li class="nav-item   ">
+        <li class="nav-item  active ">
           <a class="nav-link" (click)="goHomePage()">
             <i class="material-icons">store</i>
             <p>Cửa hàng</p>
@@ -46,7 +46,7 @@
             <p>Người dùng</p>
           </a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item ">
           <a class="nav-link" (click)="goMenuPage()">
             <i class="material-icons">menu_book</i>
             <p>Thực đơn</p>
@@ -144,41 +144,29 @@
               </div>
 
               <form>
-
                 <div class="form-group">
+                  <div class="menu" style="float: left; margin-left: 10%;">
+                    <label style="color: black">Thực đơn:</label>&nbsp;
+                    <select class="custom-select custom-select-md" style="width: auto;" (change)="changeMenu($event)" >
+                      <option value="" selected>----------</option>
+                      <option *ngFor="let menu of listMenu" [value]="menu.id" value="menu.id">{{menu.name}}</option>
+                    </select>
+                  </div>
 
-                  <label style="color: black">Tên thực đơn</label>
-                  <input
-                    type="email"
-                    class="form-control"
-                    placeholder="Ga xao xa ot"
-                  />
-
-                  <!-- <label style="color: black">Trạng thái</label> -->
-                  <!-- <div class="dropdown">
-                    <button
-                      class="btn btn-secondary dropdown-toggle"
-                      type="button"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      Trạng thái
-                    </button>
-                    <div
-                      class="dropdown-menu"
-                      aria-labelledby="dropdownMenuButton"
-                    >
-                      <a class="dropdown-item" >Đang hoạt động</a>
-                      <a class="dropdown-item" >Ngừng hoạt động</a>
-                    </div>
-                  </div> -->
-
-                </div>
+                  <div class="time" style="float: right; margin-right: 15%;">
+                    <label style="color: black">Thời gian hoạt động:</label>&nbsp;
+                    <select class="custom-select custom-select-md" style="width: auto;" (change)="changeTime($event)">
+                      <option value="" selected>----------</option>
+                      <option *ngFor="let session of listSession" [value]="session.id" value="session.id">
+                        {{session.timeFrom}}h~{{session.timeTo}}h
+                      </option>
+                    </select>
+                  </div>
+                </div><br/><br/>
                 <a
                 class="btn btn-outline-success"
-                style="width: 100px; margin-left: 45%; margin-bottom: 2%; "
-                href="./product-page"
+                style="width: 100px; margin-left: 45%; margin-bottom: 2%; color: black;"
+                (click)=" addMenu()"
                 >Thêm</a
               >
               </form>

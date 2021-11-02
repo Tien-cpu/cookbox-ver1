@@ -17,7 +17,10 @@ export class OrderPageComponent implements OnInit {
   public urlPreviouspage: string = '';
   public currentPage: number = 0;
   public totalPages: number = 0;
+  public urlCurrentpage: string = '';
 
+  public notes : string = "";
+  public orderID : number = 0;
   constructor(private router: Router, private orderService: OrderService) {}
 
   ngOnInit(): void {
@@ -32,6 +35,44 @@ export class OrderPageComponent implements OnInit {
   }
 
   public orders: any;
+
+  accept(orderID:number){
+    this.orderService.acceptOrderByID(orderID).subscribe(res=>{
+      this.orderService.getPagingOrderPage(this.urlPreviouspage).subscribe((data:OrderPage)=>{
+        this.totalPages = data.metaData.totalPages
+        this.currentPage = data.metaData.currentPage
+        this.urlPreviouspage = data.metaData.previousPage;
+        this.urlNextpage = data.metaData.nextPage;
+        this.urlCurrentpage = data.metaData.currentPageUri;
+
+        this.orders = data.items;
+      })
+    })
+  }
+
+  getOrderID(orderID:number){
+    this.orderID = orderID;
+  }
+  deny(orderID:number){
+    orderID = this.orderID;
+    let order:{"id":number, "note":string} = {id:orderID, note:this.notes};
+    this.orderService.denyOrderByID(order).subscribe(res=>{
+      this.orderService.getPagingOrderPage(this.urlPreviouspage).subscribe((data:OrderPage)=>{
+          this.totalPages = data.metaData.totalPages
+          this.currentPage = data.metaData.currentPage
+          this.urlPreviouspage = data.metaData.previousPage;
+          this.urlNextpage = data.metaData.nextPage;
+          this.urlCurrentpage = data.metaData.currentPageUri;
+
+        this.orders = data.items;
+        this.orderService.sendNotification(this.notes).subscribe(res=>{
+          console.log('message', res);
+          this.notes = "";
+        });
+      })
+    })
+
+  }
 
   moveToDetails(id: any) {
     sessionStorage.setItem('orderID', id);

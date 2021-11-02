@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { MenuService } from 'src/app/Services/menu.service';
+import { MenuStoreService } from 'src/app/Services/menu-store.service';
 
 @Component({
   selector: 'app-nemu-main-page',
@@ -9,30 +9,19 @@ import { MenuService } from 'src/app/Services/menu.service';
   '../common_asset_page/css/material-dashboard.css',]
 })
 export class NemuMainPageComponent implements OnInit {
-
-  constructor(private router: Router, private menuService:MenuService) { }
+  public storeName = sessionStorage.getItem('storeName');
+  constructor(private router: Router, private menuStoreService: MenuStoreService) { }
 
   ngOnInit(): void {
-    this.menuService.getMenus
+
+    let storeID = sessionStorage.getItem('storeID');
+    this.menuStoreService.getMenuStoreByStoreID(Number(storeID)).subscribe(res=>{
+      this.menus = res.items;
+    })
+    this.menuStoreService;
   }
   public menus : any;
-  // public menus =[
-  //   {
-  //     id: 5,
-  //     name: 'Thuc Don Sang',
-  //     status: true,
-  //   },
-  //   {
-  //     id: 7,
-  //     name: 'Thuc Don Toi',
-  //     status: false,
-  //   },
-  //   {
-  //     id: 9,
-  //     name: 'Thuc Don Ngay Le',
-  //     status: false,
-  //   }
-  // ];
+
   moveToMenuDetails(){
     this.router.navigate(['menu-page']);
   }

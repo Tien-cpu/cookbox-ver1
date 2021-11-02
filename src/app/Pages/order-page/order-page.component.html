@@ -146,9 +146,9 @@
                       <td>{{i + 1}}</td>
                       <td>{{ order.id }}</td>
                       <td>{{ order.user_name }}</td>
-                      <td>{{order.payment_name}}</td>
-                      <td>{{ order.date}}</td>
-                      <td>{{order.total}} vnd</td>
+                      <td>{{ order.payment_name }}</td>
+                      <td>{{ order.date | date: "yyyy-MM-dd HH:mm:ss" }} </td>
+                      <td>{{ order.total }}đ</td>
                       <td *ngIf="order.order_status == 'Completed'">
                         <span
                           class="badge badge-pill badge-success"
@@ -165,28 +165,13 @@
                           mới
                         </span>
                       </td>
-                      <td *ngIf="order.order_status == 'danggiao'">
-                        <span
-                          class="badge badge-pill badge-primary"
-                          style="padding: 4px 5px; font-size: 0.8em"
-                        >
-                          đang giao
-                        </span>
-                      </td>
-                      <td *ngIf="order.order_status == 'nauxong'">
-                        <span
-                          class="badge badge-pill badge-info"
-                          style="padding: 4px 5px; font-size: 0.8em"
-                        >
-                          đã nấu xong
-                        </span>
-                      </td>
+
                       <td *ngIf="order.order_status == 'Processing'">
                         <span
                           class="badge badge-pill badge-warning"
                           style="padding: 4px 5px; font-size: 0.8em"
                         >
-                          đang nấu
+                          đang xử lý
                         </span>
                       </td>
                       <td *ngIf="order.order_status == 'Cancelled'">
@@ -198,13 +183,95 @@
                         </span>
                       </td>
                       <td>
-                        <a class="btn btn-outline-info" (click)="moveToDetails(order.id)">Xem</a>
+                        <a
+                          class="btn btn-outline-info"
+                          (click)="moveToDetails(order.id)"
+                          >Xem</a
+                        >
                       </td>
-                      <td>
-                        <a class="btn btn-outline-success" >Nhận</a>
+                      <td *ngIf="order.order_status == 'New'">
+                        <a
+                          class="btn btn-outline-success"
+                          (click)="accept(order.id)"
+                          >Nhận</a
+                        >
                       </td>
-                      <td>
-                        <a class="btn btn-outline-danger">Từ chối</a>
+                      <td *ngIf="order.order_status != 'New'">
+                        <button
+                          disabled
+                          class="btn btn-outline-light"
+                          style="color: black"
+                        >
+                          Nhận
+                        </button>
+                      </td>
+                      <td *ngIf="order.order_status == 'New'">
+
+                        <!-- modal -->
+                        <div class="modal fade" id="myModal" role="dialog">
+                          <div
+                            class="modal-dialog"
+                            style="width: 700; height: 700"
+                          >
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <button
+                                  type="button"
+                                  style="margin-left: 0"
+                                  class="close"
+                                  data-dismiss="modal"
+                                >
+                                  &times;
+                                </button>
+                                <h4 class="modal-title">Từ chối đơn hàng</h4>
+                              </div>
+                              <div class="modal-body col-12">
+                                <p class="text-danger h4">* Lý do từ chối</p>
+                                <div class="form-check"></div>
+                                <textarea
+                                  [(ngModel)]="notes"
+                                  class="form-control"
+                                  id="exampleFormControlTextarea1"
+                                ></textarea>
+                              </div>
+                              <div class="modal-footer">
+                                <button
+                                  type="button"
+                                  class="btn btn-danger"
+                                  data-dismiss="modal"
+                                  (click)="deny(order.id)"
+                                >
+                                  Từ chối
+                                </button>
+                                <button
+                                  type="button"
+                                  class="btn btn-default"
+                                  data-dismiss="modal"
+                                >
+                                  Thoát
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <!--end modal-->
+                        <a
+                          class="btn btn-outline-danger"
+                          data-toggle="modal"
+                          data-target="#myModal"
+                          (click)="getOrderID(order.id)"
+                        >
+                          Từ chối
+                        </a>
+                      </td>
+                      <td *ngIf="order.order_status != 'New'">
+                        <button
+                          disabled
+                          class="btn btn-outline-light"
+                          style="color: black"
+                        >
+                          Từ chối
+                        </button>
                       </td>
                     </tr>
                   </tbody>

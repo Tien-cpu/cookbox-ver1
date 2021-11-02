@@ -31,7 +31,7 @@ export class ProductPageComponent implements OnInit {
     "key": string,
     "class" : string
   }[] = [
-    
+
     {
       key: 'close',
       value: 'Ngừng Hoạt Đọng',
@@ -48,7 +48,7 @@ export class ProductPageComponent implements OnInit {
       class: ''
     },
   ]
-  ListCategory: Category[] = []  
+  ListCategory: Category[] = []
   constructor(private router: Router, private productService: ProductService, private categoryService: CategoryService, private dishService : DishService, ) {}
 
   ngOnInit(): void {
@@ -83,7 +83,7 @@ export class ProductPageComponent implements OnInit {
       status = ''
     }
     this.dishService.getDataPageDishByName(this.nameProductSearch,status,this.selectcategory).subscribe((data: dishpage) => {
-      
+
       this.totalPages = data.metaData.totalPages
       this.currentPage = data.metaData.currentPage
       this.urlPreviouspage = data.metaData.previousPage;
@@ -137,7 +137,7 @@ export class ProductPageComponent implements OnInit {
       this.urlCurrentpage = data.metaData.currentPageUri;
     },(error : any) => (console.log(error)));
   }
-  
+
   previousPage() {
     if (this.currentPage > 1) {
       this.dishService

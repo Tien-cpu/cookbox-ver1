@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { OrderDetails } from 'src/app/Models/OrderDetails';
 import { OrderDetailService } from 'src/app/Services/order-detail.service';
+import { OrderService } from 'src/app/Services/order.service';
 
 @Component({
   selector: 'app-order-detail-page',
@@ -12,21 +13,26 @@ import { OrderDetailService } from 'src/app/Services/order-detail.service';
   ],
 })
 export class OrderDetailPageComponent implements OnInit {
-  totalPrice = 0;
+  public totalPrice = 0;
+  public order:any;
   constructor(
     private router: Router,
-    private orderDetailsService: OrderDetailService
+    private orderDetailsService: OrderDetailService,
+    private orderService:OrderService
   ) {}
 
   ngOnInit(): void {
     let orderDetailsID = sessionStorage.getItem('orderID');
+
     this.orderDetailsService
       .getOrderDetailsPage(orderDetailsID)
       .subscribe((data) => {
         this.orderDetails = data.items;
         this.sumPrice();
       });
-
+    this.orderService.getOrderByOrderID(orderDetailsID).subscribe(res=>{
+      this.order = res;
+    })
   }
 
   public orderDetails: any;

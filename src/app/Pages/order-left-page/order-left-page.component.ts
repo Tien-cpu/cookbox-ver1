@@ -61,13 +61,20 @@ export class OrderLeftPageComponent implements OnInit {
     let order:{"id":number, "note":string} = {id:orderID, note:this.notes};
     this.orderService.denyOrderByID(order).subscribe(res=>{
       this.orderService.getPagingOrderPage(this.urlCurrentpage).subscribe((data:OrderPage)=>{
+        console.log('abc',this.urlCurrentpage);
+
         this.totalPages = data.metaData.totalPages
         this.currentPage = data.metaData.currentPage
         this.urlPreviouspage = data.metaData.previousPage;
         this.urlCurrentpage = data.metaData.currentPageUri;
         this.urlNextpage = data.metaData.nextPage;
         this.orders = data.items;
-        this.notes = "";
+
+        this.orderService.sendNotification(this.notes).subscribe(res=>{
+          console.log('message', res);
+          this.notes = "";
+        });
+
       })
     })
 

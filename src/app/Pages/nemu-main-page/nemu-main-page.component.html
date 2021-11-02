@@ -120,7 +120,8 @@
           <div class="col-lg-12 col-md-12">
             <div class="card">
               <div class="card-header card-header-danger">
-                <h4 class="card-title">Danh sách các thực đơn của chi nhánh CookBox Binh Tan</h4>
+                <h4 class="card-title">Danh sách các thực đơn của chi nhánh
+                  <span style="font-weight: 500;">{{storeName}}</span></h4>
                 <p class="card-category">Bạn có thể quản lý các thực đơn của chi nhánh này tại đây</p>
               </div>
               <div class="controller" style="margin-top: 1.5%">
@@ -156,7 +157,7 @@
                 <table class="table table-hover">
                   <thead class="text-danger">
                       <tr>
-                        <th>ID</th>
+                        <th>#</th>
                         <th>Tên thực đơn</th>
                         <th>Trạng thái</th>
                         <th>Chi tiết</th>
@@ -165,18 +166,19 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let nemu of menus">
-                        <td>{{ nemu.id }}</td>
-                        <td>{{ nemu.name}}</td>
-                        <td *ngIf="nemu.status == true">
+                      <tr *ngFor="let menu of menus; let i = index">
+                        <td>{{i+1}}</td>
+                        <td>{{ menu.menu_name}}</td>
+                        <td *ngIf="menu.status == true">
                           <span
                             class="badge badge-pill badge-success"
                             style="padding: 4px 5px; font-size: 0.8em"
+                            *ngIf="menu.status === true"
                           >
                             đang hoạt động
                           </span>
                         </td>
-                        <td *ngIf="nemu.status == false">
+                        <td *ngIf="menu.status === false">
                           <span
                             class="badge badge-pill badge-secondary"
                             style="padding: 4px 5px; font-size: 0.8em"
@@ -194,12 +196,12 @@
                             Sửa
                           </a>
                         </td>
-                        <td *ngIf="nemu.status == true">
+                        <td *ngIf="menu.status == true">
                           <a class="btn btn-outline-danger" style="width: 100px;" >
                             Xóa
                           </a>
                         </td>
-                        <td *ngIf="nemu.status == false">
+                        <td *ngIf="menu.status == false">
                           <button disabled class="btn btn-outline-light" style="width: 100px; color: black;" >
                             Xóa
                           </button>
