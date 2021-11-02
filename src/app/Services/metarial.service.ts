@@ -3,14 +3,13 @@ import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
 import {Observable, ReplaySubject} from 'rxjs';
 import { dishpage } from '../Models/AdminDishPageModel'
-import { Metarialpage } from '../Models/AdminMetarials'
 import { Dish } from '../Models/Dish'
 
 @Injectable({
     providedIn: 'root'
 })
 
-export class DishService {
+export class metarialsService {
 
     urlAuthe = 'https://localhost:44300/api/authenticate/login';
     urlAccount = 'https://localhost:44300/api/accounts';
@@ -107,17 +106,6 @@ export class DishService {
       let token = sessionStorage.getItem('token');
       console.log(url)
       return this.http.get<Dish>(url, {
-        headers: new HttpHeaders({
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${token}`
-        })
-      });
-    }
-
-    getMetarial() : Observable<Metarialpage>{
-      const url ='http://54.255.129.30:8100/api/v1/admin/metarials'
-      let token = sessionStorage.getItem('token');
-      return this.http.get<Metarialpage>(url, {
         headers: new HttpHeaders({
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
