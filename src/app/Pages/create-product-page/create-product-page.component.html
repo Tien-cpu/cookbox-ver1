@@ -134,6 +134,19 @@
     </nav>
     <!-- End Navbar -->
     <div class="content">
+      <div class="tab">
+        <div class="row">
+          <div class="col-md-4 Center ">
+            <button class="tablinks {{activeddl}}" id="buttonclichThongTin" (click)="opentab('ThongTin')">Thông Tin</button>
+          </div>
+          <div class="col-md-4 Center">
+            <button class="tablinks {{activeddl2}}" id="buttonclichThanhPhan"  (click)="opentab('ThanhPhan')">Thành phần</button>
+          </div>
+          <div class="col-md-4 Center">
+            <button class="tablinks {{activeddl3}}" id="buttonclichTienHanh"  (click)="opentab('TienHanh')">Các Bước Tiến Hành</button>
+          </div>
+        </div>
+      </div>
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-12 col-md-12">
@@ -146,91 +159,112 @@
               <form>
 
                 <div class="form-group">
-                  <label style="color: black">Hình ảnh</label> <br/>
-                  <input type="file" style="opacity: 1; position: relative; z-index: 0;">
-                  <label style="color: black">Tên món</label>
+                  <div id="ThongTin" [ngStyle]="{display:displayddl}" >
+                  <label style="color: black">Hình ảnh</label> <br />
+                  <img
+                    src={{dish.image}}
+                    width="80px"
+                    height="80px"
+                  />
+                  <input
+                    type="file"
+                    style="
+                      opacity: 1;
+                      position: relative;
+                      z-index: 0;
+                      margin-top: 1%;
+                    "
+                  />
+                  <label style="color: black">ID</label>
                   <input
                     type="email"
                     class="form-control"
-                    placeholder="Ga xao xa ot"
+                    value="{{dish.id}}"
+                    readonly
                   />
+                  <label style="color: black">Tên món</label>
+                  <input type="email" name="fielname" class="form-control" [(ngModel)]="dish.name" />
                   <label style="color: black">Mô tả</label>
                   <input
                     type="email"
                     class="form-control"
-                    placeholder="huong vi dam da"
+                    [(ngModel)]="dish.description" 
+                    name="fieldes"
                   />
 
                   <label style="color: black">Thể loại</label>
                   <div class="dropdown">
-                    <button
-                      class="btn btn-secondary dropdown-toggle"
-                      type="button"
-                      data-toggle="dropdown"
-                      aria-haspopup="true"
-                      aria-expanded="false"
-                    >
-                      Loại
-                    </button>
-                    <div
-                      class="dropdown-menu"
-                      aria-labelledby="dropdownMenuButton"
-                    >
-                      <a class="dropdown-item" >Giam Can</a>
-                      <a class="dropdown-item" >Tang Can</a>
-                      <a class="dropdown-item" >Nguoi Benh</a>
-                    </div>
+                    <select name="categorySelect" class="form-control custom-select"  [(ngModel)]="selectcategory" (change)="onChangeCategory()">
+                      <option [value]="st.id" *ngFor="let st of ListCategory"  value="{{st.id}}"> {{st.name}}</option>
+                    </select>
                   </div>
 
-                  <label style="color: black">Thành phần</label>
-                  <div class="content" style="margin-top: -3%">
-                    <div class="container-fluid">
-                      <div class="row">
-                        <div class="col-lg-6 col-md-6" style="margin-left: 22%;">
-                          <div class="card">
-                            <div class="card-body table-responsive">
-                              <table class="table table-hover">
-                                <thead class="text-danger">
-                                  <tr>
-                                    <th>#</th>
-                                    <th>Nguyên liệu</th>
-                                    <th>Số lượng</th>
-                                    <th>Đơn vị tính</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr
-                                    >
-                                    <td>1. </td>
-                                    <td>
-                                      <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="Bot mi..."
-                                        style="width: 60%"
-                                      />
-                                    </td>
-                                    <td>
-                                      <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="50..."
-                                        style="width: 20%"
-                                      />
-                                    </td>
-                                    <td>
-                                      <input
-                                        type="text"
-                                        class="form-control"
-                                        placeholder="Gam..."
-                                        style="width: 25%"
-                                      />
-                                    </td>
+                  <label style="color: black">Trạng thái</label>
+                  <div class="dropdown">
+                  <select name="statusSelect" class="form-control custom-select"  [(ngModel)]="selectstatus" (change)="onChangeStatus()">
+                    <option [value]="st.key" *ngFor="let st of ListStatus"  value="{{st.key}}">{{st.value}}</option>
+                  </select>
+                </div>
+                </div>
 
-                                  </tr>
-                                  <button><i class="material-icons" style="color: red;">add_circle</i></button>
-                                </tbody>
-                              </table>
+                  <label style="color: black">Thành phần</label>
+                  <div id="ThanhPhan" [ngStyle]="{display:displayddl2}">
+                    <label style="color: black">Thành phần</label>
+                    <div class="content" style="margin-top: -3%">
+                      <div class="container-fluid">
+                        <div class="row">
+                          <div class="col-lg-12 col-md-12">
+                            <div class="card">
+                              <div class="card-body table-responsive">
+                                <table class="table table-hover">
+                                  <thead class="text-danger">
+                                    <tr>
+                                      <th>#</th>
+                                      <th>Nguyên liệu</th>
+                                      <th>Số lượng</th>
+                                      <th>Đơn vị tính</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr
+                                      *ngFor="
+                                        let ing of dish.dish_ingredients;
+                                        let i = index
+                                      "
+                                    >
+                                      <td>{{ i + 1 }}</td>
+                                      <td>
+                                        <div class="dropdown">
+                                          <select name="MaterialSelect{{ing.metarial_name}}" class="form-control custom-select"  [(ngModel)]="ing.metarial_id" (change)="onChangeCategory()">
+                                            <option [value]="st.id" *ngFor="let st of ListMet"  value="{{st.id}}"> {{st.name}}</option>
+                                          </select>
+                                        </div>
+                                      </td>
+                                      <td>
+                                        <input
+                                          type="text"
+                                          class="form-control"
+                                          value="{{ ing.quantity }}"
+                                          style="width: 20%"
+                                          name="inputnewquantity{{ ing.metarial_name }}"
+                                          [(ngModel)]="ing.quantity"
+                                          [value]="ing.quantity"
+                                        />
+                                      </td>
+                                      <td>
+                                        <input
+                                          type="text"
+                                          class="form-control"
+                                          value="mg"
+                                          style="width: 25%"
+                                        />
+                                      </td>
+  
+                                    </tr>
+                                    <button><i class="material-icons" (click)="addingredients()" style="color: red;">add_circle</i></button>
+                                  </tbody>
+                                </table>
+                              </div>
                             </div>
                           </div>
                         </div>
@@ -238,15 +272,34 @@
                     </div>
                   </div>
 
-                  <br>
-                  <label style="color: black">Các bước thực hiện</label>
-                  <textarea type="email" class="form-control" placeholder="1. Chuẩn bị dầu ăn..." ></textarea>
-                  <button><i class="material-icons" style="color: red;">add_circle</i></button>
+                  <div id="TienHanh" [ngStyle]="{display:displayddl3}">
+                  
+                    <div class="col-lg-12 col-md-12"
+                    *ngFor="let repices of dish.repices; let i = index">
+                    <label style="color: black">Các bước thực hiện {{repices.id}}</label>
+                      <div class="col-lg-12 col-md-12"
+                      *ngFor="let step of repices.steps; let i = index">
+                        <label style="color: black">{{i+1}}.&nbsp;{{step.description}}</label>
+                        <textarea type="text" class="form-control" name="inputdescription{{step.description}}"
+                        [(ngModel)]="step.description" value="{{step.description}}"></textarea><br/>
+                      </div>
+                    <button (click)="addingStep(repices.id)" ><i class="material-icons"  style="color: red;">add_circle</i></button>
+                    </div>
+                    <nav aria-label="Page navigation example">
+                      <button><i class="material-icons" (click)="addingrepices()" style="color: red;">add_circle</i></button>
+                      <ul class="pagination justify-content-center">
+                          <li class="page-item"><a class="page-link" *ngIf="currentrepices > 1" (click)="previousPices()"><<</a></li>
+                          <li class="page-item"><div class="page-link">{{currentrepices}}/{{maxrepices}}</div></li>
+                          <li class="page-item"><a class="page-link" *ngIf="maxrepices != currentrepices"  (click)="nextPage()">>></a></li>
+                      </ul>
+                    </nav>
+                  </div>
                 </div>
                 <a
                 class="btn btn-outline-success"
                 style="width: 100px; margin-left: 45%; margin-bottom: 2%; "
                 href="./product-page"
+                (click)="createDish()"
                 >Thêm</a
               >
               </form>

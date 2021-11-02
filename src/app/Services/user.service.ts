@@ -23,7 +23,7 @@ export class UserService {
     });
   }
   getDataUserPageSearch(email : string ,status : string) {
-    var url = 'http://54.255.129.30:8100/api/v1/admin/users?email='+email;
+    var url = 'http://54.255.129.30:8100/api/v1/admin/users?name='+email;
     if(status != ''){
       url = url+ '&status='+status
     }

@@ -3,6 +3,13 @@ import { Router } from '@angular/router';
 import { DishService } from '../../Services/dish.service';
 import { Dish } from 'src/app/Models/Dish';
 import { dishpage } from '../../Models/AdminDishPageModel';
+import { categorypage } from '../../Models/AdminCatergoryPageModel'
+import { Category } from '../../Models/Category'
+import { CategoryService } from '../../Services/category.service';
+import { Metarialpage } from '../../Models/AdminMetarials';
+import { Metarial } from '../../Models/Metarials';
+
+
 @Component({
   selector: 'app-update-product-page',
   templateUrl: './update-product-page.component.html',
@@ -12,8 +19,8 @@ import { dishpage } from '../../Models/AdminDishPageModel';
 })
 export class UpdateProductPageComponent implements OnInit {
 
-  constructor(private router: Router , private dishService : DishService, ) { }
-  
+  constructor(private router: Router , private categoryService: CategoryService, private dishService : DishService, ) { }
+  ListCategory: Category[] = []  
   showDropDown:boolean = true;
   displayddl:string = 'block';
   displayddl2:string = 'none';
@@ -23,6 +30,7 @@ export class UpdateProductPageComponent implements OnInit {
   activeddl3:string= '';
 
   opentab(tab:String){
+    console.log(this.dish)
     if(tab === 'ThongTin'){
       this.displayddl = 'block';
       this.displayddl2 = 'none';
@@ -49,6 +57,24 @@ export class UpdateProductPageComponent implements OnInit {
     // this.displayddl = this.showDropDown ? "inline" : "none";
     // this.displayddl2 = ! this.showDropDown ? "inline" : "none";
   }
+  ListMet : Metarial[] = [];
+  ListStatus: {
+    "value" : string,
+    "key": string,
+    "class" : string
+  }[] = [
+    
+    {
+      key: 'close',
+      value: 'Ngừng Hoạt Đọng',
+      class: ''
+    },
+    {
+      key: 'open',
+      value: 'Hoạt Đọng',
+      class: 'selected'
+    },
+  ]
   public dish : Dish = {
     id:0,
     category_id:0,
@@ -58,64 +84,91 @@ export class UpdateProductPageComponent implements OnInit {
     name:'',
     parent_id:0,
     status:true,
+    dish_ingredients:[],
+    nutrient_details:[],
+    repices:[],
+    taste_details: []
   };
+  public selectstatus: string = '';
+  public selectcategory: any;
+  public currentrepices : number = 1; 
+  public maxrepices : number = 1; 
   ngOnInit(): void {
     let id : number = Number(sessionStorage.getItem('dishid'));
       this.dishService.getAStore(id).subscribe((data: Dish) => {
-        // this.store = data;
-        // this.btital = 'Store ' + this.store.name;
-        // this.ltital = 'Enter infor you want update';
-        // this.nameStore = this.store.name;
-        // this.addressStore = this.store.address;
         this.dish = data
+        this.maxrepices = data.repices.length;
+        this.selectstatus = this.dish.status?'open':'close';
+        this.selectcategory = this.dish.category_id;
+      });
+      this.categoryService.getDataPageCategory().subscribe((data : categorypage ) => {
+        this.ListCategory = data.items;
+      });
+      this.dishService.getMetarial().subscribe((data : Metarialpage) => {
+        this.ListMet = data.items
       });
   }
-  public ingredients = [
-    {
-      id: 1,
-      name:'Bot mi',
-      quantity:50,
-      mass:'gam',
-    },
-    {
-      id: 2,
-      name:'Dau thuc vat',
-      quantity:60,
-      mass:'ml',
-    },
-    {
-      id: 3,
-      name:'Rau muong',
-      quantity:20,
-      mass:'gam',
-    },
-    {
-      id: 4,
-      name:'Nuoc nam',
-      quantity:30,
-      mass:'ml',
+  public addingredients(){
+    this.dish.dish_ingredients.push({
+      id:0,
+      dish_id:this.dish.id,
+      metarial_id:0,
+      metarial_name:'',
+      quantity:0
+    })
+  }
+  public addingStep(id : number){
+    console.log(id)
+    this.dish.repices.forEach((data) => {
+      if(
+        data.id == id
+      )
+      {
+        data.steps.push({
+          id : 0,
+          description: '',
+          repiceId: data.id
+        })
+      }
+    })
+  }
+    addingrepices(){
+    this.dish.repices.push(
+      {
+        id: this.dish.repices.length,
+        dishId: this.dish.id,
+        steps: []
+      }
+    )
+  }
+  onChangeStatus() {
+    console.log(this.dish)
+    if(this.selectstatus == 'close'){
+      this.dish.status = false;
+    } else if (this.selectstatus == 'open') {
+      this.dish.status = true;
+    } else if (this.selectstatus == 'all') {
     }
-  ]
+  }
+  onChangeCategory() {
+    this.dish.category_id = this.selectcategory
+    this.ListCategory.forEach((data) => {
+      if(data.id == this.selectcategory){
+        this.dish.category_name = data.name
+      }
+    })
+  }
+  UpdateDish(){
+    this.dishService.updateStore(this.dish).subscribe((data) => {this.router.navigate(['product-page'])},(error:any) => (
+      console.log(error)
+    ))
+  }
+  public previousPices(){
 
-  public steps = [
-    {
-      id: 1,
-      title: 'Chuẩn bị mì',
-      descriptopn: `Cho nguyên vắt mì cùng 400ml nước sôi vào tô, dùng đũa trộn đều khoảng 30 giây cho sợi mì tơi và chín thì bạn vớt ra cho vào nước lạnh và đảo đều vài lần cho đến khi mì hết nóng thì bạn vớt ra, để ráo. Sau khi mì ráo nước bạn cho vào tô cùng 1 gói nước sốt mì tôm và 1/3 gói muối mì tôm vào, trộn đều cho các gia vị thấm đều vào sợi mì.`
-    },
-    {
-      id: 2,
-      title: 'Sơ chế các nguyên liệu còn lại',
-      descriptopn: `Rửa rau muống sạch, cắt thành các đoạn nhỏ dài khoảng 1 lóng tay.`
-    },
-    {
-      id: 3,
-      title: 'Xào mì',
-      descriptopn: `Bắc chảo lên bếp, cho 1/2 muỗng canh dầu ăn vào, đợi đến khi dầu nóng thì bạn cho rau muống vào chảo.
-Dùng đũa đảo đều rau muống thì bạn cho mì tôm cùng 1/2 muỗng canh nước mắm, 1 muỗng canh nước tương, hành lá và rau mùi vào nếu có. Xào và đảo đều với lửa nhỏ khoảng 2 phút cho các nguyên liệu trộn lẫn vào nhau thì tắt bếp.
-      `
-    }
-  ]
+  }
+  public nextPage(){
+    
+  }
   goHomePage(){
     this.router.navigate(['home']);
   }
