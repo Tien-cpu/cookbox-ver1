@@ -64,4 +64,62 @@ export class MenuStoreService {
       }),
     });
   }
+
+  deleteMenuInStore(menuStore:{
+      "id": number,
+      "menu_id": number,
+      "menu_name": string,
+      "store_id": number,
+      "store_name": string,
+      "session_id": number,
+      "session_name": string,
+      "time_from": number,
+      "time_to": number,
+      "status": boolean
+  }):Observable<MenuStore>{
+    const url ='http://54.255.129.30:8100/api/v1/admin/menustores';
+    let token = sessionStorage.getItem('token');
+
+    return this.http.put<MenuStore>(url,menuStore, {
+      headers: new HttpHeaders({
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`,
+      }),
+    });
+  }
+
+  getMenuStoreByID(menuStoreID:number):Observable<MenuStore>{
+  const url ='http://54.255.129.30:8100/api/v1/admin/menustores/'+menuStoreID;
+  let token = sessionStorage.getItem('token');
+
+  return this.http.get<MenuStore>(url, {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    }),
+  });
+}
+
+  updateMenuInStore(menuStore:{
+    "id": number,
+    "menu_id": number,
+    "menu_name": string,
+    "store_id": number,
+    "store_name": string,
+    "session_id": number,
+    "session_name": string,
+    "time_from": number,
+    "time_to": number,
+    "status": boolean
+}):Observable<MenuStore>{
+  const url ='http://54.255.129.30:8100/api/v1/admin/menustores';
+  let token = sessionStorage.getItem('token');
+
+  return this.http.put<MenuStore>(url,menuStore, {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+      Authorization: `Bearer ${token}`,
+    }),
+  });
+}
 }

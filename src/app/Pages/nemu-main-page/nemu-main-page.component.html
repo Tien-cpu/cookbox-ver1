@@ -166,19 +166,19 @@
                       </tr>
                     </thead>
                     <tbody>
-                      <tr *ngFor="let menu of menus; let i = index">
+                      <tr *ngFor="let menuStore of menus; let i = index">
                         <td>{{i+1}}</td>
-                        <td>{{ menu.menu_name}}</td>
-                        <td *ngIf="menu.status == true">
+                        <td>{{ menuStore.menu_name}}</td>
+                        <td *ngIf="menuStore.status == true">
                           <span
                             class="badge badge-pill badge-success"
                             style="padding: 4px 5px; font-size: 0.8em"
-                            *ngIf="menu.status === true"
+                            *ngIf="menuStore.status === true"
                           >
                             đang hoạt động
                           </span>
                         </td>
-                        <td *ngIf="menu.status === false">
+                        <td *ngIf="menuStore.status === false">
                           <span
                             class="badge badge-pill badge-secondary"
                             style="padding: 4px 5px; font-size: 0.8em"
@@ -187,21 +187,21 @@
                           </span>
                         </td>
                         <th>
-                          <a class="btn btn-outline-info" style="width: 100px;" (click)="moveToMenuDetails()">
+                          <a class="btn btn-outline-info" style="width: 100px;" (click)="moveToMenuDetails(menuStore.menu_id)">
                             Xem
                           </a>
                         </th>
                         <td>
-                          <a class="btn btn-outline-info" style="width: 100px;" >
+                          <a class="btn btn-outline-info" style="width: 100px;" (click)="goUpdateMenu(menuStore.id)">
                             Sửa
                           </a>
                         </td>
-                        <td *ngIf="menu.status == true">
-                          <a class="btn btn-outline-danger" style="width: 100px;" >
+                        <td *ngIf="menuStore.status == true">
+                          <a class="btn btn-outline-danger" style="width: 100px;" (click)="deleteMenuStore(menuStore)">
                             Xóa
                           </a>
                         </td>
-                        <td *ngIf="menu.status == false">
+                        <td *ngIf="menuStore.status == false">
                           <button disabled class="btn btn-outline-light" style="width: 100px; color: black;" >
                             Xóa
                           </button>
@@ -212,7 +212,7 @@
                 <nav aria-label="Page navigation example">
                   <ul class="pagination justify-content-center">
                       <li class="page-item"><a class="page-link" >Trước</a></li>
-                      <li class="page-item"><div class="page-link">1/2</div></li>
+                      <li class="page-item"><div class="page-link">1/1</div></li>
                       <li class="page-item"><a class="page-link">Sau</a></li>
                   </ul>
                 </nav>

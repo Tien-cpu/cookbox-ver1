@@ -24,25 +24,25 @@
     </div>
     <div class="sidebar-wrapper">
       <ul class="nav">
-        <li class="nav-item   ">
+        <li class="nav-item active" >
           <a class="nav-link" (click)="goHomePage()">
-            <i class="material-icons">store</i>
+            <i class="material-icons" >store</i>
             <p>Cửa hàng</p>
           </a>
         </li>
-        <li class="nav-item active">
+        <li class="nav-item">
           <a class="nav-link" (click)="goProducpage()">
             <i class="material-icons">soup_kitchen</i>
             <p>Món ăn</p>
           </a>
         </li>
-        <li class="nav-item ">
+        <li class="nav-item">
           <a class="nav-link" (click)="goEmployeePage()">
             <i class="material-icons">account_box</i>
             <p>Nhân viên</p>
           </a>
         </li>
-        <li class="nav-item ">
+        <li class="nav-item">
           <a class="nav-link" (click)="goUserPage()">
             <i class="material-icons">person</i>
             <p>Người dùng</p>
@@ -54,25 +54,25 @@
             <p>Thực đơn</p>
           </a>
         </li>
-        <li class="nav-item ">
+        <li class="nav-item">
           <a class="nav-link" (click)="goOrderPage()">
             <i class="material-icons">list_alt</i>
             <p>Đơn hàng</p>
           </a>
         </li>
-        <li class="nav-item ">
+        <li class="nav-item">
           <a class="nav-link" (click)="goMaterialPage()">
             <i class="material-icons">kitchen</i>
             <p>Nguyên liệu</p>
           </a>
         </li>
-        <li class="nav-item ">
+        <li class="nav-item">
           <a class="nav-link" (click)="goHistoryMaterialPage()">
             <i class="material-icons">receipt</i>
             <p>Cung cấp nguyên liệu</p>
           </a>
         </li>
-        <li class="nav-item ">
+        <li class="nav-item">
           <a class="nav-link" href="">
             <i class="material-icons">lock_outline</i>
             <p>Đăng xuất</p>
@@ -92,7 +92,7 @@
       <div class="container-fluid">
         <div class="navbar-wrapper">
           <a class="navbar-brand" href="javascript:;" style="font-size: 30px"
-            >Món Ăn</a
+            >Chi Tiết Thực Đơn</a
           >
         </div>
         <button
@@ -111,10 +111,19 @@
         <div class="collapse navbar-collapse justify-content-end">
           <form class="navbar-form">
             <div class="input-group no-border">
-              <input type="text" value="" name="searchInput"   [(ngModel)]="nameProductSearch"  class="form-control" placeholder="Tìm kiếm...">
-              <a class="" (click)="searchProductByName()">
+              <input
+                type="text"
+                value=""
+                class="form-control"
+                placeholder="Tìm kiếm..."
+              />
+              <button
+                type="submit"
+                class="btn btn-white btn-round btn-just-icon"
+              >
                 <i class="material-icons">search</i>
-              </a>
+                <div class="ripple-container"></div>
+              </button>
             </div>
           </form>
           <ul class="navbar-nav">
@@ -151,113 +160,61 @@
           <div class="col-lg-12 col-md-12">
             <div class="card">
               <div class="card-header card-header-danger">
-                <h4 class="card-title">Danh sách các Món Ăn</h4>
-                <p class="card-category">Bạn có thể quản lý các Món Ăn ở đây</p>
+                <h4 class="card-title">
+                  Thực đơn <span style="font-weight: 500;">{{menuName}}</span>
+                </h4>
+                <p class="card-category">
+                  Bạn có thể quản xem các món ăn của thực đơn này tại đây
+                </p>
               </div>
-              <div class="controller" style="margin-top: 1.5%">
-                <div class="dropdown category" style="float: left; margin-left: 37%">
-                  <select name="categorySelect" class="form-control custom-select"  [(ngModel)]="selectcategory" (change)="onChangeCategory()">
-                    <option [value]="st.id" *ngFor="let st of ListCategory"  value="{{st.id}}"> {{st.name}}</option>
-                  </select>
-                </div>
-
-                <div class="dropdown category" style="float: left; margin-left: 1%">
-                  <select name="statusSelect" class="form-control custom-select"  [(ngModel)]="selectstatus" (change)="onChangeStatus()">
-                    <option [value]="st.key" *ngFor="let st of ListStatus"  value="{{st.key}}">{{st.value}}</option>
-                  </select>
-                </div>
-
-                <div class="create" style="float: right; margin-right: -3%">
-                  <a
-                    class="btn btn-outline-success"
-                    style="width: 100px; margin-right: 50px"
-                    (click)="moveToCreateDish()"
-                    >Thêm</a
+              <!-- <div class="controller" style="margin-top: 1.5%">
+                 <div class="dropdown" style="float: left; margin-left: 45.5%">
+                  <button
+                    class="btn btn-secondary dropdown-toggle"
+                    type="button"
+                    data-toggle="dropdown"
+                    aria-haspopup="true"
+                    aria-expanded="false"
+                    style="font-weight: 500"
                   >
+                    Trạng thái
+                  </button>
+                  <div
+                    class="dropdown-menu"
+                    aria-labelledby="dropdownMenuButton"
+                  >
+                    <a class="dropdown-item">Active</a>
+                    <a class="dropdown-item">Unactive</a>
+                  </div>
                 </div>
-                <!-- --------------- -->
+              </div> -->
 
-
-
-
-              </div>
               <div class="card-body table-responsive">
                 <table class="table table-hover">
                   <thead class="text-danger">
                     <tr>
                       <th>#</th>
-                      <th>Hình ảnh</th>
                       <th>ID</th>
                       <th>Tên món</th>
-                      <th>Mô tả</th>
-                      <th>Loại</th>
-                      <th>Trạng thái</th>
-                      <th>Chỉnh sửa</th>
-                      <th>Xóa bỏ</th>
+                      <th>Giá tiền</th>
+
                     </tr>
                   </thead>
                   <tbody>
-                    <tr *ngFor="let dish of dishes; let i = index">
+                    <tr *ngFor="let details of menuDetails; let i = index">
+
                       <td>{{ i + 1 }}</td>
-                      <td>
-                        <img
-                          src="{{ dish.image }}"
-                          width="80px"
-                          height="80px"
-                        />
-                      </td>
-                      <td>{{ dish.id }}</td>
-                      <td>{{ dish.name }}</td>
-                      <td>{{ dish.description }}</td>
-                      <th>{{ dish.category_name }}</th>
-                      <td *ngIf="dish.status == true">
-                        <span
-                          class="badge badge-pill badge-success"
-                          style="padding: 4px 5px; font-size: 0.8em"
-                        >
-                          đang hoạt động
-                        </span>
-                      </td>
-                      <td *ngIf="dish.status == false">
-                        <span
-                          class="badge badge-pill badge-secondary"
-                          style="padding: 4px 5px; font-size: 0.8em"
-                        >
-                          ngừng hoạt động
-                        </span>
-                      </td>
-                      <td>
-                        <a
-                          class="btn btn-outline-info"
-                          style="width: 100px"
-                          (click)="moveToUpdateDish(dish)"
-                        >
-                          Sửa
-                        </a>
-                      </td>
-                      <td *ngIf="dish.status == true">
-                        <a class="btn btn-outline-danger" style="width: 100px"(click)="removeDish(dish)">
-                          Xóa
-                        </a>
-                      </td>
-                      <td *ngIf="dish.status == false">
-                        <button
-                          disabled
-                          class="btn btn-outline-light"
-                          style="width: 100px; color: black"
-                          (click)="removeDish(dish)"
-                        >
-                          Xóa
-                        </button>
-                      </td>
+                      <td>{{ details.id }}</td>
+                      <td>{{ details.dish_name }}</td>
+                      <td>{{ details.price }}đ</td>
                     </tr>
                   </tbody>
                 </table>
                 <nav aria-label="Page navigation example">
                   <ul class="pagination justify-content-center">
-                      <li class="page-item"><a class="page-link" *ngIf="currentPage > 1" (click)="previousPage()"><<</a></li>
-                      <li class="page-item"><div class="page-link">{{currentPage}}/{{totalPages}}</div></li>
-                      <li class="page-item"><a class="page-link" *ngIf="totalPages != currentPage"  (click)="nextPage()">>></a></li>
+                    <li class="page-item"><a class="page-link">Trước</a></li>
+                    <li class="page-item"><div class="page-link">1/1</div></li>
+                    <li class="page-item"><a class="page-link">Sau</a></li>
                   </ul>
                 </nav>
               </div>

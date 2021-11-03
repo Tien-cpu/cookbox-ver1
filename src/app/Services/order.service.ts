@@ -99,11 +99,15 @@ export class OrderService {
       "title":string,
       "body":string
     }={
-      deviceId:"fAfKI-6rTi-yRnG7tGLryV:APA91bFiOSjRkFhRv36c6KgI20men0qFiA0ofiMKkw_4vyyUUWvZG-SAZg6NkkB5ui40PEZghRIYeOKO12BvUjInPOqWPO7FzXkxOYC9LUr9f660e7W9xPTVSqRUWzaCrX_XjB5hcZ6t",
+      deviceId:"cqEp8d90SOK3Pfit3NfJi8:APA91bEGTuMW7b4RfvKBxa1WGzQR2hKNK3KDwv6frlZ0H-T7RCUqdM_7b11fA38hkDaqyX9JRZBmWghFsWtQqUeDKJiIHxWFWKDwid3iptUff0LANbHBj4p9X-Yk7QaTm8QUSp8Flmqt",
       isAndroiodDevice:true,
-      title:"Message",
+      title:"Đơn hàng đã bị hủy",
       body: body
     }
+    // ID của Sáng
+    deviceId:"cqEp8d90SOK3Pfit3NfJi8:APA91bEGTuMW7b4RfvKBxa1WGzQR2hKNK3KDwv6frlZ0H-T7RCUqdM_7b11fA38hkDaqyX9JRZBmWghFsWtQqUeDKJiIHxWFWKDwid3iptUff0LANbHBj4p9X-Yk7QaTm8QUSp8Flmqt";
+    //ID Sơn:
+    // deviceId:"fhOM3E3vSjms8Lwb0a_v02:APA91bGXaSDij48pnoZAZ0j48MfRUa3dNmvjg-7523AL7nMCiDfWrLOiuTV5QcNWMF-j7g6-A8Rp-wWQCy2dlWP22FvUu0NdQ4AW3k3J8yCxJN0OIPjZJ-uIJAaRK1qIYzV_tFGFQSpl";
     const url = "http://54.255.129.30:8100/api/v1/notification";
     let token = sessionStorage.getItem('token');
     console.log('notify', notify);

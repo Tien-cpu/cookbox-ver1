@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MenuStore } from 'src/app/Models/MenuStore';
 import { MenuStoreService } from 'src/app/Services/menu-store.service';
 
 @Component({
@@ -18,12 +19,51 @@ export class NemuMainPageComponent implements OnInit {
     this.menuStoreService.getMenuStoreByStoreID(Number(storeID)).subscribe(res=>{
       this.menus = res.items;
     })
-    this.menuStoreService;
+
   }
   public menus : any;
 
-  moveToMenuDetails(){
-    this.router.navigate(['menu-page']);
+  deleteMenuStore(menuStoreTmp:MenuStore){
+    let menuStore:{
+      "id": number,
+      "menu_id": number,
+      "menu_name": string,
+      "store_id": number,
+      "store_name": string,
+      "session_id": number,
+      "session_name": string,
+      "time_from": number,
+      "time_to": number,
+      "status": boolean
+    }={
+      id: Number(menuStoreTmp.id),
+      menu_id: Number(menuStoreTmp.menu_id),
+      menu_name: menuStoreTmp.menu_name,
+      store_id: Number(menuStoreTmp.store_id),
+      store_name: menuStoreTmp.store_name,
+      session_id: Number(menuStoreTmp.session_id),
+      session_name: menuStoreTmp.session_name,
+      time_from: Number(menuStoreTmp.time_from),
+      time_to: Number(menuStoreTmp.time_to),
+      status:false
+    }
+
+    this.menuStoreService.deleteMenuInStore(menuStore).subscribe(res=>{
+      let storeID = sessionStorage.getItem('storeID');
+      this.menuStoreService.getMenuStoreByStoreID(Number(storeID)).subscribe(res=>{
+        this.menus = res.items;
+      })
+    })
+  }
+
+  goUpdateMenu(menuStoreID:string){
+    sessionStorage.setItem('menuStoreID', menuStoreID);
+    this.router.navigate(['update-menu-page']);
+  }
+
+  moveToMenuDetails(menuID:any){
+    sessionStorage.setItem('menuID', menuID);
+    this.router.navigate(['menu-store-detail-page']);
   }
   moveToCreateMainMenu(){
     this.router.navigate(['create-nemu-main-page']);

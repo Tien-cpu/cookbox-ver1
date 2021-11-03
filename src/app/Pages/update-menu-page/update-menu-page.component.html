@@ -89,7 +89,7 @@
     >
       <div class="container-fluid">
         <div class="navbar-wrapper">
-          <a class="navbar-brand" href="javascript:;" style="font-size: 30px;">Thêm Thực Đơn</a>
+          <a class="navbar-brand" href="javascript:;" style="font-size: 30px;">Chỉnh Sửa Thực Đơn</a>
         </div>
         <button
           class="navbar-toggler"
@@ -137,23 +137,52 @@
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-12 col-md-12">
-            <div class="card">
+            <div class="card" style="height: 105%;">
               <div class="card-header card-header-danger">
-                <h4 class="card-title">Tạo biểu mẫu</h4>
-                <p class="card-category">Bạn có thể thêm một Thực Đơn sẵn có trong hệ thống tại đây</p>
+                <h4 class="card-title">Chỉnh sửa biểu mẫu</h4>
+                <p class="card-category">Bạn có chỉnh sửa Thực Đơn tại đây</p>
               </div>
 
               <form>
                 <div class="form-group">
-                  <div class="menu" style="float: left; margin-left: 10%;">
-                    <label style="color: black">Thực đơn:</label>&nbsp;
-                    <select class="custom-select custom-select-md" style="width: auto;" (change)="changeMenu($event)" >
-                      <option value="" selected>----------</option>
-                      <option *ngFor="let menu of listMenu" [value]="menu.id" value="menu.id">{{menu.name}}</option>
+                  <label style="color: black">ID thực đơn</label>
+                  <input
+                    readonly
+                    type="email"
+                    class="form-control"
+                    style="width: auto;"
+                    value="{{menuStore.id}}"
+                  />
+                  <label style="color: black">Tên thực đơn</label>
+                  <input
+                    readonly
+                    type="email"
+                    class="form-control"
+                    style="width: auto;"
+                    value="{{menuStore.menu_name}}"
+                  />
+
+                  <div class="status" style="float: left;">
+                    <label style="color: black">Trạng thái:</label>&nbsp;
+                    <select class="custom-select custom-select-md" style="width: auto;" (change)="changeMenu($event)"
+                    [(ngModel)]="selectstatus" name="status"
+                    >
+                    <option [value]="st.key" *ngFor="let st of listStatus" [selected]="st.class==='selected'" value="{{st.key}}">{{st.value}}</option>
                     </select>
                   </div>
 
-                  <div class="time" style="float: right; margin-right: 15%;">
+                  <div class="menu" style="float: left; margin-left: 15%;">
+                    <label style="color: black">Thực đơn:</label>&nbsp;
+                    <select class="custom-select custom-select-md" style="width: auto;" (change)="changeMenu($event)" >
+                      <option value="" selected>----------</option>
+                      <option *ngFor="let menu of listMenu" [value]="menu.id" value="menu.id"
+                      >
+                        {{menu.name}}
+                      </option>
+                    </select>
+                  </div>
+
+                  <div class="time" style="float: right; margin-right: 17%;">
                     <label style="color: black">Thời gian hoạt động:</label>&nbsp;
                     <select class="custom-select custom-select-md" style="width: auto;" (change)="changeTime($event)">
                       <option value="" selected>----------</option>
@@ -165,9 +194,9 @@
                 </div><br/><br/>
                 <a
                 class="btn btn-outline-success"
-                style="width: 100px; margin-left: 45%; margin-bottom: 2%; color: black;"
-                (click)=" addMenu()"
-                >Thêm</a
+                style="width: 100px; margin-left: 45%; margin-bottom: -9%; color: black;"
+                (click)=" updateMenu()"
+                >Lưu</a
               >
               </form>
 
