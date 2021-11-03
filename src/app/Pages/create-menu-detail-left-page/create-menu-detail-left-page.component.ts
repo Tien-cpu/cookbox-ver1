@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Menu } from 'src/app/Models/Menu';
+import { DishService } from 'src/app/Services/dish.service';
 import { MenuDetailService } from 'src/app/Services/menu-detail.service';
 import { MenuService } from 'src/app/Services/menu.service';
 
@@ -14,41 +15,42 @@ import { MenuService } from 'src/app/Services/menu.service';
   ],
 })
 export class CreateMenuDetailLeftPageComponent implements OnInit {
-  dishID: number | any; // dùng để lấy input DishID
+  dishID: any;
   dishName: string = '';
   price: number | any;
+  public listDishes : any;
+  public dishes: any;
   constructor(
     private router: Router,
     private menuDetailService: MenuDetailService,
-    private menuService : MenuService
+    private menuService : MenuService,
+    private dishService: DishService
   ) {}
 
   ngOnInit(): void {
-    // const menuID = sessionStorage.getItem('menuID');
-    // this.menuService.getMenusByID(menuID).subscribe(res=>{
-    //   this.menu = res;
-    //   console.log('cuq',this.menu);
-
-    // })
+    this.dishService.getData().subscribe((res:any)=>{
+      this.listDishes = res.items;
+      console.log('list dishes',  this.listDishes);
+    })
   }
-  // public menuDetail : {
-  //   "dish_id":number,
-  //   "dish_name": string
-  //   "price":number
-  // } = {
-  //   dish_id:0,
-  //   dish_name:"",
-  //   price:0
-  // }
-  public dishes: any;
 
+  changeDish(event:any){
+    this.dishID = event.target.value;
+    console.log('dishID', this.dishID);
 
-  loadDish() {
-    this.menuDetailService.getDishByDishID(this.dishID).subscribe((res) => {
+    this.menuDetailService.getDishByDishID(this.dishID).subscribe((res:any) => {
       this.dishes = res;
-
+      console.log('change dish', this.dishes.name);
     });
   }
+
+  // loadDish() {
+  //   this.menuDetailService.getDishByDishID(this.dishID).subscribe((res) => {
+  //     this.dishes = res;
+  //     console.log('abc', this.dishes);
+
+  //   });
+  // }
 
   createMenuDetail() {
     let menu : {
@@ -91,6 +93,8 @@ export class CreateMenuDetailLeftPageComponent implements OnInit {
           }
         ]
       }
+
+
       this.menuDetailService.AddDishInMenuDetail(menu).subscribe(res=>{
         this.goMenuDetail();
       })

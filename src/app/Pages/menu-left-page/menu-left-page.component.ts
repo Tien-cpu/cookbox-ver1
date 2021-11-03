@@ -20,7 +20,7 @@ export class MenuLeftPageComponent implements OnInit {
   public totalPages: number = 0;
   public selectstatus: string = '';
   public nameMenuSearch: string = '';
-  
+
   ListStatus: {
     "value" : string,
     "key": string,
@@ -85,7 +85,7 @@ export class MenuLeftPageComponent implements OnInit {
       status = ''
     }
     this.menuService.getMenusSearch(this.nameMenuSearch,status).subscribe((data) => {
-      this.menus = []
+      this.menus = [];
       this.totalPages = data.metaData.totalPages;
       this.currentPage = data.metaData.currentPage;
       this.urlPreviouspage = data.metaData.previousPage;

@@ -156,13 +156,13 @@
               </div>
               <div class="controller" style="margin-top: 1.5%">
                 <div class="dropdown category" style="float: left; margin-left: 37%">
-                  <select name="categorySelect" class="form-control custom-select"  [(ngModel)]="selectcategory" (change)="onChangeCategory()">
+                  <select name="categorySelect" class="custom-select custom-select-md"  [(ngModel)]="selectcategory" (change)="onChangeCategory()">
                     <option [value]="st.id" *ngFor="let st of ListCategory"  value="{{st.id}}"> {{st.name}}</option>
                   </select>
                 </div>
 
                 <div class="dropdown category" style="float: left; margin-left: 1%">
-                  <select name="statusSelect" class="form-control custom-select"  [(ngModel)]="selectstatus" (change)="onChangeStatus()">
+                  <select name="statusSelect" class="custom-select custom-select-md"  [(ngModel)]="selectstatus" (change)="onChangeStatus()">
                     <option [value]="st.key" *ngFor="let st of ListStatus"  value="{{st.key}}">{{st.value}}</option>
                   </select>
                 </div>
@@ -175,8 +175,6 @@
                     >Thêm</a
                   >
                 </div>
-                <!-- --------------- -->
-
 
 
 

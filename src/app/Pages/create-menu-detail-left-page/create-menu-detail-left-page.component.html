@@ -149,32 +149,20 @@
 
               <form (ngSubmit)="createMenuDetail()">
                 <div class="form-group">
-                  <label style="color: black">Nhập mã Món Ăn: </label> <br />
+                  <label style="color: black">Vui lòng chọn Món Ăn: </label> <br />
                   <div class="inputID" style="float: left">
-                    <input
-                      type="number"
-                      class="form-control"
-                      [(ngModel)]="dishID"
-                      name="id"
-                      style="width: auto"
-                    />
+
+                    <select class="custom-select custom-select-md" style="width: auto;" (change)="changeDish($event)">
+                      <option value="" selected>- - - - - - - - - - - -</option>
+                      <option *ngFor="let dish of listDishes" [value]="dish.id" value="dish.id">
+                        {{dish.name}}
+                      </option>
+                    </select>
                   </div>
-                  <div class="btnCheck" style="float: left; margin-left: 10px">
-                    <a class="btn btn-outline-info" style="color: black" (click)="loadDish()">
-                      Kiểm tra
-                    </a>
-                  </div>
+
                   <br /><br />
                   <br />
-                  <label style="color: black">Tên món</label>
-                  <input
-                      type="email"
-                      class="form-control"
-                      name="name"
-                      [(ngModel)]="dishes.name"
-                      readonly
-                  />
-                  <!-- <input type="hidden" [(ngModel)]="dishName" name="dishName" [value]="dishes.name"> -->
+
                   <label style="color: black">Giá tiền</label>
                   <input type="number" class="form-control" [(ngModel)]="price" name="price" required/>
 
