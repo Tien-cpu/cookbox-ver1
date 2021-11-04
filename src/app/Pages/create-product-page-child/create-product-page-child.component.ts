@@ -13,12 +13,12 @@ import { Metarial } from '../../Models/Metarials';
 
 @Component({
   selector: 'app-update-product-page',
-  templateUrl: './update-product-page.component.html',
+  templateUrl: './create-product-page-child.component.html',
   styleUrls: ['../common_asset_page/css/material-dashboard-rtl.css',
   '../common_asset_page/css/material-dashboard.css',
-  './update-product-page.component.css']
+  './create-product-page-child.component.css']
 })
-export class UpdateProductPageComponent implements OnInit {
+export class CreateChildProductPageComponent implements OnInit {
 
   constructor(private router: Router , private categoryService: CategoryService, private dishService : DishService, private uploadService: UploadService  ) { }
   ListCategory: Category[] = []  
@@ -115,6 +115,9 @@ export class UpdateProductPageComponent implements OnInit {
     let id : number = Number(sessionStorage.getItem('dishid'));
       this.dishService.getAStore(id).subscribe((data: Dish) => {
         this.dish = data
+        this.dish.parent_id = data.id
+        this.dish.list_child = []
+        this.dish.id = 0
         this.maxrepices = data.repices.length;
         this.selectstatus = this.dish.status?'open':'close';
         this.selectcategory = this.dish.category_id;
@@ -176,10 +179,13 @@ export class UpdateProductPageComponent implements OnInit {
       }
     })
   }
-  UpdateDish(){
-    this.dishService.updateStore(this.dish).subscribe((data) => {this.router.navigate(['product-page'])},(error:any) => (
+  createDish(){
+    this.dishService.insertStore(this.dish).subscribe((data) => {
+      this.router.navigate(['product-page']);
+    },(error:any) => {
       console.log(error)
-    ))
+      
+    })
   }
   public previousPices(){
 

@@ -10,19 +10,20 @@ import { categorypage } from '../../Models/AdminCatergoryPageModel'
 import { Category } from '../../Models/Category'
 @Component({
   selector: 'app-product-page',
-  templateUrl: './product-page.component.html',
+  templateUrl: './product-page-child.component.html',
   styleUrls: [
     '../common_asset_page/css/material-dashboard-rtl.css',
     '../common_asset_page/css/material-dashboard.css',
   ],
 })
-export class ProductPageComponent implements OnInit {
+export class ProductChildPageComponent implements OnInit {
   public urlNextpage: string = '';
   public urlPreviouspage: string = '';
   public currentPage: number = 0;
   public totalPages: number = 0;
   public urlCurrentpage: string = '';
   public dishes: Dish[] = [];
+  public dishId: number = 0;
   public selectstatus: string = '';
   public selectcategory: string = '';
   public nameProductSearch:string="";
@@ -52,14 +53,23 @@ export class ProductPageComponent implements OnInit {
   constructor(private router: Router, private productService: ProductService, private categoryService: CategoryService, private dishService : DishService, ) {}
 
   ngOnInit(): void {
-    this.dishService.getDataPageDish().subscribe((data : dishpage ) => {
-      this.totalPages = data.metaData.totalPages
-      this.currentPage = data.metaData.currentPage
-      this.urlPreviouspage = data.metaData.previousPage;
-      this.urlNextpage = data.metaData.nextPage;
-      this.urlCurrentpage = data.metaData.currentPageUri;
-      this.dishes = data.items;
-    });
+    // this.dishService.getDataPageDish().subscribe((data : dishpage ) => {
+    //   this.totalPages = data.metaData.totalPages
+    //   this.currentPage = data.metaData.currentPage
+    //   this.urlPreviouspage = data.metaData.previousPage;
+    //   this.urlNextpage = data.metaData.nextPage;
+    //   this.urlCurrentpage = data.metaData.currentPageUri;
+    //   this.dishes = data.items;
+    // });
+    let id : number = Number(sessionStorage.getItem('dishid'));
+      this.dishService.getAStore(id).subscribe((data: Dish) => {
+        // this.dish = data
+        // this.maxrepices = data.repices.length;
+        // this.selectstatus = this.dish.status?'open':'close';
+        // this.selectcategory = this.dish.category_id;
+        this.dishes = data.list_child
+        this.dishId = data.id
+      });
     this.categoryService.getDataPageCategory().subscribe((data : categorypage ) => {
       this.ListCategory = data.items;
       var tmpcategory : Category = {
@@ -179,15 +189,12 @@ export class ProductPageComponent implements OnInit {
       });});
   }
   moveToCreateDish() {
-    this.router.navigate(['create-dish-page']);
+    sessionStorage.setItem('dishid', String(this.dishId));
+    this.router.navigate(['create-dish-page-child']);
   }
   moveToUpdateDish(fg: Dish) {
     sessionStorage.setItem('dishid', String(fg.id));
-    this.router.navigate(['update-dish-page']);
-  }
-  moveToChild(fg: Dish) {
-    sessionStorage.setItem('dishid', String(fg.id));
-    this.router.navigate(['product-page-child']);
+    this.router.navigate(['update-dish-page-child']);
   }
   goHomePage(){
     this.router.navigate(['home']);

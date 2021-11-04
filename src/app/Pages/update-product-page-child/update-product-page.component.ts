@@ -13,12 +13,12 @@ import { Metarial } from '../../Models/Metarials';
 
 @Component({
   selector: 'app-update-product-page',
-  templateUrl: './update-product-page.component.html',
+  templateUrl: './update-product-page-child.component.html',
   styleUrls: ['../common_asset_page/css/material-dashboard-rtl.css',
   '../common_asset_page/css/material-dashboard.css',
-  './update-product-page.component.css']
+  './update-product-page-child.component.css']
 })
-export class UpdateProductPageComponent implements OnInit {
+export class UpdateChildProductPageComponent implements OnInit {
 
   constructor(private router: Router , private categoryService: CategoryService, private dishService : DishService, private uploadService: UploadService  ) { }
   ListCategory: Category[] = []  

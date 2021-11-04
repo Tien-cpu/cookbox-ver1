@@ -91,7 +91,8 @@ export class CreateProductPageComponent implements OnInit {
     dish_ingredients:[],
     nutrient_details:[],
     repices:[],
-    taste_details: []
+    taste_details: [],
+    list_child : []
   };
   public selectstatus: string = '';
   public selectcategory: any;
@@ -182,8 +183,9 @@ export class CreateProductPageComponent implements OnInit {
     )
   }
   createDish(){
+    console.log(this.dish)
     this.dishService.insertStore(this.dish).subscribe((data) => {
-      this.router.navigate(['product-page']);
+      // this.router.navigate(['product-page']);
     },(error:any) => {
       console.log(error)
       

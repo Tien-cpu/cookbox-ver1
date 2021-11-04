@@ -37,5 +37,6 @@ export interface Dish {
     "taste_name": string;
     "taste_level": number;
     "taste_id":  number;
-  }[]
+  }[];
+  "list_child" : Dish[]
 }

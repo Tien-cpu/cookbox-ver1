@@ -190,7 +190,6 @@
                       <th>Mô tả</th>
                       <th>Loại</th>
                       <th>Trạng thái</th>
-                      <th>Món Con</th>
                       <th>Chỉnh sửa</th>
                       <th>Xóa bỏ</th>
                     </tr>
@@ -224,11 +223,6 @@
                         >
                           ngừng hoạt động
                         </span>
-                      </td>
-                      <td *ngIf="dish.status == true">
-                        <a class="btn btn-outline-success" style="width: 100px"(click)="moveToChild(dish)">
-                          View
-                        </a>
                       </td>
                       <td>
                         <a
