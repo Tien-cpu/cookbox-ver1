@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { DishService } from '../../Services/dish.service';
 import { Dish } from 'src/app/Models/Dish';
 import { dishpage } from '../../Models/AdminDishPageModel';
+import { UploadService } from '../../Services/uploadfile.service';
 import { categorypage } from '../../Models/AdminCatergoryPageModel'
 import { Category } from '../../Models/Category'
 import { CategoryService } from '../../Services/category.service';
@@ -19,7 +20,7 @@ import { Metarial } from '../../Models/Metarials';
 })
 export class UpdateProductPageComponent implements OnInit {
 
-  constructor(private router: Router , private categoryService: CategoryService, private dishService : DishService, ) { }
+  constructor(private router: Router , private categoryService: CategoryService, private dishService : DishService, private uploadService: UploadService  ) { }
   ListCategory: Category[] = []  
   showDropDown:boolean = true;
   displayddl:string = 'block';
@@ -93,6 +94,22 @@ export class UpdateProductPageComponent implements OnInit {
   public selectcategory: any;
   public currentrepices : number = 1; 
   public maxrepices : number = 1; 
+  fileChangeEvent(event:any){
+    let fileList: FileList = event.target.files;
+    if(fileList.length > 0) {
+        let file: File = fileList[0];
+        this.uploadService.upload(file).subscribe(
+          response => {
+
+              console.log("dep"+response)
+              this.dish.image = response
+
+         }, error => {
+           console.log("lỗi lòi lôn"+error.status)
+         }
+        );
+    }
+  }
   ngOnInit(): void {
     let id : number = Number(sessionStorage.getItem('dishid'));
       this.dishService.getAStore(id).subscribe((data: Dish) => {

@@ -20,28 +20,25 @@ export class LoginComponent implements OnInit {
   }
 
   public onSubmit(){
-    console.log("click login");
-
     const user : {"pass":string,"email":string}= {
       email : this.email,
       pass : this.password,
     }
     this.accountService.getTokenadmin(user).subscribe(
-      (data: any) => {
-        console.log("true");
-          console.log(data);
-
-          const obj = JSON.parse(data);
-          sessionStorage.setItem('token', obj.token);
-          
-      }, (error : any) => {
-        console.log(error.status)
-        if(error.status == 200){
-          this.router.navigate(['home']);
+      response => {
+        // console.log(response);
+        if(response.status == 404){
+          // this.modalService.open("vui lòng kiểm tra lại thông tin đăng nhập");
         }else{
-          this.modalService.open("vui lòng kiểm tra lại thông tin đăng nhập");
+          console.log(response)
+          const obj = response;
+          sessionStorage.setItem('token', obj.token);
+          this.router.navigate(['/home']);
         }
-      }
+     }, error => {
+       console.log(error.status)
+       this.modalService.open("vui lòng kiểm tra lại thông tin đăng nhập");
+     }
     );
   }
 

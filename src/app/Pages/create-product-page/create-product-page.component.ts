@@ -113,10 +113,15 @@ export class CreateProductPageComponent implements OnInit {
     let fileList: FileList = event.target.files;
     if(fileList.length > 0) {
         let file: File = fileList[0];
-        this.uploadService.onSubmit(file).subscribe((data) =>{
-          console.log(data)
-          this.dish.image = data
-        }
+        this.uploadService.upload(file).subscribe(
+          response => {
+
+              console.log("dep"+response)
+              this.dish.image = response
+
+         }, error => {
+           console.log("lỗi lòi lôn"+error.status)
+         }
         );
     }
     // const target = event.target as HTMLInputElement;
