@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 
 import { User } from '../../Models/User'
-
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { FirebaseService } from '../../Services/firebase.service'
 import { AccountService } from '../../Services/account.service'
 @Component({
@@ -14,7 +14,7 @@ export class LoginComponent implements OnInit {
 
   public email:string = "" ;
   public password:string = "";
-  constructor(private firebaseService : FirebaseService, private accountService : AccountService, private router: Router ) { }
+  constructor(private firebaseService : FirebaseService, private accountService : AccountService, private router: Router , private modalService: NgbModal) { }
 
   ngOnInit(): void {
   }
@@ -33,7 +33,14 @@ export class LoginComponent implements OnInit {
 
           const obj = JSON.parse(data);
           sessionStorage.setItem('token', obj.token);
+          
+      }, (error : any) => {
+        console.log(error.status)
+        if(error.status == 200){
           this.router.navigate(['home']);
+        }else{
+          this.modalService.open("vui lòng kiểm tra lại thông tin đăng nhập");
+        }
       }
     );
   }
