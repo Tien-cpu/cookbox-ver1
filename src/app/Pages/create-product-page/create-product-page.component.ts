@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DishService } from '../../Services/dish.service';
+import { UploadService } from '../../Services/uploadfile.service';
 import { Dish } from 'src/app/Models/Dish';
 import { dishpage } from '../../Models/AdminDishPageModel';
 import { categorypage } from '../../Models/AdminCatergoryPageModel'
@@ -8,6 +9,7 @@ import { Category } from '../../Models/Category'
 import { CategoryService } from '../../Services/category.service';
 import { Metarialpage } from '../../Models/AdminMetarials';
 import { Metarial } from '../../Models/Metarials';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 // class ImageSnippet {
 //   constructor(public src: string, public file: File) {}
@@ -21,8 +23,9 @@ import { Metarial } from '../../Models/Metarials';
 })
 export class CreateProductPageComponent implements OnInit {
 
-  constructor(private router: Router , private categoryService: CategoryService, private dishService : DishService, ) { }
+  constructor(private formBuilder: FormBuilder,private router: Router , private categoryService: CategoryService, private dishService : DishService, private uploadService: UploadService ) { }
   ListCategory: Category[] = []  
+  uploadForm: any;  
   showDropDown:boolean = true;
   displayddl:string = 'block';
   displayddl2:string = 'none';
@@ -102,6 +105,26 @@ export class CreateProductPageComponent implements OnInit {
       this.dishService.getMetarial().subscribe((data : Metarialpage) => {
         this.ListMet = data.items
       });
+      this.uploadForm = this.formBuilder.group({
+        profile: ['']
+      });
+  }
+  fileChangeEvent(event:any){
+    let fileList: FileList = event.target.files;
+    if(fileList.length > 0) {
+        let file: File = fileList[0];
+        this.uploadService.onSubmit(file).subscribe((data) =>{
+          console.log(data)
+          this.dish.image = data
+        }
+        );
+    }
+    // const target = event.target as HTMLInputElement;
+    //   const files = target.files as FileList;
+    //   this.uploadService.upload(files).subscribe((data) => {
+    //     console.log(data)
+    //   })
+    //   // console.log(files);
   }
   public addingredients(){
     this.dish.dish_ingredients.push({
