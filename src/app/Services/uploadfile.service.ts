@@ -17,7 +17,16 @@ export class UploadService {
       const formData = new FormData();
       formData.append('file',file);
   
-      return this.httpClient.post<any>(this.SERVER_URL, formData);
+      return this.httpClient.post(this.SERVER_URL, formData,{
+        reportProgress: true,
+        observe: 'events',
+        
+        headers: {
+          // 'Content-Type': 'multipart/form-data',
+          // 'Referer': 'http://localhost:4200',
+          // 'Origin': 'http://localhost:4200',
+        },responseType: 'arraybuffer'
+      } );
     }
     public upload(file: any) {
       let fl: File = file;
@@ -28,24 +37,24 @@ export class UploadService {
         headers: new HttpHeaders(
             { 
               //'Content-Type': 'application/json',
-              'Content-Type': 'multipart/form-data',//here you set it to form data
-              'Referer': 'http://localhost:4200',
-              'Origin': 'http://localhost:4200',
+              // 'Content-Type': 'multipart/form-data',//here you set it to form data
+              // 'Referer': 'http://localhost:4200',
+              // 'Origin': 'http://localhost:4200',
               //'Accept': 'application/json',
-              'Accept': '*/*',
+              // 'Accept': '*/*',
             }
           ).set('content-type','application/json').set('content-length','6')// here you overwrite it to application/json
       }
-      console.log(file)
-      console.log(fl)
-      console.log(formData)
+      // console.log(file)
+      // console.log(fl)
+      // console.log(formData)
             return this.httpClient.post(this.SERVER_URL, formData, {
               // reportProgress: true,
               // observe: 'events',
               headers: {
-                'Content-Type': 'multipart/form-data',
+                // 'Content-Type': 'multipart/form-data',
                 // 'Accept' : 'application/json'
-              }
+              },responseType: 'text'
             });
             
         }

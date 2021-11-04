@@ -34,11 +34,12 @@ export class AccountService {
         return this.http.post('http://54.255.129.30:8100/api/v1/login',
             user
           , {
+            // observe: 'response',
             headers: new HttpHeaders({
                 'Content-Type': 'application/json',
                 'Accept': 'text/plain'
             }),
-            responseType: 'text'
+            responseType: 'json'
         });
     }
 }
