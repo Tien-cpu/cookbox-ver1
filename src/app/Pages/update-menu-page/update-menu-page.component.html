@@ -151,7 +151,7 @@
                     type="email"
                     class="form-control"
                     style="width: auto;"
-                    value="{{menuStore.id}}"
+                    value="{{menuStore.menu_id}}"
                   />
                   <label style="color: black">Tên thực đơn</label>
                   <input
@@ -164,28 +164,29 @@
 
                   <div class="status" style="float: left;">
                     <label style="color: black">Trạng thái:</label>&nbsp;
-                    <select class="custom-select custom-select-md" style="width: auto;" (change)="changeMenu($event)"
+                    <select class="custom-select custom-select-md" style="width: auto;" (change)="changeStatus($event)"
                     [(ngModel)]="selectstatus" name="status"
                     >
-                    <option [value]="st.key" *ngFor="let st of listStatus" [selected]="st.class==='selected'" value="{{st.key}}">{{st.value}}</option>
+                    <option [value]="st.key" *ngFor="let st of listStatus" [selected]="st.class==='selected'"
+                    value="{{st.key}}">
+                    {{st.value}}
+                    </option>
                     </select>
                   </div>
 
-                  <div class="menu" style="float: left; margin-left: 15%;">
+                  <!-- <div class="menu" style="float: left; margin-left: 15%;">
                     <label style="color: black">Thực đơn:</label>&nbsp;
-                    <select class="custom-select custom-select-md" style="width: auto;" (change)="changeMenu($event)" >
-                      <option value="" selected>----------</option>
-                      <option *ngFor="let menu of listMenu" [value]="menu.id" value="menu.id"
-                      >
+                    <select class="custom-select custom-select-md" style="width: auto;" (change)="changeMenu($event)" name="menu" [(ngModel)]="selectedMenu">
+                      <option *ngFor="let menu of listMenu" [value]="menu.id" value="menu.id">
                         {{menu.name}}
                       </option>
                     </select>
-                  </div>
+                  </div> -->
 
                   <div class="time" style="float: right; margin-right: 17%;">
                     <label style="color: black">Thời gian hoạt động:</label>&nbsp;
-                    <select class="custom-select custom-select-md" style="width: auto;" (change)="changeTime($event)">
-                      <option value="" selected>----------</option>
+                    <select class="custom-select custom-select-md" style="width: auto;" (change)="changeTime($event)" name="session"
+                    [(ngModel)]="selectedSession">
                       <option *ngFor="let session of listSession" [value]="session.id" value="session.id">
                         {{session.timeFrom}}h~{{session.timeTo}}h
                       </option>
