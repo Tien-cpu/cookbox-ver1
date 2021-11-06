@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { forEach } from 'jszip';
 import { Menu } from 'src/app/Models/Menu';
 import { MenuStore } from 'src/app/Models/MenuStore';
@@ -21,12 +22,16 @@ export class UpdateMenuPageComponent implements OnInit {
   public selectstatus: string = '';
 
   public menuID:number = 0;
+  public menuName:string = '';
+
   public sessionID:number = 0;
 
   public listMenu: Menu[] = [];
   public listSession: Sessions[] = [];
   // public selectedMenu:any;
   public selectedSession:any;
+
+
   listStatus: {
     "value" : string,
     "key": string,
@@ -49,7 +54,8 @@ export class UpdateMenuPageComponent implements OnInit {
     private router: Router,
     private menuStoreService:MenuStoreService,
     private menuService:MenuService,
-    private storeService:StoreService) { }
+    private storeService:StoreService,
+    private modalService: NgbModal) { }
 
   ngOnInit(): void {
     let menuStoreID = sessionStorage.getItem("menuStoreID");
@@ -64,6 +70,8 @@ export class UpdateMenuPageComponent implements OnInit {
 
     this.menuStoreService.getMenuStoreByID(Number(menuStoreID)).subscribe(res=>{
       this.menuStore = res;
+      this.menuID = res.menu_id;
+      this.menuName = res.menu_name;
       if(this.menuStore.status){
         this.selectstatus = this.listStatus[1].key;
       }else{
@@ -75,19 +83,22 @@ export class UpdateMenuPageComponent implements OnInit {
     });
 
   }
-  changeStatus(event : any){
-    this.menuID = event.target.value;
-    console.log(this.menuID); // log menu ID
-  }
-  changeMenu(event : any){
-    this.menuID = event.target.value;
-    console.log(this.menuID); // log menu ID
-  }
+  // changeStatus(event : any){
+  //   this.menuID = event.target.value;
+  // }
+  // changeMenu(event : any){
+  //   this.menuID = event.target.value;
+  //   console.log(this.menuID); // log menu ID
+  // }
   changeTime(event : any){
     this.sessionID = event.target.value;
-    console.log(this.sessionID); // log session ID
+    console.log('session ID',this.sessionID); // log session ID
   }
   updateMenu(){
+    // trường hợp ko click vào combobox, ko gọi được hàm changeTime(), ko get đc sessionID
+    if(this.sessionID == 0){
+      this.sessionID = this.selectedSession;
+    }
     let menuStore:{
       "id": number,
       "menu_id": number,
@@ -110,6 +121,7 @@ export class UpdateMenuPageComponent implements OnInit {
     }
     console.log('menuStore', menuStore);
     this.menuStoreService.updateMenuInStore(menuStore).subscribe(res=>{
+      this.modalService.open('Cập nhật thực đơn '+this.menuName+' thành công');
       this.router.navigate(['menu-main-page']);
     })
   }

@@ -145,6 +145,8 @@ export class HomeComponent {
   public currentPage: number = 0;
   public totalPages: number = 0;
   public selectstatus: string = '';
+  public store_tmp : any;
+  public nameStore_tmp : string = '';
   ngOnInit() {
     this.storeService.getDataPageHome().subscribe((data: adminpage) => {
       this.totalPages = data.metaData.totalPages
@@ -218,6 +220,9 @@ export class HomeComponent {
     this.router.navigate(["menu-main-page"]);
   }
   removestore(fg: Store){
+    fg = this.store_tmp;
+    console.log('fg', fg);
+
     this.storeService.deletestoreTMP(fg).subscribe((res) => {
       this.storeService.getDataPageHomePaging(this.urlCurrentpage).subscribe((data: adminpage) => {
         this.totalPages = data.metaData.totalPages
@@ -226,8 +231,15 @@ export class HomeComponent {
         this.urlCurrentpage = data.metaData.currentPageUri;
         this.urlNextpage = data.metaData.nextPage;
         this.store = data.items;
+        this.modalService.open('Xóa cửa hàng '+fg.name +' thành công');
       });});
   }
+
+  getStore(store:Store){
+    this.store_tmp = store;
+    this.nameStore_tmp = store.name;
+  }
+
   public viewDetailStore(fg: number) {
     let index = this.store.findIndex(c => c.id === fg);
     sessionStorage.setItem('storeid', JSON.stringify(fg));

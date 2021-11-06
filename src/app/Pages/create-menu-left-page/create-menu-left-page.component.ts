@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Menu } from 'src/app/Models/Menu';
 import { MenuService } from 'src/app/Services/menu.service';
 
@@ -13,14 +14,23 @@ import { MenuService } from 'src/app/Services/menu.service';
   ],
 })
 export class CreateMenuLeftPageComponent implements OnInit {
-  constructor(private router: Router, private menuService : MenuService) {}
+  constructor(private router: Router, private menuService : MenuService, private modalService: NgbModal) {}
 
   ngOnInit(): void {
 
   }
 
   public menus: {"name":string} = {name: ""};
-
+  createMenu(){
+    if(this.menus.name == ''){
+      this.modalService.open('Vui lòng nhập tên thực đơn');
+    }else{
+      this.menuService.createMenu(this.menus).subscribe(res =>{
+        this.modalService.open('Thêm mới thực đơn '+this.menus.name+' thành công');
+        this.goMenuPage();
+      })
+    }
+  }
   goHomePage() {
     this.router.navigate(['home']);
   }
@@ -45,10 +55,6 @@ export class CreateMenuLeftPageComponent implements OnInit {
   goMenuPage() {
     this.router.navigate(['menu-left-page']);
   }
-  createMenu(){
-    this.menuService.createMenu(this.menus).subscribe(res =>{
-      this.goMenuPage();
-    })
-  }
+
 
 }

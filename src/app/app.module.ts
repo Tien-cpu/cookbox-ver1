@@ -56,6 +56,7 @@ import { UpdateMenuLeftPageComponent } from './Pages/update-menu-left-page/updat
 import { UpdateMenuDetailLeftPageComponent } from './Pages/update-menu-detail-left-page/update-menu-detail-left-page.component';
 import { UpdateMenuPageComponent } from './Pages/update-menu-page/update-menu-page.component';
 import { MenuStoreDetailsPageComponent } from './Pages/menu-store-details-page/menu-store-details-page.component';
+import { ComingSoonPageComponent } from './Pages/coming-soon-page/coming-soon-page.component';
 
 const firebaseConfig = {
   apiKey: "AIzaSyBCiezWik7L-So8-B2a7jtTJsjQuMfJmYk",
@@ -103,7 +104,8 @@ const firebaseConfig = {
     MenuStoreDetailsPageComponent,
     ProductChildPageComponent,
     CreateChildProductPageComponent,
-    UpdateChildProductPageComponent
+    UpdateChildProductPageComponent,
+    ComingSoonPageComponent
   ],
   imports: [
     BrowserModule,
@@ -152,6 +154,7 @@ const firebaseConfig = {
       {path: 'update-menu-detail-left-page', component: UpdateMenuDetailLeftPageComponent},
       {path: 'update-menu-page', component: UpdateMenuPageComponent},
       {path: 'menu-store-detail-page', component: MenuStoreDetailsPageComponent},
+      {path: 'coming-soon-page', component: ComingSoonPageComponent},
 
 
     ])

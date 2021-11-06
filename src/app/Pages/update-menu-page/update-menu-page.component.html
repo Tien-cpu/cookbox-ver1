@@ -151,7 +151,7 @@
                     type="email"
                     class="form-control"
                     style="width: auto;"
-                    value="{{menuStore.menu_id}}"
+                    value="{{menuID}}"
                   />
                   <label style="color: black">Tên thực đơn</label>
                   <input
@@ -159,12 +159,12 @@
                     type="email"
                     class="form-control"
                     style="width: auto;"
-                    value="{{menuStore.menu_name}}"
+                    value="{{menuName}}"
                   />
 
                   <div class="status" style="float: left;">
                     <label style="color: black">Trạng thái:</label>&nbsp;
-                    <select class="custom-select custom-select-md" style="width: auto;" (change)="changeStatus($event)"
+                    <select class="custom-select custom-select-md" style="width: auto;"
                     [(ngModel)]="selectstatus" name="status"
                     >
                     <option [value]="st.key" *ngFor="let st of listStatus" [selected]="st.class==='selected'"
@@ -187,7 +187,7 @@
                     <label style="color: black">Thời gian hoạt động:</label>&nbsp;
                     <select class="custom-select custom-select-md" style="width: auto;" (change)="changeTime($event)" name="session"
                     [(ngModel)]="selectedSession">
-                      <option *ngFor="let session of listSession" [value]="session.id" value="session.id">
+                      <option *ngFor="let session of listSession" [value]="session.id" value="{{session.id}}">
                         {{session.timeFrom}}h~{{session.timeTo}}h
                       </option>
                     </select>
@@ -196,9 +196,9 @@
                 <a
                 class="btn btn-outline-success"
                 style="width: 100px; margin-left: 45%; margin-bottom: -9%; color: black;"
-                (click)=" updateMenu()"
-                >Lưu</a
-              >
+                (click)="updateMenu()"
+                >Lưu</a>
+
               </form>
 
               <!-- End form -->

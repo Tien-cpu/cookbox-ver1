@@ -19,6 +19,9 @@ export class MenuLeftPageComponent implements OnInit {
   public currentPage: number = 0;
   public totalPages: number = 0;
   public selectstatus: string = '';
+  public menus: any;
+  public menuTmp:any;
+  public menuNameTmp:any;
   public nameMenuSearch: string = '';
 
   ListStatus: {
@@ -33,12 +36,12 @@ export class MenuLeftPageComponent implements OnInit {
     },
     {
       key: 'close',
-      value: 'Ngừng Hoạt Đọng',
+      value: 'Ngừng Hoạt Động',
       class: ''
     },
     {
       key: 'open',
-      value: 'Hoạt Đọng',
+      value: 'Hoạt Động',
       class: 'selected'
     },
   ]
@@ -55,7 +58,7 @@ export class MenuLeftPageComponent implements OnInit {
     });
     this.selectstatus = this.ListStatus[0].key
   }
-  public menus: any;
+
   onChangeStatus() {
     let status = '';
     if(this.selectstatus == 'close'){
@@ -94,7 +97,13 @@ export class MenuLeftPageComponent implements OnInit {
       this.menus = data.items;
     });
   }
+  getMenu(menu:Menu){
+    this.menuTmp = menu;
+    this.menuNameTmp = menu.name;
+  }
   deleteMenu(menu: Menu) {
+    menu = this.menuTmp;
+
     this.menuService.updateStatusMenu(menu).subscribe((res) => {});
   }
   createMenuLeft() {
@@ -104,6 +113,9 @@ export class MenuLeftPageComponent implements OnInit {
     sessionStorage.setItem('menuID', menuID);
     this.router.navigate(['update-menu-left-page']);
   }
+
+
+
   previousPage() {
     if (this.currentPage > 1) {
       this.menuService
@@ -132,8 +144,6 @@ export class MenuLeftPageComponent implements OnInit {
         });
     }
   }
-
-
 
   moveToMenuDetails(menuID: any) {
     sessionStorage.setItem('menuID', menuID);

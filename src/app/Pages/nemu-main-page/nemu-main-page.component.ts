@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MenuStore } from 'src/app/Models/MenuStore';
 import { MenuStoreService } from 'src/app/Services/menu-store.service';
 
@@ -11,7 +12,9 @@ import { MenuStoreService } from 'src/app/Services/menu-store.service';
 })
 export class NemuMainPageComponent implements OnInit {
   public storeName = sessionStorage.getItem('storeName');
-  constructor(private router: Router, private menuStoreService: MenuStoreService) { }
+  public menuStore_modal : any;
+  public menuStoreName_modal : string = '';
+  constructor(private router: Router, private menuStoreService: MenuStoreService, private modalService: NgbModal) { }
 
   ngOnInit(): void {
 
@@ -23,7 +26,13 @@ export class NemuMainPageComponent implements OnInit {
   }
   public menus : any;
 
+  getMenuStore(menuStore:MenuStore){
+    this.menuStore_modal = menuStore;
+    this.menuStoreName_modal = menuStore.menu_name;
+  }
+
   deleteMenuStore(menuStoreTmp:MenuStore){
+    menuStoreTmp = this.menuStore_modal;
     let menuStore:{
       "id": number,
       "menu_id": number,
@@ -47,11 +56,13 @@ export class NemuMainPageComponent implements OnInit {
       time_to: Number(menuStoreTmp.time_to),
       status:false
     }
+    console.log('menuStore', menuStore);
 
     this.menuStoreService.deleteMenuInStore(menuStore).subscribe(res=>{
       let storeID = sessionStorage.getItem('storeID');
       this.menuStoreService.getMenuStoreByStoreID(Number(storeID)).subscribe(res=>{
         this.menus = res.items;
+        this.modalService.open('Xóa thực đơn '+menuStore.menu_name+' thành công');
       })
     })
   }

@@ -196,14 +196,84 @@
                         </span>
                       </td>
                       <td >
-                        <a class="btn btn-outline-info" style="width: 100px" (click)="updateUser(us.id)">
+                        <a class="btn btn-outline-info" style="width: 100px" (click)="getUser(us)"
+                        data-toggle="modal"
+                        data-target="#myModalUpdate">
                           Sửa
                         </a>
+                        <!-- modal -->
+                        <div class="modal fade" id="myModalUpdate" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">
+                                  <span style="font-weight: 500; font-size: 20px;">Chỉnh sửa người dùng </span>
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                Chỉnh sửa trạng thái của người dùng
+                                <span style="font-weight: 500; font-size: 15px;">{{userName_tmp}}</span><br/>
+                                <select name="statusSelectModal" class="custom-select custom-select-md" style="width: auto;"
+                                [(ngModel)]="selectstatusModal" (change)="onChangeStatusModal()">
+                                  <option [value]="st.key" *ngFor="let st of listStatusModal" [selected]="st.class==='selected'"
+                                   value="{{st.key}}">
+                                   {{st.value}}
+                                  </option>
+                                </select>
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal"
+                                (click)="updateUser(us.id)">
+                                Lưu
+                                </button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                  Thoát
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      <!--end modal-->
                       </td>
                       <td *ngIf="us.status == true">
-                        <a class="btn btn-outline-danger" style="width: 100px" (click)="deleteUser(us.id)">
+                        <a class="btn btn-outline-danger" style="width: 100px" (click)="getUser(us)"
+                        data-toggle="modal"
+                        data-target="#myModal"
+                        >
                           Xóa
                         </a>
+                        <!-- modal -->
+                        <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+                          <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+                              <div class="modal-header">
+                                <h5 class="modal-title" id="exampleModalLongTitle">
+                                  <span style="font-weight: 500; font-size: 20px;">Xóa Người Dùng</span>
+                                </h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                  <span aria-hidden="true">&times;</span>
+                                </button>
+                              </div>
+                              <div class="modal-body">
+                                Bạn có chắc muốn xóa người dùng
+                                <span style="font-weight: 500; font-size: 15px;">{{userName_tmp}}</span> không?
+                              </div>
+                              <div class="modal-footer">
+                                <button type="button" class="btn btn-danger" data-dismiss="modal"
+                                (click)="deleteUser(us.id)">
+                                Xóa
+                                </button>
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                                  Thoát
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      <!--end modal-->
                       </td>
 
                       <td *ngIf="us.status == false">

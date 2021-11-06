@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { UserPage } from 'src/app/Models/UserPageModel';
 import { Users } from 'src/app/Models/Users';
 import { UserService } from 'src/app/Services/user.service';
@@ -17,35 +18,26 @@ export class UserPageComponent implements OnInit {
   public currentPage: number = 0;
   public totalPages: number = 0;
   public selectstatus: string = '';
+  public selectstatusModal: string = '';
   id: number = Number(sessionStorage.getItem('userID'));
+  public userID_tmp : number = 0;
+  public userName_tmp : string = '';
   public nameUserSearch:string="";
-  public users: Users[] = [
-    {
-      id: 1,
-      name: 'Nguyen Van An',
-      address: 'quan binh tan HCM',
-      phone: '0915354856',
-      role_id: 'us',
-      role_name: 'user',
-      status: true,
-      email: 'nguyenvana@gmail.com',
-      orders: [],
-    },
-  ];
+  public users: any;
   ListStatus: {
     "value" : string,
     "key": string,
     "class" : string
   }[] = [
-    
+
     {
       key: 'close',
-      value: 'Ngừng Hoạt Đọng',
+      value: 'Ngừng Hoạt Động',
       class: ''
     },
     {
       key: 'open',
-      value: 'Hoạt Đọng',
+      value: 'Hoạt Động',
       class: 'selected'
     },
     {
@@ -53,6 +45,23 @@ export class UserPageComponent implements OnInit {
       value: 'Tất cả',
       class: ''
     },
+  ]
+  listStatusModal: {
+    "value" : string,
+    "key": string,
+    "class" : string
+  }[] = [
+
+    {
+      key: 'close',
+      value: 'Ngừng Hoạt Động',
+      class: ''
+    },
+    {
+      key: 'open',
+      value: 'Hoạt Động',
+      class: 'selected'
+    }
   ]
   public user: Users = {
     id: 0,
@@ -66,7 +75,7 @@ export class UserPageComponent implements OnInit {
     orders: [],
   };
 
-  constructor(private router: Router, private userService: UserService) {}
+  constructor(private router: Router, private userService: UserService, private modalService: NgbModal) {}
 
   ngOnInit(): void {
     this.userService.getDataUserPage().subscribe((data: UserPage) => {
@@ -77,8 +86,8 @@ export class UserPageComponent implements OnInit {
       this.users = data.items;
     });
     this.selectstatus = this.ListStatus[2].key
-    // let id = Number(sessionStorage.getItem('userID'));
-    // this.GetUserByID(id);
+
+
   }
   searchProductByName(){
     let status = '';
@@ -97,6 +106,10 @@ export class UserPageComponent implements OnInit {
       this.users = data.items;
     },(error : any) => (console.log(error)));
   }
+  onChangeStatusModal(){
+    console.log('modal', this.selectstatusModal);
+
+  }
   onChangeStatus() {
     let status = '';
     if(this.selectstatus == 'close'){
@@ -114,13 +127,27 @@ export class UserPageComponent implements OnInit {
       this.users = data.items;
     },(error : any) => (console.log(error)));
   }
-  GetUserByID(id: number) {
-    this.userService.GetUserByID(id).subscribe((data: Users) => {
-      this.user = data;
-    });
-  }
+  // GetUserByID(id: number) {
+  //   this.userService.GetUserByID(id).subscribe((data: Users) => {
+  //     this.user = data;
+  //   });
+  // }
+  getUser(user:any){
+    this.userID_tmp = user.id;
+    this.userName_tmp = user.name;
+    this.userService.GetUserByID(Number(this.userID_tmp)).subscribe(res=>{
+      if(res.status){
+        this.selectstatusModal = this.listStatusModal[1].key
+      }else{
+        this.selectstatusModal = this.listStatusModal[0].key
+      }
+      console.log('selectstatusModal',this.selectstatusModal);
+    })
 
+
+  }
   deleteUser(id: any) {
+    id = this.userID_tmp;
     sessionStorage.setItem('userID', id);
     this.userService.GetUserByID(id).subscribe((res) => {
       let user: {
@@ -146,6 +173,7 @@ export class UserPageComponent implements OnInit {
         this.userService.getDataUserPage().subscribe((data: UserPage) =>{
           // this.urlPreviouspage = data.metaData.hasPrevious;
           // this.urlPreviouspage = data.metaData.hasNext;
+          this,this.modalService.open('Xóa người dùng '+this.userName_tmp+' thành công');
           this.users = data.items;
         })
       });
@@ -154,6 +182,9 @@ export class UserPageComponent implements OnInit {
   }
 
   updateUser(id: any) {
+    id = this.userID_tmp;
+    console.log('userID', id);
+
     sessionStorage.setItem('userID', id);
     this.userService.GetUserByID(id).subscribe((res) => {
       let user: {
@@ -175,11 +206,19 @@ export class UserPageComponent implements OnInit {
         status: true,
         email: String(res.email),
       };
+      if(this.selectstatusModal === 'open'){
+        user.status = true;
+      }else{
+        user.status = false;
+      }
+      console.log('user', user);
+
       this.userService.updateUser(user).subscribe((data: Users) => {
         this.userService.getDataUserPage().subscribe((data: UserPage) =>{
           // this.urlPreviouspage = data.metaData.hasPrevious;
           // this.urlPreviouspage = data.metaData.hasNext;
           this.users = data.items;
+          this.modalService.open('Chỉnh sửa trạng thái người dùng '+user.name+' thành công');
         })
       });
 

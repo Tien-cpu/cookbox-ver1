@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Menu } from 'src/app/Models/Menu';
 import { MenuStore } from 'src/app/Models/MenuStore';
 import { Sessions } from 'src/app/Models/Sessions';
@@ -29,7 +30,8 @@ export class CreateNemuMainPageComponent implements OnInit {
     private router: Router,
     private menuService: MenuService,
     private storeService: StoreService,
-    private menuStoreService:MenuStoreService
+    private menuStoreService:MenuStoreService,
+    private modalService: NgbModal
   ) {}
 
   ngOnInit(): void {
@@ -52,6 +54,9 @@ export class CreateNemuMainPageComponent implements OnInit {
     console.log(this.sessionID); // log session ID
   }
   addMenu() {
+    if(Number(this.menuID) == 0 || Number(this.sessionID) == 0){
+      this.modalService.open('Hãy chọn đủ Thực Đơn và Thời Gian Hoạt Động');
+    }else{
     let storeID = Number(sessionStorage.getItem('storeID'));
     let menuStore:{
       "menu_id":number,
@@ -63,8 +68,15 @@ export class CreateNemuMainPageComponent implements OnInit {
       session_id: Number(this.sessionID)
     }
     this.menuStoreService.addMenuInStore(menuStore).subscribe(res=>{
-      this.router.navigate(['menu-main-page']);
+      this.menuService.getMenusByID(Number(this.menuID)).subscribe(res=>{
+        this.modalService.open('Thêm thực đơn '+res.name+' thành công');
+        this.router.navigate(['menu-main-page']);
+      })
+
+
     })
+    }
+
   }
 
   goHomePage() {

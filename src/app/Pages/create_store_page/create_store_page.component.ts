@@ -113,7 +113,7 @@ export class CreateStoreComponent implements OnInit {
   updateStore(){
 
     this.router.navigate(['update-store'])
-    if(this.nameStore == "" && this.addressStore == "" ){
+    if(this.nameStore == "" || this.addressStore == "" ){
       this.modalService.open("Please enter name and address");
     }else{
       let store: {

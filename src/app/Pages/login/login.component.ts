@@ -34,6 +34,7 @@ export class LoginComponent implements OnInit {
           const obj = response;
           sessionStorage.setItem('token', obj.token);
           this.router.navigate(['/home']);
+          this.modalService.open("Chào mừng "+user.email+" đã đến với CookBox");
         }
      }, error => {
        console.log(error.status)
@@ -44,9 +45,6 @@ export class LoginComponent implements OnInit {
 
 
   loginWithGoogle(){
-
-
-
     this.firebaseService.loginWithGoogle();
 
   }

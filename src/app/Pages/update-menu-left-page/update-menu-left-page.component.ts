@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MenuService } from 'src/app/Services/menu.service';
 
 @Component({
@@ -15,7 +16,7 @@ export class UpdateMenuLeftPageComponent implements OnInit {
   public selectstatus: string = '';
   public menuName = "";
   public menuStatus = true;
-  constructor(private router: Router, private menuService : MenuService) { }
+  constructor(private router: Router, private menuService : MenuService, private modalService: NgbModal) { }
   public menus : {
     "id":number,
     "name":string,
@@ -60,32 +61,29 @@ export class UpdateMenuLeftPageComponent implements OnInit {
     });
   }
   updateMenu(){
-    console.log('menuName:',this.menuName);
-
-    let menuID : any = sessionStorage.getItem('menuID');
-    let menus : {
+    if(this.menuName === ''){
+      this.modalService.open('Vui lòng nhập tên thực đơn');
+    }else{
+      let menuID : any = sessionStorage.getItem('menuID');
+      let menus : {
       "id":number,
       "name":string,
       "status": boolean
-    } = {
+      } = {
       id : menuID,
       name : this.menuName,
       status : true
-    };
+      };
     if(this.selectstatus === 'open'){
       menus.status = true;
     }else{
       menus.status = false;
     }
-    // console.log('menuID',menuID);
-    // console.log('name',menus.name);
-    // console.log('status',menus.status);
-
-    console.log('menu in ts:', menus);
-
     this.menuService.updateMenu(menus).subscribe(res=>{
-    this.goMenuPage();
+      this.modalService.open('Cập nhật thực đơn '+menus.name+' thành công');
+      this.goMenuPage();
     })
+    }
   }
 
   goHomePage() {
