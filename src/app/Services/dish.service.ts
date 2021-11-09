@@ -5,6 +5,7 @@ import {Observable, ReplaySubject} from 'rxjs';
 import { dishpage } from '../Models/AdminDishPageModel'
 import { Metarialpage } from '../Models/AdminMetarials'
 import { Dish } from '../Models/Dish'
+import { DishChild } from '../Models/DishChild'
 
 @Injectable({
     providedIn: 'root'
@@ -100,6 +101,20 @@ export class DishService {
           })
       });
   }
+  updateDishChild(store: DishChild): Observable<any>{
+
+      const url ='http://54.255.129.30:8100/api/v1/admin/dishes'
+
+      let token = sessionStorage.getItem('token');
+
+      console.log(store+ url)
+      return this.http.put(url,store, {
+          headers: new HttpHeaders({
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+          })
+      });
+  }
 
     getAStore(id: number) : Observable<Dish>{
       console.log(id)
@@ -137,6 +152,16 @@ export class DishService {
     }
 
     insertStore(store: Dish){
+      const url ='http://54.255.129.30:8100/api/v1/admin/dishes'
+      let token = sessionStorage.getItem('token');
+      return this.http.post(url,store, {
+          headers: new HttpHeaders({
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${token}`
+          })
+      });
+  }
+    insertDishChild(store: DishChild){
       const url ='http://54.255.129.30:8100/api/v1/admin/dishes'
       let token = sessionStorage.getItem('token');
       return this.http.post(url,store, {

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DishService } from '../../Services/dish.service';
+import { DishChild } from 'src/app/Models/DishChild';
 import { Dish } from 'src/app/Models/Dish';
 import { dishpage } from '../../Models/AdminDishPageModel';
 import { UploadService } from '../../Services/uploadfile.service';
@@ -9,7 +10,10 @@ import { Category } from '../../Models/Category'
 import { CategoryService } from '../../Services/category.service';
 import { Metarialpage } from '../../Models/AdminMetarials';
 import { Metarial } from '../../Models/Metarials';
-
+import { Nutrients } from '../../Models/AdminNutrientsPageModel'
+import { Tastes } from '../../Models/AdminTastesPageModel'
+import { NutrientsService } from '../../Services/nutrients.service';
+import { TastesService } from '../../Services/tastes.service';
 
 @Component({
   selector: 'app-update-product-page',
@@ -20,7 +24,8 @@ import { Metarial } from '../../Models/Metarials';
 })
 export class CreateChildProductPageComponent implements OnInit {
 
-  constructor(private router: Router , private categoryService: CategoryService, private dishService : DishService, private uploadService: UploadService  ) { }
+  constructor(private router: Router , private categoryService: CategoryService, private dishService : DishService, private uploadService: UploadService  ,private tastesService: TastesService ,
+    private nutrientsService: NutrientsService ,) { }
   ListCategory: Category[] = []  
   showDropDown:boolean = true;
   displayddl:string = 'block';
@@ -58,6 +63,8 @@ export class CreateChildProductPageComponent implements OnInit {
     // this.displayddl = this.showDropDown ? "inline" : "none";
     // this.displayddl2 = ! this.showDropDown ? "inline" : "none";
   }
+  ListNutrients : {"id": number,"name": string,}[] = [];
+  ListTastes : {"id": number,"name": string,}[] = [];
   ListMet : Metarial[] = [];
   ListStatus: {
     "value" : string,
@@ -76,7 +83,7 @@ export class CreateChildProductPageComponent implements OnInit {
       class: 'selected'
     },
   ]
-  public dish : Dish = {
+  public dish : DishChild = {
     id:0,
     category_id:0,
     category_name:'',
@@ -117,7 +124,6 @@ export class CreateChildProductPageComponent implements OnInit {
         this.dish = data
         this.dish.parent_id = data.id
         this.dish.list_child = []
-        this.dish.id = 0
         this.maxrepices = data.repices.length;
         this.selectstatus = this.dish.status?'open':'close';
         this.selectcategory = this.dish.category_id;
@@ -128,6 +134,12 @@ export class CreateChildProductPageComponent implements OnInit {
       this.dishService.getMetarial().subscribe((data : Metarialpage) => {
         this.ListMet = data.items
       });
+      this.nutrientsService.getDataPageNutrients().subscribe((data : Metarialpage) => {
+        this.ListNutrients = data.items
+      });
+      this.tastesService.getDataPageTastes().subscribe((data : Metarialpage) => {
+        this.ListTastes = data.items
+      });
   }
   public addingredients(){
     this.dish.dish_ingredients.push({
@@ -136,6 +148,32 @@ export class CreateChildProductPageComponent implements OnInit {
       metarial_id:0,
       metarial_name:'',
       quantity:0
+    })
+  }
+  public removingingredients(ind : number){
+    this.dish.dish_ingredients.splice(ind, 1);
+  }
+  public removingnutrient(ind : number){
+    this.dish.nutrient_details.splice(ind, 1);
+  }
+  public removingtaste_level(ind : number){
+    this.dish.taste_details.splice(ind, 1);
+  }
+  public addingtaste_level(){
+    this.dish.taste_details.push({
+      taste_id:0,
+      taste_level:1,
+      taste_name:''
+    })
+    console.log(this.dish)
+  }
+  public addingnutrient(){
+    this.dish.nutrient_details.push({
+      id:0,
+      nutrient_id:0,
+      amount:1,
+      dish_id:1,
+      nutrient_name:''
     })
   }
   public addingStep(id : number){
@@ -180,8 +218,8 @@ export class CreateChildProductPageComponent implements OnInit {
     })
   }
   createDish(){
-    this.dishService.insertStore(this.dish).subscribe((data) => {
-      this.router.navigate(['product-page']);
+    this.dishService.insertDishChild(this.dish).subscribe((data) => {
+      this.router.navigate(['product-page-child']);
     },(error:any) => {
       console.log(error)
       

@@ -1,5 +1,6 @@
-export interface Dish {
-  "id": number;
+import { Dish } from 'src/app/Models/Dish';
+export interface DishChild {
+  "id" : number;
   "name": string;
   "description": string;
   "image": string;
@@ -8,14 +9,14 @@ export interface Dish {
   "status": boolean;
   "parent_id": number;
   "dish_ingredients": {
-    "id": number;
+    "id" : number;
     "metarial_id": number;
     "metarial_name": string;
     "quantity": number;
     "dish_id": number;
   }[];
   "nutrient_details":{
-    "id": number;
+    "id" : number;
     "nutrient_id": number;
     "nutrient_name": string;
     "amount": number;
@@ -23,17 +24,16 @@ export interface Dish {
   }[];
   "repices" :
     {
-      "id": number;
+      "id" : number;
       "dishId": number;
       "steps":
         {
-          "id": number;
+          "id" : number;
           "description" : string;
           "repiceId": number;
         }[];
     }[];
   "taste_details":{
-    "id": number;
     "taste_name": string;
     "taste_level": number;
     "taste_id":  number;

@@ -10,6 +10,10 @@ import { CategoryService } from '../../Services/category.service';
 import { Metarialpage } from '../../Models/AdminMetarials';
 import { Metarial } from '../../Models/Metarials';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Nutrients } from '../../Models/AdminNutrientsPageModel'
+import { Tastes } from '../../Models/AdminTastesPageModel'
+import { NutrientsService } from '../../Services/nutrients.service';
+import { TastesService } from '../../Services/tastes.service';
 
 // class ImageSnippet {
 //   constructor(public src: string, public file: File) {}
@@ -23,7 +27,9 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 })
 export class CreateProductPageComponent implements OnInit {
 
-  constructor(private formBuilder: FormBuilder,private router: Router , private categoryService: CategoryService, private dishService : DishService, private uploadService: UploadService ) { }
+  constructor(private formBuilder: FormBuilder,private router: Router , private categoryService: CategoryService, private dishService : DishService,
+     private uploadService: UploadService,private tastesService: TastesService ,
+     private nutrientsService: NutrientsService , ) { }
   ListCategory: Category[] = []  
   uploadForm: any;  
   showDropDown:boolean = true;
@@ -62,6 +68,8 @@ export class CreateProductPageComponent implements OnInit {
     // this.displayddl = this.showDropDown ? "inline" : "none";
     // this.displayddl2 = ! this.showDropDown ? "inline" : "none";
   }
+  ListNutrients : {"id": number,"name": string,}[] = [];
+  ListTastes : {"id": number,"name": string,}[] = [];
   ListStatus: {
     "value" : string,
     "key": string,
@@ -109,7 +117,13 @@ export class CreateProductPageComponent implements OnInit {
       this.uploadForm = this.formBuilder.group({
         profile: ['']
       });
-  }
+      this.nutrientsService.getDataPageNutrients().subscribe((data : Metarialpage) => {
+        this.ListNutrients = data.items
+      });
+      this.tastesService.getDataPageTastes().subscribe((data : Metarialpage) => {
+        this.ListTastes = data.items
+      });
+    }
   fileChangeEvent(event:any){
     let fileList: FileList = event.target.files;
     if(fileList.length > 0) {
@@ -139,6 +153,36 @@ export class CreateProductPageComponent implements OnInit {
       metarial_id:0,
       metarial_name:'',
       quantity:0
+    })
+  }
+  public removingingredients(ind : number){
+    let index = this.dish.dish_ingredients.findIndex(c => c.id === ind);
+    this.dish.dish_ingredients.splice(ind, 1);
+  }
+  public removingnutrient(ind : number){
+    let index = this.dish.nutrient_details.findIndex(c => c.id === ind);
+    this.dish.nutrient_details.splice(ind, 1);
+  }
+  public removingtaste_level(ind : number){
+    let index = this.dish.taste_details.findIndex(c => c.id === ind);
+    this.dish.taste_details.splice(ind, 1);
+  }
+  public addingtaste_level(){
+    this.dish.taste_details.push({
+      id:0,
+      taste_id:0,
+      taste_level:1,
+      taste_name:''
+    })
+    console.log(this.dish)
+  }
+  public addingnutrient(){
+    this.dish.nutrient_details.push({
+      id:0,
+      nutrient_id:0,
+      amount:1,
+      dish_id:1,
+      nutrient_name:''
     })
   }
   public addingStep(id : number){

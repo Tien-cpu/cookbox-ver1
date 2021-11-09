@@ -6,7 +6,11 @@ import { dishpage } from '../../Models/AdminDishPageModel';
 import { UploadService } from '../../Services/uploadfile.service';
 import { categorypage } from '../../Models/AdminCatergoryPageModel'
 import { Category } from '../../Models/Category'
+import { Nutrients } from '../../Models/AdminNutrientsPageModel'
+import { Tastes } from '../../Models/AdminTastesPageModel'
 import { CategoryService } from '../../Services/category.service';
+import { NutrientsService } from '../../Services/nutrients.service';
+import { TastesService } from '../../Services/tastes.service';
 import { Metarialpage } from '../../Models/AdminMetarials';
 import { Metarial } from '../../Models/Metarials';
 
@@ -20,7 +24,12 @@ import { Metarial } from '../../Models/Metarials';
 })
 export class UpdateProductPageComponent implements OnInit {
 
-  constructor(private router: Router , private categoryService: CategoryService, private dishService : DishService, private uploadService: UploadService  ) { }
+  constructor(private router: Router ,
+     private categoryService: CategoryService,
+     private dishService : DishService,
+     private uploadService: UploadService ,
+     private tastesService: TastesService ,
+     private nutrientsService: NutrientsService , ) { }
   ListCategory: Category[] = []  
   showDropDown:boolean = true;
   displayddl:string = 'block';
@@ -59,6 +68,8 @@ export class UpdateProductPageComponent implements OnInit {
     // this.displayddl2 = ! this.showDropDown ? "inline" : "none";
   }
   ListMet : Metarial[] = [];
+  ListNutrients : {"id": number,"name": string,}[] = [];
+  ListTastes : {"id": number,"name": string,}[] = [];
   ListStatus: {
     "value" : string,
     "key": string,
@@ -125,6 +136,12 @@ export class UpdateProductPageComponent implements OnInit {
       this.dishService.getMetarial().subscribe((data : Metarialpage) => {
         this.ListMet = data.items
       });
+      this.nutrientsService.getDataPageNutrients().subscribe((data : Metarialpage) => {
+        this.ListNutrients = data.items
+      });
+      this.tastesService.getDataPageTastes().subscribe((data : Metarialpage) => {
+        this.ListTastes = data.items
+      });
   }
   public addingredients(){
     this.dish.dish_ingredients.push({
@@ -133,6 +150,43 @@ export class UpdateProductPageComponent implements OnInit {
       metarial_id:0,
       metarial_name:'',
       quantity:0
+    })
+  }
+  public getingredient(ind : number) : String {
+    let ingredient = '';
+    this.dish.dish_ingredients.forEach((data) => {
+      if(data.id == ind) ingredient = data.metarial_name
+    })
+    return 'x';
+  }
+  public removingingredients(ind : number){
+    let index = this.dish.dish_ingredients.findIndex(c => c.id === ind);
+    this.dish.dish_ingredients.splice(ind, 1);
+  }
+  public removingnutrient(ind : number){
+    let index = this.dish.nutrient_details.findIndex(c => c.id === ind);
+    this.dish.nutrient_details.splice(ind, 1);
+  }
+  public removingtaste_level(ind : number){
+    let index = this.dish.taste_details.findIndex(c => c.id === ind);
+    this.dish.taste_details.splice(ind, 1);
+  }
+  public addingtaste_level(){
+    this.dish.taste_details.push({
+      id:0,
+      taste_id:0,
+      taste_level:1,
+      taste_name:''
+    })
+    console.log(this.dish)
+  }
+  public addingnutrient(){
+    this.dish.nutrient_details.push({
+      id:0,
+      nutrient_id:0,
+      amount:1,
+      dish_id:1,
+      nutrient_name:''
     })
   }
   public addingStep(id : number){

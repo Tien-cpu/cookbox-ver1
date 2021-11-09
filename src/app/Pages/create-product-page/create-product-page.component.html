@@ -175,13 +175,13 @@
                       margin-top: 1%;"
                     (change)="fileChangeEvent($event)"
                   />
-                  <label style="color: black">ID</label>
+                  <!-- <label style="color: black">ID</label>
                   <input
                     type="email"
                     class="form-control"
                     value="{{dish.id}}"
                     readonly
-                  />
+                  /> -->
                   <label style="color: black">Tên món</label>
                   <input type="email" name="fielname" class="form-control" [(ngModel)]="dish.name" />
                   <label style="color: black">Mô tả</label>
@@ -204,6 +204,57 @@
                   <select name="statusSelect" class="form-control custom-select"  [(ngModel)]="selectstatus" (change)="onChangeStatus()">
                     <option [value]="st.key" *ngFor="let st of ListStatus"  value="{{st.key}}">{{st.value}}</option>
                   </select>
+                  <label style="color: black">Hương Vị</label>
+                  <div class="content" style="margin-top: -2%">
+                    <div class="container-fluid">
+                      <div class="row">
+                        <div class="col-lg-12 col-md-12">
+                          <div class="card">
+                            <div class="card-body table-responsive">
+                              <table class="table table-hover">
+                                <thead class="text-danger">
+                                  <tr>
+                                    <th>#</th>
+                                    <th>Tên Vị</th>
+                                    <th>Level</th>
+                                    <th>xóa</th>
+                                  </tr>
+                                </thead>
+                                <tbody>
+                                  <tr
+                                    *ngFor="
+                                      let ing of dish.taste_details;
+                                      let i = index
+                                    "
+                                  >
+                                    <td>{{ i + 1 }}</td>
+                                    <td>
+                                      <div class="dropdown">
+                                        <select name="TasteSelect{{i}}" class="form-control custom-select"  [(ngModel)]="ing.taste_id" (change)="onChangeCategory()">
+                                          <option [value]="st.id" *ngFor="let st of ListTastes"  value="{{st.id}}"> {{st.name}}</option>
+                                        </select>
+                                      </div>
+                                    </td>
+                                    <td>
+                                      <select name="MaterialSelectTaste{{i}}" class="form-control custom-select"  [(ngModel)]="ing.taste_level">
+                                        <option [value]="1" value="1"> Level 1</option>
+                                        <option [value]="2" value="2"> Level 2</option>
+                                        <option [value]="3" value="3"> Level 3</option>
+                                      </select>
+                                    </td>
+                                    <td>
+                                      <button><i class="material-icons" (click)="removingtaste_level(i)" style="color: red;">remove_circle</i></button>
+                                    </td>
+                                  </tr>
+                                  <button><i class="material-icons" (click)="addingtaste_level()" style="color: red;">add_circle</i></button>
+                                </tbody>
+                              </table>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
                 </div>
                 </div>
 
@@ -223,6 +274,7 @@
                                       <th>Nguyên liệu</th>
                                       <th>Số lượng</th>
                                       <th>Đơn vị tính</th>
+                                      <th>Xóa</th>
                                     </tr>
                                   </thead>
                                   <tbody>
@@ -259,9 +311,66 @@
                                           style="width: 25%"
                                         />
                                       </td>
-  
+                                      <td>
+                                        <button><i class="material-icons" (click)="removingingredients(i)" style="color: red;">remove_circle</i></button>
+                                      </td>
                                     </tr>
                                     <button><i class="material-icons" (click)="addingredients()" style="color: red;">add_circle</i></button>
+                                  </tbody>
+                                </table>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <label style="color: black">Thành phần dinh dưỡng</label>
+                    <div class="content" style="margin-top: -2%">
+                      <div class="container-fluid">
+                        <div class="row">
+                          <div class="col-lg-12 col-md-12">
+                            <div class="card">
+                              <div class="card-body table-responsive">
+                                <table class="table table-hover">
+                                  <thead class="text-danger">
+                                    <tr>
+                                      <th>#</th>
+                                      <th>Tên Vị</th>
+                                      <th>Khối lượng</th>
+                                      <th>Xóa</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody>
+                                    <tr
+                                      *ngFor="
+                                        let ing of dish.nutrient_details;
+                                        let i = index
+                                      "
+                                    >
+                                      <td>{{ i + 1 }}</td>
+                                      <td>
+                                        <div class="dropdown">
+                                          <select name="MaterialSelect{{ing.id}}" class="form-control custom-select"  [(ngModel)]="ing.nutrient_id" (change)="onChangeCategory()">
+                                            <option [value]="st.id" *ngFor="let st of ListNutrients"  value="{{st.id}}"> {{st.name}}</option>
+                                          </select>
+                                        </div>
+                                      </td>
+                                      <td>
+                                        <input
+                                          type="text"
+                                          class="form-control"
+                                          value="{{ ing.amount }}"
+                                          style="width: 20%"
+                                          name="namenutrient{{ing.amount}}"
+                                          [(ngModel)]="ing.amount"
+                                          [value]="ing.amount"
+                                        />
+                                       </td>
+                                      <td>
+                                        <button><i class="material-icons" (click)="removingnutrient(i)" style="color: red;">remove_circle</i></button>
+                                      </td>
+                                    </tr>
+                                    <button><i class="material-icons" (click)="addingnutrient()" style="color: red;">add_circle</i></button>
                                   </tbody>
                                 </table>
                               </div>
@@ -279,20 +388,20 @@
                     <label style="color: black">Các bước thực hiện {{repices.id}}</label>
                       <div class="col-lg-12 col-md-12"
                       *ngFor="let step of repices.steps; let i = index">
-                        <label style="color: black">{{i+1}}.&nbsp;{{step.description}}</label>
+                        <label style="color: black">{{i+1}}</label>
                         <textarea type="text" class="form-control" name="inputdescription{{step.description}}"
                         [(ngModel)]="step.description" value="{{step.description}}"></textarea><br/>
                       </div>
                     <button (click)="addingStep(repices.id)" ><i class="material-icons"  style="color: red;">add_circle</i></button>
                     </div>
-                    <nav aria-label="Page navigation example">
+                    <!-- <nav aria-label="Page navigation example">
                       <button><i class="material-icons" (click)="addingrepices()" style="color: red;">add_circle</i></button>
                       <ul class="pagination justify-content-center">
                           <li class="page-item"><a class="page-link" *ngIf="currentrepices > 1" (click)="previousPices()"><<</a></li>
                           <li class="page-item"><div class="page-link">{{currentrepices}}/{{maxrepices}}</div></li>
                           <li class="page-item"><a class="page-link" *ngIf="maxrepices != currentrepices"  (click)="nextPage()">>></a></li>
                       </ul>
-                    </nav>
+                    </nav> -->
                   </div>
                 </div>
                 <a
