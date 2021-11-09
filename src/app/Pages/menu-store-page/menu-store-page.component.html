@@ -139,10 +139,12 @@
                   </thead>
                   <tbody>
                     <tr *ngFor="let menuStore of menuStores; let i = index">
+                      <!-- <span> -->
                       <td>{{i + 1}}</td>
                       <td>{{menuStore.store_name}}</td>
                       <td>{{menuStore.session_name}}</td>
-                      <td>{{menuStore.time_from}}h~{{menuStore.time_to}}h</td>
+                      <td >{{menuStore.time_from}}h~{{menuStore.time_to}}h</td>
+                    <!-- </span> -->
                     </tr>
                   </tbody>
                 </table>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DishService } from 'src/app/Services/dish.service';
 import { MenuDetailService } from 'src/app/Services/menu-detail.service';
 import { MenuService } from 'src/app/Services/menu.service';
@@ -14,9 +15,13 @@ export class MenuDetailLeftPageComponent implements OnInit {
   dish_id : number = 0;
   dish_name:string = "";
   price : number = 0;
+  dishNameTmp:any;
+  dishTmp:any;
+
   constructor(private router : Router,
     private MenuDetailService: MenuDetailService,
     private menuService: MenuService,
+    private modalService: NgbModal
     ) { }
 
   ngOnInit(): void {
@@ -39,6 +44,7 @@ export class MenuDetailLeftPageComponent implements OnInit {
     this.router.navigate(["create-menu-detail-left-page"]);
   }
   deleteDishInMenu(details: any){
+    details = this.dishTmp;
     const menuID = Number(sessionStorage.getItem('menuID'));
     let menu :{
       "id": number,
@@ -71,12 +77,18 @@ export class MenuDetailLeftPageComponent implements OnInit {
     // let abc:any = sessionStorage.getItem('MenuObj');
     // console.log('abc', JSON.parse(abc));
 
-    // console.log('menu detail in ts:',menu);
+    console.log('menu detail in ts:',menu);
     this.MenuDetailService.DeleteMenuDetail(menu).subscribe(res =>{
-      this.MenuDetailService.getDishByMenuID(menuID).subscribe(res =>{
+      this.MenuDetailService.getDishByMenuID(menuID).subscribe(res =>{  // load lại trang
         this.menuDetails = res.menu_details;
+        this.modalService.open('Xóa món '+this.dishNameTmp+' thành công')
       })
     })
+  }
+  getDishInMenu(dishMenu:any){
+    this.dishTmp = dishMenu;
+    this.dishNameTmp = dishMenu.dish_name;
+    console.log('dishName', this.dishNameTmp);
   }
 
   goHomePage(){

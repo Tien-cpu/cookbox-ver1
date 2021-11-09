@@ -11,14 +11,19 @@ import { MenuStoreService } from 'src/app/Services/menu-store.service';
   ],
 })
 export class MenuStorePageComponent implements OnInit {
-
+  public menuStoreStatus :any;
   constructor(private router: Router, private menuStoreService: MenuStoreService) { }
 
   ngOnInit(): void {
     const menuID = sessionStorage.getItem('menuID');
-    this.menuStoreService.getStoreByMenuID(menuID).subscribe(res =>{
+    this.menuStoreService.getStoreByMenuID(menuID).subscribe((res:any) =>{
       this.menuStores = res.menu_stores;
+      console.log('menu Store', this.menuStores);
+
       this.menus = res;
+      // this.menuStoreStatus = this.menuStores.status;
+      // console.log('status', this.menuStoreStatus);
+
     })
   }
 
