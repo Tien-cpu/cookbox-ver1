@@ -201,7 +201,7 @@
                   <thead class="text-danger">
                     <tr>
                       <th>#</th>
-                      <!-- <th>Hình ảnh</th> -->
+                      <th>Hình ảnh</th>
                       <th>ID</th>
                       <th>Tên món</th>
                       <th>Giá tiền</th>
@@ -213,9 +213,9 @@
                   <tbody>
                     <tr *ngFor="let details of menuDetails; let i = index">
                       <td>{{ i + 1 }}</td>
-                      <!-- <td>
-                          <img src="{{nemu.img}}" style="height: 80px; width: 80px;">
-                        </td> -->
+                      <td>
+                          <img src="{{details.dish_image}}" height="80px" width="80px"/>
+                        </td>
                       <td>{{ details.id }}</td>
                       <td>{{ details.dish_name }}</td>
                       <td>{{ details.price }}đ</td>
