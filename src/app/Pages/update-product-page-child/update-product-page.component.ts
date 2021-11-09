@@ -9,8 +9,11 @@ import { Category } from '../../Models/Category'
 import { CategoryService } from '../../Services/category.service';
 import { Metarialpage } from '../../Models/AdminMetarials';
 import { Metarial } from '../../Models/Metarials';
-
-
+import { NutrientsService } from '../../Services/nutrients.service';
+import { TastesService } from '../../Services/tastes.service';
+import { Nutrients } from '../../Models/AdminNutrientsPageModel'
+import { Tastes } from '../../Models/AdminTastesPageModel'
+import { DishChild } from 'src/app/Models/DishChild';
 @Component({
   selector: 'app-update-product-page',
   templateUrl: './update-product-page-child.component.html',
@@ -20,7 +23,8 @@ import { Metarial } from '../../Models/Metarials';
 })
 export class UpdateChildProductPageComponent implements OnInit {
 
-  constructor(private router: Router , private categoryService: CategoryService, private dishService : DishService, private uploadService: UploadService  ) { }
+  constructor(private router: Router , private categoryService: CategoryService, private dishService : DishService, private uploadService: UploadService ,private tastesService: TastesService ,
+    private nutrientsService: NutrientsService ,  ) { }
   ListCategory: Category[] = []  
   showDropDown:boolean = true;
   displayddl:string = 'block';
@@ -76,7 +80,7 @@ export class UpdateChildProductPageComponent implements OnInit {
       class: 'selected'
     },
   ]
-  public dish : Dish = {
+  public dish : DishChild = {
     id:0,
     category_id:0,
     category_name:'',
@@ -91,6 +95,8 @@ export class UpdateChildProductPageComponent implements OnInit {
     taste_details: [],
     list_child:[]
   };
+  ListNutrients : {"id": number,"name": string,}[] = [];
+  ListTastes : {"id": number,"name": string,}[] = [];
   public selectstatus: string = '';
   public selectcategory: any;
   public currentrepices : number = 1; 
@@ -125,6 +131,38 @@ export class UpdateChildProductPageComponent implements OnInit {
       this.dishService.getMetarial().subscribe((data : Metarialpage) => {
         this.ListMet = data.items
       });
+      this.nutrientsService.getDataPageNutrients().subscribe((data : Metarialpage) => {
+        this.ListNutrients = data.items
+      });
+      this.tastesService.getDataPageTastes().subscribe((data : Metarialpage) => {
+        this.ListTastes = data.items
+      });
+  }
+  public removingingredients(ind : number){
+    this.dish.dish_ingredients.splice(ind, 1);
+  }
+  public removingnutrient(ind : number){
+    this.dish.nutrient_details.splice(ind, 1);
+  }
+  public removingtaste_level(ind : number){
+    this.dish.taste_details.splice(ind, 1);
+  }
+  public addingtaste_level(){
+    this.dish.taste_details.push({
+      taste_id:0,
+      taste_level:1,
+      taste_name:''
+    })
+    console.log(this.dish)
+  }
+  public addingnutrient(){
+    this.dish.nutrient_details.push({
+      id:0,
+      nutrient_id:0,
+      amount:1,
+      dish_id:1,
+      nutrient_name:''
+    })
   }
   public addingredients(){
     this.dish.dish_ingredients.push({
@@ -177,7 +215,7 @@ export class UpdateChildProductPageComponent implements OnInit {
     })
   }
   UpdateDish(){
-    this.dishService.updateStore(this.dish).subscribe((data) => {this.router.navigate(['product-page'])},(error:any) => (
+    this.dishService.updateDishChild(this.dish).subscribe((data) => {this.router.navigate(['product-page-child'])},(error:any) => (
       console.log(error)
     ))
   }
